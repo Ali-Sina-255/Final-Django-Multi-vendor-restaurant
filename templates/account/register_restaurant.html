@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% load form_tags %}
+
+{% block content %}
+<!-- Main Section Start -->
+<div class="main-section py-8">
+    <div class="container mx-auto">
+        <div class="flex justify-center items-center">
+            <div class="w-full max-w-4xl">
+                <div class="bg-white shadow-lg rounded-lg p-8">
+                    <h4 class="text-center text-2xl font-bold mb-4">PARTNER WITH FOODONLINE</h4>
+                    <p class="text-center text-gray-600 mb-4">Register your restaurant with FoodOnline marketplace and get more customers.</p>
+                    <hr class="mb-8">
+                    
+                    <form action="{% url 'register_vendor' %}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                        {% csrf_token %}
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
+                                {{ form.first_name|add_class:"mt-1 p-2 block w-full shadow-sm border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" }}
+                                {% if form.first_name.errors %}
+                                    <ul class="errorlist text-red-600 mt-1">
+                                        {% for error in form.first_name.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
+                                {{ form.last_name|add_class:"mt-1 p-2 block w-full shadow-sm border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" }}
+                                {% if form.last_name.errors %}
+                                    <ul class="errorlist text-red-600 mt-1">
+                                        {% for error in form.last_name.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="vendor_name" class="block text-sm font-medium text-gray-700">Restaurant Name</label>
+                                {{ vendor_form.vendor_name|add_class:"mt-1 p-2 block w-full shadow-sm border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" }}
+                                {% if vendor_form.vendor_name.errors %}
+                                    <ul class="errorlist text-red-600 mt-1">
+                                        {% for error in vendor_form.vendor_name.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <label for="vendor_licenses" class="block text-sm font-medium text-gray-700">Restaurant License</label>
+                                {{ vendor_form.vendor_licenses|add_class:"mt-1 p-2 block w-full shadow-sm border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" }}
+                                {% if vendor_form.vendor_licenses.errors %}
+                                    <ul class="errorlist text-red-600 mt-1">
+                                        {% for error in vendor_form.vendor_licenses.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                                {{ form.email|add_class:"mt-1 p-2 block w-full shadow-sm border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" }}
+                                {% if form.email.errors %}
+                                    <ul class="errorlist text-red-600 mt-1">
+                                        {% for error in form.email.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                                {{ form.username|add_class:"mt-1 p-2 block w-full shadow-sm border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" }}
+                                {% if form.username.errors %}
+                                    <ul class="errorlist text-red-600 mt-1">
+                                        {% for error in form.username.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                                {{ form.password|add_class:"mt-1 p-2 block w-full shadow-sm border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" }}
+                                {% if form.password.errors %}
+                                    <ul class="errorlist text-red-600 mt-1">
+                                        {% for error in form.password.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <label for="confirm_password" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                                {{ form.confirm_password|add_class:"mt-1 p-2 block w-full shadow-sm border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" }}
+                                {% if form.confirm_password.errors %}
+                                    <ul class="errorlist text-red-600 mt-1">
+                                        {% for error in form.confirm_password.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <ul class="errorlist text-red-600">
+                            {% for field in form %}
+                                {% if field.errors %}
+                                    <li>{{ field.label }}:
+                                        <ul class="errorlist">
+                                            {% for error in field.errors %}
+                                                <li>{{ error }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if form.non_field_errors %}
+                                <li>
+                                    {% for error in form.non_field_errors %}
+                                        {{ error }}<br>
+                                    {% endfor %}
+                                </li>
+                            {% endif %}
+                        </ul>
+
+                        <div class="flex justify-center">
+                            <button type="submit" class="bg-indigo-600 text-gray-200 px-6 py-2 rounded-md shadow-md hover:bg-indigo-700 focus:outline-none">Submit</button>
+                        </div>
+                        
+                        <div class="mt-4">
+                            {% include 'includes/messages.html' %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Main Section End -->
+{% endblock %}
