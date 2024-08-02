@@ -1,0 +1,343 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Hero Section ---------------------------------------->
+		<section
+			style="
+				background-image: url('{% static "assets/images/bg-image1.jpg" %}');
+				height: 85vh;
+			"
+			class="w-full flex px-5 md:px-0 items-center justify-center flex-col bg-cover"
+		>
+			<!-- main title -->
+			<div class="flex justify-center items-center">
+				<h1 class="text-center text-black sm:text-3xl text-3xl font-bold">
+					We Are In The Business Of Food<br />
+					Our Restaurants Do
+				</h1>
+			</div>
+			<div
+				class="flex justify-center text-center mb-3 items-center p-3 text-xl"
+			>
+				<h3>
+					Ridiculus sociosqu cursus neque cursus curae ante scelerisque
+					vehicula.
+				</h3>
+			</div>
+			<!-- Main Search  -->
+			<div
+				class="flex flex-col gap-1 w-[80%] rounded p-1 md:flex-row md:gap-3 md:w-[50%] md:rounded md:h-14"
+			>
+				<!-- Name Searcher -->
+				<div class="flex-1 mb-3 md:mb-0 md:mr-3">
+					<input
+						class="w-full shadow-lg bg-gray-200 rounded-lg outline-none md:h-full h-10 md:8 pl-3 placeholder-gray-500 placeholder-opacity-50"
+						type="text"
+						placeholder="RESTAURANT NAME"
+					/>
+				</div>
+
+				<!-- Location Searcher -->
+				<div class="flex-1 relative items-center mb-3 md:mb-0 md:mr-3">
+					<label for="focus" class="absolute top-2 md:top-3 right-2">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+							class="w-6 h-6 text-gray-400"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+							/>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+							/>
+						</svg>
+					</label>
+					<input
+						class="w-full md:h-full shadow-lg bg-gray-200 rounded-md h-10 outline-none pl-3 placeholder-gray-500 placeholder-opacity-50"
+						type="text"
+						placeholder="ALL LOCATION"
+					/>
+				</div>
+
+				<!-- Button -->
+				<div class="flex justify-center md:flex-none">
+					<button
+						class="px-10 md:h-full md:px-8 md:w-full rounded-md h-10 bg-gradient-to-r from-[#fbbf24] to-[#fb923c]"
+					>
+						<svg
+							class="hover:animate-ping"
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							fill="currentColor"
+							class="bi bi-search"
+							viewBox="0 0 16 16"
+						>
+							<path
+								d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+							/>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</section>
+		<!-- Top restaurnat  -->
+		<section class="pt-6 md:pt-10" id="top_wrapper_restaurant">
+			<!-- name -->
+			<h1>TOP RESTAUANT</h1>
+			<p>Explore restaurants, bars, and cafés by locality</p>
+			<div class="" id="top-restaurant">
+				<div class="wrapper">
+					<i id="left" class="fa-solid fa-angle-left"></i>
+					<ul class="carousel">
+						<li class="card">
+							<div class="img">
+								<img
+									src="/assets/images/topRestaurant_img/image1.jpg"
+									alt="img"
+									draggable="false"
+								/>
+							</div>
+							<h2>Home Restaurant</h2>
+						</li>
+						<li class="card">
+							<div class="img">
+								<img
+									src="/assets/images/topRestaurant_img/image2.jfif"
+									alt="img"
+									draggable="false"
+								/>
+							</div>
+							<h2>2GO Organic</h2>
+						</li>
+						<li class="card">
+							<div class="img">
+								<img
+									src="/assets/images/topRestaurant_img/image3.png"
+									alt="img"
+									draggable="false"
+								/>
+							</div>
+							<h2>Melty Way</h2>
+						</li>
+						<li class="card">
+							<div class="img">
+								<img
+									src="/assets/images/topRestaurant_img/image4.jpeg"
+									alt="img"
+									draggable="false"
+								/>
+							</div>
+							<h2>Pizza Hub</h2>
+						</li>
+						<li class="card">
+							<div class="img">
+								<img
+									src="/assets/images/topRestaurant_img/image5.png"
+									alt="img"
+									draggable="false"
+								/>
+							</div>
+							<h2>The Red Cofee</h2>
+						</li>
+						<li class="card">
+							<div class="img">
+								<img
+									src="{% static 'assets/images/topRestaurant_img/image6.png' %}"
+									alt="img"
+									draggable="false"
+								/>
+							</div>
+							<h2>Ait Cofee</h2>
+						</li>
+					</ul>
+					<i id="right" class="fa-solid fa-angle-right"></i>
+				</div>
+			</div>
+		</section>
+		<!-- Popular Restaurant ------------------------------------------- --> 
+		<section class="md:h-72 md:mx-24 mx-10 border-t-2 md:border-t-0 md:mt-10">
+			<!-- Title -->
+			<div id="element-title" class="text-center mb-5">
+				<h2 class="md:text-2xl text-xl font-bold pb-1 pt-3">
+					Choose From Most Popular Restaurants
+				</h2>
+				<p class="text-lg md:text-sm">
+					Cum doctus civibus efficiantur in imperdiet deterruisset.
+				</p>
+			</div>
+			<!-- Card for Restaurant -->
+			<div class="md:grid md:grid-cols-2 gap-4">
+				<!-- inside Card -->
+				<!-- first card -->
+				<div class="flex mb-5 shadow-lg bg-white h-44 pt-8 border">
+					<!-- image -->
+					<div>
+						<img
+							class="border ml-4"
+							src="/assets/images/Other Images/listing-logo18.png"
+							alt=""
+							width="100px"
+							height="100px"
+						/>
+					</div>
+					<!-- Rating star -->
+					<div class="pl-2 pt-4">
+						<div class="flex items-center">
+							<svg
+								class="w-4 h-4 text-yellow-300 ms-1"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="currentColor"
+								viewBox="0 0 22 20"
+							>
+								<path
+									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+								/>
+							</svg>
+							<svg
+								class="w-4 h-4 text-yellow-300 ms-1"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="currentColor"
+								viewBox="0 0 22 20"
+							>
+								<path
+									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+								/>
+							</svg>
+							<svg
+								class="w-4 h-4 text-yellow-300 ms-1"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="currentColor"
+								viewBox="0 0 22 20"
+							>
+								<path
+									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+								/>
+							</svg>
+							<svg
+								class="w-4 h-4 text-yellow-300 ms-1"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="currentColor"
+								viewBox="0 0 22 20"
+							>
+								<path
+									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+								/>
+							</svg>
+							<svg
+								class="w-4 h-4 ms-1 text-gray-300 dark:text-gray-500"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="currentColor"
+								viewBox="0 0 22 20"
+							>
+								<path
+									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+								/>
+							</svg>
+						</div>
+						<a href="#">
+							<h1 class="text-lg font-bold hover:text-red-600">
+								Restaurant Demo
+							</h1>
+						</a>
+						<span>Type of food : Apple Juice</span>
+					</div>
+				</div>
+				<!-- second Card -->
+				<div class="flex shadow-lg bg-white h-44 pt-8 border">
+					<div>
+						<img
+							class="border ml-4"
+							src="/assets/images/Other Images/fb-restaurant-02.jpg "
+							alt=""
+							width="100px"
+							height="100px"
+						/>
+					</div>
+					<!-- Rating star -->
+					<div class="pl-7 pt-4">
+						<div class="flex items-center">
+							<svg
+								class="w-4 h-4 text-yellow-300 ms-1"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="currentColor"
+								viewBox="0 0 22 20"
+							>
+								<path
+									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+								/>
+							</svg>
+							<svg
+								class="w-4 h-4 text-yellow-300 ms-1"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="currentColor"
+								viewBox="0 0 22 20"
+							>
+								<path
+									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+								/>
+							</svg>
+							<svg
+								class="w-4 h-4 text-yellow-300 ms-1"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="currentColor"
+								viewBox="0 0 22 20"
+							>
+								<path
+									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+								/>
+							</svg>
+							<svg
+								class="w-4 h-4 text-yellow-300 ms-1"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="currentColor"
+								viewBox="0 0 22 20"
+							>
+								<path
+									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+								/>
+							</svg>
+							<svg
+								class="w-4 h-4 ms-1 text-gray-300 dark:text-gray-500"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="currentColor"
+								viewBox="0 0 22 20"
+							>
+								<path
+									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+								/>
+							</svg>
+						</div>
+						<a href="#">
+							<h1 class="text-lg font-bold hover:text-red-500">
+								Classic Restaurant
+							</h1>
+						</a>
+						<span
+							>Type of food : Chicken Roast, Chines Soup, Cold Coffee, Cold
+							Drink, Hot Dogs</span
+						>
+					</div>
+				</div>
+			</div>
+		</section>
+		{% endblock %}

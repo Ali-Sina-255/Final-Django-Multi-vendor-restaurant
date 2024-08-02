@@ -1,0 +1,106 @@
+/* index.html */
+/* login.html */
+#login-hero {
+  background-image: url("/assets/images/login-bg3.jpg");
+  height: 85vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+/* User_register.html */
+#hero-register {
+  padding: 0%;
+  background-image: url("/assets/images/banner-img.jpg");
+  background-size: cover;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+/* Restaurant dashboard */
+#restaurant_dashborad {
+  background-image: url("/assets/images/res_dash.jpg");
+  border-radius: 20px;
+  width: 100%;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+/* buyer section */
+#buyer_dashborad {
+  background-image: url("/assets/images/buyer.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Buyer review */
+.stars input[type="radio"] {
+  display: none;
+}
+.stars label {
+  cursor: pointer;
+  font-size: 1.8rem;
+  color: #d1d5db; /* Tailwind's gray-300 */
+  transition: color 0.3s;
+}
+
+/* .stars input[type="radio"]:checked ~ label {
+  color: #fbbf24; 
+}
+.stars label:focus,
+.stars label:focus ~ label {
+  color: #fbbf24; 
+} */
+
+.listing .restaurant-status {
+  position: absolute;
+  top: 15px;
+  left: -11px;
+  padding: 3px 10px;
+  line-height: normal;
+  background: #3ab54b;
+  font-size: 10px;
+  color: #fff;
+  display: block;
+  text-transform: uppercase;
+  min-height: 20px;
+  min-width: 52px;
+  text-align: center;
+}
+.img-holder .restaurant-status {
+  left: -10px;
+}
+.restaurant-status:before {
+  width: 0;
+  height: 0;
+  border-top: 10px solid #239132;
+  border-left: 10px solid transparent;
+  content: "";
+  left: 0;
+  position: absolute;
+  bottom: -10px;
+}
+.restaurant-status.close {
+  background: #ed1b24;
+  opacity: 1;
+  cursor: auto;
+  font-weight: normal;
+  float: none;
+  text-shadow: none;
+}
+.restaurant-status.close:before {
+  border-top: 10px solid #c91018;
+}
+.restaurant-status .bookmarkRibbon {
+  width: 10px;
+  height: 0px;
+  border-top: 10px solid #3ab54b;
+  border-bottom: 10px solid #3ab54b;
+  border-right: 5px solid transparent;
+  position: absolute;
+  top: 0;
+  right: -6px;
+}
+.restaurant-status.close .bookmarkRibbon {
+  border-top: 10px solid #ed1b24;
+  border-bottom: 10px solid #ed1b24;
+}
+/*Restaurant Status*/
