@@ -7,7 +7,7 @@
 			>
 				<!-- Logo image -->
 				<div class="flex items-center text-black">
-					<a href="index.html">
+					<a href="{% url 'home' %}">
 						<img
 							src="{% static 'assets/images/logo/foodOnlineLogo.png' %}"
 							class="h-11 md:h-12"
@@ -70,7 +70,7 @@
 					</button>
 					<label class="font-bold mr-3 ml-3 text-1xl">
 						<a href="login.html" class="cursor-pointer">LOGIN</a> /
-						<a href="User_Register.html" class="cursor-pointer">REGISTER</a>
+						<a href="{% url 'register' %}" class="cursor-pointer">REGISTER</a>
 					</label>
 					<button>
 						<a
