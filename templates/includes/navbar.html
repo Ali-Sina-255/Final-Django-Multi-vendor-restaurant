@@ -69,8 +69,14 @@
 						>
 					</button>
 					<label class="font-bold mr-3 ml-3 text-1xl">
-						<a href="login.html" class="cursor-pointer">LOGIN</a> /
-						<a href="{% url 'register' %}" class="cursor-pointer">REGISTER</a>
+						{% if user.is_authenticated %}
+
+						<a href="{% url 'logout' %}" class="cursor-pointer">Logout</a> /
+						<a href="{% url 'my_account' %}" class="cursor-pointer">MY Account</a> 
+						{% else%}
+							<a href="{% url 'login' %}" class="cursor-pointer">Login</a> /
+							<a href="{% url 'register' %}" class="cursor-pointer">Register</a> 
+						{% endif%}
 					</label>
 					<button>
 						<a

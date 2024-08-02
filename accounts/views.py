@@ -30,10 +30,10 @@ def check_role_customer(user):
 
 
 def user_registration(request):
-    if request.user.is_authenticated:
-        messages.warning(request, "your are already registered")
-        return redirect("my_account")
-    elif request.method == "POST":
+    # if request.user.is_authenticated:
+    #     messages.warning(request, "your are already registered")
+    #     return redirect("my_account")
+    if request.method == "POST":
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             first_name = form.cleaned_data["first_name"]
@@ -139,10 +139,8 @@ def activate(request, uidb64, token):
 
 
 def login_view(request):
-    if request.user.is_authenticated:
-        messages.warning(request, "You are already logged in")
-        return redirect("my_account")
-    elif request.method == "POST":
+
+    if request.method == "POST":
         email = request.POST["email"]
         password = request.POST["password"]
         user = auth.authenticate(email=email, password=password)
@@ -218,7 +216,7 @@ def reset_password_view(request):
     return render(request, "account/reset_password.html")
 
 
-@login_required(login_url="login")
+# @login_required(login_url="login")
 def my_account_view(request):
     user = request.user
     redirect_url = detect_user(user)

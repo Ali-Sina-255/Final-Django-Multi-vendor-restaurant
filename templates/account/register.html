@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
-<div id="hero-register" class="flex justify-center items-center">
+<div id="hero-register" class="flex justify-center items-center" style='background-image: url("{% static 'assets/images/banner-img.jpg' %}"); height:100vh'>
       <form method = 'POST' action="{% url 'register' %}"
         class="px-4 border max-w-3xl w-full border-t-4 shadow-lg rounded md:bg-white bg-slate-400 bg-opacity-50"
       >

@@ -1,0 +1,373 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <!-- Main dashboard -->
+    <div class="md:flex md:gap-5 lg:gap-10 mb-10 md:mb-40">
+      <!-- Aside dashoard--------------  -->
+      <div
+        class="md:w-[20%] lg:w-[25%] md:shadow-md border-t-4 md:bg-[#fff] md:ml-5 lg:ml-32 mt-6 md:mt-16 h-fit"
+      >
+        <div class="flex items-center bg-[#fff] mx-16 md:mx-0">
+          <ul class="w-full">
+            <!-- dashboard -->
+            <li class="text-sm font-bold border-b-2">
+              <a
+                href="Restaurant_dashboard.html"
+                class="flex items-center py-2 md:py-1 lg:py-2 text-center px-4 hover:text-black"
+              >
+                <svg
+                  class="text-red-700 w-7 h-7 md:w-5 md:h-5 lg:w-7 lg:h-7 mr-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M12 3C12.5523 3 13 3.44771 13 4L13 10C13 10.5523 12.5523 11 12 11L4 11C3.44772 11 3 10.5523 3 10L3 4C3 3.44772 3.44772 3 4 3L12 3ZM20 3C20.5523 3 21 3.44771 21 4L21 10C21 10.5523 20.5523 11 20 11L16 11C15.4477 11 15 10.5523 15 10L15 4C15 3.44771 15.4477 3 16 3L20 3ZM20 13C20.5523 13 21 13.4477 21 14L21 20C21 20.5523 20.5523 21 20 21L12 21C11.4477 21 11 20.5523 11 20L11 14C11 13.4477 11.4477 13 12 13L20 13ZM3 14C3 13.4477 3.44772 13 4 13L8 13C8.55229 13 9 13.4477 9 14L9 20C9 20.5523 8.55229 21 8 21L4 21C3.44772 21 3 20.5523 3 20L3 14Z"
+                  ></path>
+                </svg>
+                <span class="text-red-500">DASHBOARD</span>
+              </a>
+            </li>
+            <!-- mu restauarnt -->
+            <li class="text-sm font-bold border-b-2 hover:text-red-700">
+              <a
+                href="my_restaurant.html"
+                class="flex items-center py-2 md:py-1 lg:py-2 px-4"
+              >
+                <svg
+                  class="w-6 h-6 mr-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M21 19H23V21H1V19H3V4C3 3.44772 3.44772 3 4 3H14C14.5523 3 15 3.44772 15 4V19H17V9H20C20.5523 9 21 9.44772 21 10V19ZM7 11V13H11V11H7ZM7 7V9H11V7H7Z"
+                  ></path>
+                </svg>
+                <span class=""> MY RESTAUARNT</span>
+              </a>
+            </li>
+            <!-- ------ MENU BUILDER -->
+            <li class="text-sm font-bold border-b-2 hover:text-red-700">
+              <a
+                href="menu-builder.html"
+                class="flex items-center py-2 md:py-1 lg:py-2 px-4"
+              >
+                <svg
+                  class="w-6 h-6 mr-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"
+                  ></path>
+                </svg>
+                <span class=""> MENU BUILDER</span>
+              </a>
+            </li>
+            <!-- --------------ORDERS -->
+            <li class="text-sm font-bold border-b-2 hover:text-red-700">
+              <a
+                href="restaurant_order.html"
+                class="flex items-center py-2 md:py-1 lg:py-2 px-4"
+              >
+                <svg
+                  class="w-6 h-6 mr-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M4.00436 6.41686L0.761719 3.17422L2.17593 1.76001L5.41857 5.00265H20.6603C21.2126 5.00265 21.6603 5.45037 21.6603 6.00265C21.6603 6.09997 21.6461 6.19678 21.6182 6.29L19.2182 14.29C19.0913 14.713 18.7019 15.0027 18.2603 15.0027H6.00436V17.0027H17.0044V19.0027H5.00436C4.45207 19.0027 4.00436 18.5549 4.00436 18.0027V6.41686ZM6.00436 7.00265V13.0027H17.5163L19.3163 7.00265H6.00436ZM5.50436 23.0027C4.67593 23.0027 4.00436 22.3311 4.00436 21.5027C4.00436 20.6742 4.67593 20.0027 5.50436 20.0027C6.33279 20.0027 7.00436 20.6742 7.00436 21.5027C7.00436 22.3311 6.33279 23.0027 5.50436 23.0027ZM17.5044 23.0027C16.6759 23.0027 16.0044 22.3311 16.0044 21.5027C16.0044 20.6742 16.6759 20.0027 17.5044 20.0027C18.3328 20.0027 19.0044 20.6742 19.0044 21.5027C19.0044 22.3311 18.3328 23.0027 17.5044 23.0027Z"
+                  ></path>
+                </svg>
+                <span class=""> ORDERS</span>
+              </a>
+            </li>
+            <!-- ------- Booking -->
+            <li class="text-sm font-bold border-b-2 hover:text-red-700">
+              <a href="#" class="flex items-center py-2 md:py-1 lg:py-2 px-4">
+                <svg
+                  class="w-6 h-6 mr-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M20 22H4C3.44772 22 3 21.5523 3 21V3C3 2.44772 3.44772 2 4 2H20C20.5523 2 21 2.44772 21 3V21C21 21.5523 20.5523 22 20 22ZM19 20V4H5V20H19ZM8 7H16V9H8V7ZM8 11H16V13H8V11ZM8 15H16V17H8V15Z"
+                  ></path>
+                </svg>
+                <span class=""> BOOKING</span>
+              </a>
+            </li>
+            <li class="text-sm font-bold border-b-2 hover:text-red-700">
+              <a
+                href="Open_Hours.html"
+                class="flex items-center py-2 md:py-1 lg:py-2 px-4"
+              >
+                <svg
+                  class="w-6 h-6 mr-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M20 22H4C3.44772 22 3 21.5523 3 21V3C3 2.44772 3.44772 2 4 2H20C20.5523 2 21 2.44772 21 3V21C21 21.5523 20.5523 22 20 22ZM19 20V4H5V20H19ZM8 7H16V9H8V7ZM8 11H16V13H8V11ZM8 15H16V17H8V15Z"
+                  ></path>
+                </svg>
+                <span class=""> Open Hours</span>
+              </a>
+            </li>
+
+            <!-- ---------------- EARNINGS -->
+            <li class="text-sm font-bold border-b-2 hover:text-red-700">
+              <a
+                href="Earning-restaurant.html"
+                class="flex items-center md:py-1 py-2 lg:py-2 px-4"
+              >
+                <svg
+                  class="w-6 h-6 mr-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M12.0049 22.0027C6.48204 22.0027 2.00488 17.5256 2.00488 12.0027C2.00488 6.4799 6.48204 2.00275 12.0049 2.00275C17.5277 2.00275 22.0049 6.4799 22.0049 12.0027C22.0049 17.5256 17.5277 22.0027 12.0049 22.0027ZM12.0049 20.0027C16.4232 20.0027 20.0049 16.421 20.0049 12.0027C20.0049 7.58447 16.4232 4.00275 12.0049 4.00275C7.5866 4.00275 4.00488 7.58447 4.00488 12.0027C4.00488 16.421 7.5866 20.0027 12.0049 20.0027ZM8.50488 14.0027H14.0049C14.281 14.0027 14.5049 13.7789 14.5049 13.5027C14.5049 13.2266 14.281 13.0027 14.0049 13.0027H10.0049C8.62417 13.0027 7.50488 11.8835 7.50488 10.5027C7.50488 9.12203 8.62417 8.00275 10.0049 8.00275H11.0049V6.00275H13.0049V8.00275H15.5049V10.0027H10.0049C9.72874 10.0027 9.50488 10.2266 9.50488 10.5027C9.50488 10.7789 9.72874 11.0027 10.0049 11.0027H14.0049C15.3856 11.0027 16.5049 12.122 16.5049 13.5027C16.5049 14.8835 15.3856 16.0027 14.0049 16.0027H13.0049V18.0027H11.0049V16.0027H8.50488V14.0027Z"
+                  ></path>
+                </svg>
+                <span class=""> EARNINGS</span>
+              </a>
+            </li>
+
+            <!-- ------------SIGNOUT -->
+            <li class="text-sm font-bold border-b-2 hover:text-red-700">
+              <a
+                href="index.html"
+                class="flex items-center md:py-1 py-2 lg:py-2 px-4"
+              >
+                <svg
+                  class="w-6 h-6 mr-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M5 22C4.44772 22 4 21.5523 4 21V3C4 2.44772 4.44772 2 5 2H19C19.5523 2 20 2.44772 20 3V6H18V4H6V20H18V18H20V21C20 21.5523 19.5523 22 19 22H5ZM18 16V13H11V11H18V8L23 12L18 16Z"
+                  ></path>
+                </svg>
+                <span class=""> SIGNOUT</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- Recent order section -->
+      <main
+        class="md:w-[80%] mt-8 md:mt-16 md:mr-5 lg:mr-32 border-t-4 h-fit"
+        style="background-color: #fff"
+      >
+        <div
+          class="flex md:gap-10 items-center justify-between border w-full h-16"
+        >
+          <div class="recent_order items-center ml-5 md:ml-10">
+            <h1 class="font-bold text-lg">RECENT ORDERS</h1>
+          </div>
+          <div class="recent_order mr-5 md:mr-10 bg-red-950">
+            <select class="h-8 ml-auto border px-5" name="options" id="options">
+              <option value="option1">Select Orders Status</option>
+              <option value="option1">Processing</option>
+              <option value="option2">Cancelled</option>
+              <option value="option3">Completed</option>
+            </select>
+          </div>
+        </div>
+        <div class="order_items">
+          <ul class="w-full">
+            <li class="flex items-center h-12 border bg-gray-100 font-bold">
+              <div class="flex-1 flex items-center justify-center p-4">
+                Order Id
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                Date
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                Total Price
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                Charges
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                Reseved
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                Status
+              </div>
+            </li>
+            <li
+              class="flex items-center h-14 border text-sm hover:bg-[#ebedf3]"
+            >
+              <div
+                class="flex-1 flex items-center justify-center p-4 text-blue-600"
+              >
+                <a href="#">Order-3344</a>
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                April 9,22
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                $ 32.44
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                $20.21
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">$20</div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                <button
+                  type="button"
+                  class="border w-24 bg-green-700 p-1 text-sm px-2"
+                >
+                  Completed
+                </button>
+              </div>
+            </li>
+            <li
+              class="flex items-center h-14 border text-sm hover:bg-[#ebedf3]"
+            >
+              <div
+                class="flex-1 flex items-center justify-center p-4 text-blue-600"
+              >
+                <a href="#">Order-3344</a>
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                April 9,22
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                $ 32.44
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                $20.21
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">$20</div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                <button
+                  type="button"
+                  class="border w-24 bg-blue-500 p-1 text-sm px-2"
+                >
+                  Proccessing
+                </button>
+              </div>
+            </li>
+            <li
+              class="flex items-center h-14 border text-sm hover:bg-[#ebedf3]"
+            >
+              <div
+                class="flex-1 flex items-center justify-center p-4 text-blue-600"
+              >
+                <a href="#">Order-3344</a>
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                April 9,22
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                $ 32.44
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                $20.21
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">$20</div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                <button
+                  type="button"
+                  class="border w-24 bg-green-700 p-1 text-sm px-2"
+                >
+                  Completed
+                </button>
+              </div>
+            </li>
+            <li
+              class="flex items-center h-14 border text-sm hover:bg-[#ebedf3]"
+            >
+              <div
+                class="flex-1 flex items-center justify-center p-4 text-blue-600"
+              >
+                <a href="#">Order-3344</a>
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                April 9,22
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                $ 32.44
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                $20.21
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">$20</div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                <button
+                  type="button"
+                  class="border bg-red-500 w-24 p-1 text-sm px-2"
+                >
+                  Canseled
+                </button>
+              </div>
+            </li>
+            <li
+              class="flex items-center h-14 border text-sm hover:bg-[#ebedf3]"
+            >
+              <div
+                class="flex-1 flex items-center justify-center p-4 text-blue-600"
+              >
+                <a href="#">Order-3344</a>
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                April 9,22
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                $ 32.44
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                $20.21
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">$20</div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                <button
+                  type="button"
+                  class="border w-24 bg-green-700 p-1 text-sm px-2"
+                >
+                  Completed
+                </button>
+              </div>
+            </li>
+            <li
+              class="flex items-center h-14 border text-sm hover:bg-[#ebedf3]"
+            >
+              <div
+                class="flex-1 flex items-center justify-center p-4 text-blue-600"
+              >
+                <a href="#">Order-3344</a>
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                April 9,22
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                $ 32.44
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                $20.21
+              </div>
+              <div class="flex-1 flex items-center justify-center p-4">$20</div>
+              <div class="flex-1 flex items-center justify-center p-4">
+                <button
+                  type="button"
+                  class="border bg-red-500 w-24 p-1 text-sm px-2"
+                >
+                  Canseled
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </main>
+    </div>
+{% endblock content %}
