@@ -2,9 +2,10 @@
 
 {% block content %}
 <div id="hero-register" class="flex justify-center items-center">
-      <form
+      <form method = 'POST' action="{% url 'register' %}"
         class="px-4 border max-w-3xl w-full border-t-4 shadow-lg rounded md:bg-white bg-slate-400 bg-opacity-50"
       >
+      {% csrf_token %}
         <div class="text-center">
           <h1 class="text-2xl font-bold mt-5">WELCOME TO FOOD ONLINE</h1>
           <p class="md:text-gray-600 text-black">
@@ -15,61 +16,31 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5 px-5">
           <div>
             <label for="first-name">First Name</label>
-            <input
-              class="border mt-2 py-2 px-4 rounded-md shadow-md w-full focus:outline-none hover:border-gray-500"
-              type="text"
-              name="first-name"
-              id="first-name"
-            />
+            {{form.first_name}}
           </div>
           <div>
             <label for="last-name">Last Name</label>
-            <input
-              class="border mt-2 py-2 px-4 rounded-md shadow-md w-full focus:outline-none hover:border-gray-500"
-              type="text"
-              name="last-name"
-              id="last-name"
-            />
+            {{form.last_name}}
           </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5 px-5">
           <div>
             <label for="email-address">Email Address</label>
-            <input
-              class="border mt-2 py-2 px-4 rounded-md shadow-md w-full focus:outline-none hover:border-gray-500"
-              type="text"
-              name="email-address"
-              id="email-address"
-            />
+            {{form.email}}
           </div>
           <div>
             <label for="User-name">Username</label>
-            <input
-              class="border mt-2 py-2 px-4 rounded-md shadow-md w-full focus:outline-none hover:border-gray-500"
-              type="text"
-              name="User-name"
-              id="User-name"
-            />
+            {{form.username}}
           </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5 px-5">
           <div>
             <label for="password">Password</label>
-            <input
-              class="border mt-2 py-2 px-4 rounded-md shadow-md w-full focus:outline-none hover:border-gray-500"
-              type="password"
-              name="password"
-              id="password"
-            />
+            {{form.password}}
           </div>
           <div>
             <label for="Con">Confirm Password</label>
-            <input
-              class="border mt-2 py-2 px-4 rounded-md shadow-md w-full focus:outline-none hover:border-gray-500"
-              type="password"
-              name="lastname"
-              id="lastname"
-            />
+            {{form.confirm_password}}
           </div>
         </div>
         <div class="px-5 mb-5">

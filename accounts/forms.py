@@ -22,6 +22,13 @@ class UserRegistrationForm(forms.ModelForm):
             "phone_number",
         ]
 
+    def __init__(self, *args, **kwargs):
+        super(UserRegistrationForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs["class"] = (
+                "form-control border rounded-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            )
+
 
 class UserProfileForm(forms.ModelForm):
     address = forms.CharField(
