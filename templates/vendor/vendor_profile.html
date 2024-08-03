@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="md:flex  md:gap-5 lg:gap-10 mb-10  md:mb-40">
+
+
+    {% include "includes/vendor_sidebar.html"  %}
+
+    <div class=" md:w-[80%] mt-8 w-full bg-white md:mt-16 md:mr-5 lg:mr-32 p-1 md:p-7 h-fit">
+        <h1 class="text-2xl font-bold">Manage Your Restaurant</h1>
+        <form action="{% url 'vendor_profile' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="flex flex-col md:flex-row mb-5 md:mb-0 pt-5">
+            <div class="md:w-36 md:h-36 mb-5 md:mb-0">
+                <img class="w-full h-full" src="{{ profile.profile_pic.url }}" alt="">
+            </div>
+            <div class="md:ml-8 mt-2">
+                <label class="text-lg font-bold text-gray-600" for="update-logo">Update Logo</label>
+                <div class="border p-1 rounded-md mt-2 bg-blue-500">
+                    {{ profile_form.profile_pic }}
+                </div>
+                <label class="text-red-500">{{ profile_form.profile_pic.errors }}</label>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row mb-5 md:mb-0 pt-2">
+            <div class="border w-full md:w-36 h-36 mb-5 md:mb-0">
+                <img class="h-full w-full" src="{{ profile.cover_pic.url }}" alt="">
+            </div>
+            <div class="md:ml-8 mt-5">
+                <label class="text-lg font-bold text-gray-600" for="update-cover-pic">Update Cover Photo</label>
+                <div class="border p-1 rounded-md mt-2 bg-blue-500">
+                    {{ profile_form.cover_pic }}
+                </div>
+                <label class="text-red-500">{{ profile_form.cover_pic.errors }}</label>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row mb-5 md:mb-0 pt-2">
+            <div class="border w-full md:w-36 h-36 mb-5 md:mb-0">
+                <img class="w-full h-full" src="{{ vendor.vendor_licenses.url }}" alt="">
+            </div>
+            <div class="md:ml-8 mt-5">
+                <label class="text-lg font-bold text-gray-600" for="update-license">Update License</label>
+                <div class="border p-1 rounded-md mt-2 bg-blue-500">
+                    {{ vendor_form.vendor_licenses }}
+                </div>
+                <label class="text-red-500">{{ vendor_form.vendor_licenses.errors }}</label>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row w-full mb-5 md:mb-0 pt-2">
+            <div class="w-full">
+                <label class="font-bold" for="restaurant-name">Restaurant Name *</label>
+                {{ vendor_form.vendor_name }}
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row mb-5 md:mb-0 pt-2">
+            <div class="w-full">
+                <label class="font-bold" for="address">Address *</label>
+                {{ profile_form.address }}
+                <small class="text-muted float-right">Powered by Google</small>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row mb-5 md:mb-0 pt-2">
+            <div class="w-full md:w-1/2 pr-2">
+                <label class="font-bold" for="state">State *</label>
+                {{ profile_form.state }}
+            </div>
+            <div class="w-full md:w-1/2 pl-2">
+                <label class="font-bold" for="city">City *</label>
+                {{ profile_form.city }}
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row mb-5 md:mb-0 pt-2">
+            <div class="w-full md:w-1/2 pr-2">
+                <label class="font-bold" for="latitude">Latitude *</label>
+                {{ profile_form.latitude }}
+            </div>
+            <div class="w-full md:w-1/2 pl-2">
+                <label class="font-bold" for="longitude">Longitude *</label>
+                {{ profile_form.longitude }}
+            </div>
+        </div>
+        <div class="mt-5">
+            <button class="py-1 w-full bg-gray-500 px-4 border rounded-md  hover:text-black bg-gradient-to-r from-yellow-400 to-orange-400 font-bold" type="submit">Update Restaurant</button>
+        </div>
+    </form>
+    </div>
+    
+    {% include 'includes/messages.html' %}
+</div>
+{% endblock %}

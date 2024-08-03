@@ -58,8 +58,13 @@ class UserProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
         for field in self.fields:
-            if field == "latitude" or field == "longitude":
+            if field in ["latitude", "longitude"]:
                 self.fields[field].widget.attrs["readonly"] = "readonly"
+
+        for visible in self.visible_fields():
+            visible.field.widget.attrs["class"] = (
+                "px-5 form-control border rounded-lg py-2 px-3 w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            )
 
 
 class UserInForm(forms.ModelForm):

@@ -53,7 +53,7 @@ def vendor_profile(request):
         vendor_form = VendorRegisterForm(instance=vendor)
     context = {
         "profile_form": profile_form,
-        "vendor_from": vendor_form,
+        "vendor_form": vendor_form,
         "profile": profile,
         "vendor": vendor,
     }

@@ -89,11 +89,6 @@ class Order(models.Model):
 
                 grand_total = float(subtotal) + float(tax)
 
-                # print('grand_total ==========>', grand_total)
-                # print('tax ===========>', tax)
-                # print('tax_dict ==========>', tax_dict)
-                # print('subtotal ===========>', subtotal)
-
                 context = {
                     "grand_total": grand_total,
                     "tax": tax,
