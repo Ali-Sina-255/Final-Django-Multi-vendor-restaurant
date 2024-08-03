@@ -1,6 +1,6 @@
 {% if messages %}
   {% for message in messages %}
-    <div class="alert alert-{{ message.tags }} show-notifications bg-{{ message.tags|default:"gray" }}-100 border-l-4 border-{{ message.tags|default:"gray" }}-500 text-{{ message.tags|default:"gray" }}-700 p-4 mb-4" role="alert">
+    <div class="alert alert-{{ message.tags }} show-notifications bg-{{ message.tags}}-100 border-l-4 border-{{ message.tags|default:"gray" }}-500 mb-4" role="alert">
       <div class="flex">
         <div class="py-1">
           <svg class="fill-current h-6 w-6 text-{{ message.tags|default:"gray" }}-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -8,7 +8,7 @@
           </svg>
         </div>
         <div>
-          <p class="font-bold">{{ message|default:"Message" }}</p>
+          <p class="font-bold">{{ message }}</p>
           <p class="text-sm">{{ message }}</p>
         </div>
         <button type="button" class="close ml-auto" data-dismiss="alert" aria-label="Close">
