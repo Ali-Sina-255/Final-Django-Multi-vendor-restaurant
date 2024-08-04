@@ -40,8 +40,6 @@ class UserProfileForm(forms.ModelForm):
         widget=forms.FileInput(attrs={"class": "btn btn-info"})
     )
     cover_pic = forms.FileField(widget=forms.FileInput(attrs={"class": "btn btn-info"}))
-    # latitude = forms.CharField(widget=forms.TextInput(attrs={"readonly":'readonly'}))
-    # longitude = forms.CharField(widget=forms.TextInput(attrs={"readonly":'readonly'}))
 
     class Meta:
         model = UserProfile
