@@ -34,7 +34,7 @@
             </div>
             <div class="w-full" style="background-color: #fff">
               <div class="  flex justify-center items-center">
-                <form action="" method="POST" class="px-4 pt-5 max-w-3xl w-full bg-slate-300 bg-opacity-50 md:bg-white">
+                <form action="{% url 'order_place' %}" method="POST" class="px-4 pt-5 max-w-3xl w-full bg-slate-300 bg-opacity-50 md:bg-white">
       {% csrf_token %}
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5 px-5">
         <div>
@@ -72,8 +72,8 @@
           {{ form.state|add_class:"px-5 form-control border rounded-lg py-2 px-3 w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline" }}
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+      <button type="submit"  class="w-full bg-gradient-to-r from-[#fbbf24] to-[#fb923c] py-1 font-bold text-lg hover:text-black hover:bg-gray-500 rounded-md text-white mb-4">Submit</button>
+    
               </div>
             </div>
           </div>
@@ -116,11 +116,10 @@
                 <span class="text-gray-700">{{item.food_item.description}}</span>
                 <a href="{% url 'vendor_detail' item.food_item.vendor.vendor_slug %}" ><span class=" bg-gradient-to-r from-[#fbbf24] visited:text-purple-900 " style='color:white;width: 150px;'>{{item.food_item.vendor}}</span></a>
               </div>
-              <div class="flex gap-x-5 justify-end w-[30%]">
-                <p>5 xot</p>
-                <p>$ 30.00</p>
+              <div class=" quantity flex gap-x-5 justify-end w-[30%]">
+                  <span>{{item.quantity}} QTY</span>
+                <p> <span class="price">$ {{item.food_item.price}}</span></p>
               </div>
-
             </div>
             {% endfor %}
             <!-- order Total -->
@@ -128,35 +127,45 @@
               <div class="flex justify-between pt-3">
                 
               </div>
-              <div class="flex justify-between py-2">
+              <div class="flex justify-between py-2 font-bold">
                 <span>Total</span>
-                <span>$115.33</span>
+                 <span id='grand_total'>{{grand_total}}</span>
               </div>
             </div>
             <div class="mb-4">
               <h1 class="font-bold">Select Payment Method</h1>
-              <div class=" gap-x5 flex payment_method">
-                <label >
-                    <input type="radio" name='payment_method' value='paypal'> 
-                    <img src="{% static '/assets/images/PayPal.png' %}" alt="paypal" width='100'>
-                </label>
-                &emsp;
-                <label >
-                    <input type="radio" name='payment_method' value='Mastercard'> 
-                    <img src="{% static '/assets/images/PayPal.png' %}" alt="mastercard" width='100'>
-                </label>
+                    <div class=" payment_method">
+                        <label >
+                            <input type="radio" name='payment_method' value='paypal'> 
+                            <img src="{% static '/assets/images/PayPal.png' %}" alt="paypal" width='100'>
+                        </label>
             </div>
-
-            </div>
-            <a href="ordered-view.html" class=""
-              ><button
-                class="w-full bg-gradient-to-r from-[#fbbf24] to-[#fb923c] py-1 font-bold text-lg hover:text-black hover:bg-gray-500 rounded-md text-white"
-              >
-                Please Order
-              </button></a
-            >
+            <div class='text-danger' id="paymet_method_erros"></div>
+            <button onclick="return paymentMethod()"; type='submit'   class="w-full bg-gradient-to-r from-[#fbbf24] to-[#fb923c] py-1 font-bold text-lg hover:text-black hover:bg-gray-500 rounded-md text-white">Please Order</button>
+    
           </div>
         </div>
+        </form>
       </main>
     </div>
+    <script>
+    function paymentMethod(){
+       var payment = $("input[name='payment_method']:checked").val();
+       if (!payment){
+        $('#paymet_method_erros').html('Please Select Your payment method');
+        return false;
+       }
+       else{
+        var confi = confirm("You have selected " + payment+ ' as your perferred payment method.\nclick "OK" to continue')
+        if (confi == true){
+            return true;
+        }else{
+            return false;
+        }
+       }
+    }   
+    $("input[name='payment_method']").on('change',function(){
+        $('#paymet_method_erros').html('');
+    })
+</script>
 {% endblock content %}
