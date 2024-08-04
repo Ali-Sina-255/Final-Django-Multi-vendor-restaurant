@@ -1,5 +1,154 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
+<!-- Main -->
+<div class="md:flex mx-5 md:mb-28 mb-10 md:mx-0">
+    <!-- Suggested restaurant section -->
+    <main class="mt-10 w-full md:flex md:gap-x-10 md:ml-36 md:mx-0">
+        <div class="md:w-[50%] mb-10 md:mb-0">
+            <!-- first items -->
+            <div>
+                <div class="bg-[#fff] flex gap-x-1 items-center justify-center rounded-tl-lg font-bold text-red-500 text-center px-4 py-2 w-fit">
+                    <div>
+                        <svg class="w-5 h-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M2.25 2.25a.75.75 0 0 0 0 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 0 0-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 0 0 0-1.5H5.378A2.25 2.25 0 0 1 7.5 15h11.218a.75.75 0 0 0 .674-.421 60.358 60.358 0 0 0 2.96-7.228.75.75 0 0 0-.525-.965A60.864 60.864 0 0 0 5.68 4.509l-.232-.867A1.875 1.875 0 0 0 3.636 2.25H2.25ZM3.75 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM16.5 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p>Review Your Billing Address</p>
+                    </div>
+                </div>
+                <div class="w-full px-5 pb-5 space-y-1" style="background-color: #fff">
+                    <div class="billing-address">
+                        <div>
+                            <b>{{ order.first_name }} {{ order.last_name }}</b>
+                        </div>
+                        <div>{{ order.address }}</div>
+                        <div>{{ order.country }}</div>
+                        <div>{{ order.state }}, {{ order.city }}</div>
+                        <div><b>Phone Number :</b>{{ order.phone_number }}</div>
+                        <div><b>Email Address : </b>{{ order.email }}</div>
+                        <div><b>Payment Method : </b>{{ order.payment_method }}</div>
+                        <br>
+                        <a class="py-1 mt-5 px-7 text-white font-bold hover:text-black rounded-md bg-gradient-to-r from-[#fbbf24] to-[#fb923c]" href="{% url 'checkout' %}" class='btn btn-outline-danger mb-4'>Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Your Order Section -->
+        <div class="md:w-[50%]">
+            <div class="lg:w-[50%] md:w-[50%]">
+                <!-- Order title -->
+                <div class="bg-[#fff] flex gap-x-1 items-center justify-center rounded-tl-lg font-bold text-red-500 text-center px-1 py-2 w-32">
+                    <div>
+                        <svg class="w-5 h-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M2.25 2.25a.75.75 0 0 0 0 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 0 0-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 0 0 0-1.5H5.378A2.25 2.25 0 0 1 7.5 15h11.218a.75.75 0 0 0 .674-.421 60.358 60.358 0 0 0 2.96-7.228.75.75 0 0 0-.525-.965A60.864 60.864 0 0 0 5.68 4.509l-.232-.867A1.875 1.875 0 0 0 3.636 2.25H2.25ZM3.75 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM16.5 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p>Your Order</p>
+                    </div>
+                </div>
+                <div class="w-full px-5 pb-5" style="background-color: #fff">
+                    <!-- order items -->
+                    {% for item in cart_items %}
+                    <div class="flex py-4">
+                        <div class="">
+                            <img class="w-[80px] h-[80px]" src="{{item.food_item.image.url}}" alt="" />
+                        </div>
+                        <div class="ml-5 md:w-[50%] flex flex-col space-y-1 w-[50%]">
+                            <h2 class="font-bold text-lg tracking-wider">{{item.food_item|truncatechars:35}}</h2>
+                            <span class="text-gray-700">{{item.food_item.description}}</span>
+                            <a href="{% url 'vendor_detail' item.food_item.vendor.vendor_slug %}">
+                                <span class=" bg-gradient-to-r from-[#fbbf24] visited:text-purple-900 " style='color:white;width: 150px;'>{{item.food_item.vendor}}</span>
+                            </a>
+                        </div>
+                        <div class=" quantity flex gap-x-5 justify-end w-[30%]">
+                            <span>{{item.quantity}} QTY</span>
+                            <p><span class="price">$ {{item.food_item.price}}</span></p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- order Total -->
+                    <div>
+                        <div class="flex justify-between pt-3"></div>
+                        <div class="flex justify-between py-2 font-bold">
+                            <span>Total</span>
+                            <span id='grand_total'>{{grand_total}}</span>
+                        </div>
+                    </div>
+                    <div id="paypal-button-container"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        var grand_total = '{{grand_total}}';
+        var url = "{% url 'payments' %}";
+        var order_number = '{{order.order_number}}';
+        var order_complete = "{% url 'order_complete' %}";
+        const csrftoken = getCookie('csrftoken');
+
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: grand_total  // Replace with the actual amount
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    var transaction = details.purchase_units[0].payments.captures[0];
+                    var transaction_id = transaction.id;
+                    var status = details.status;
+                    var payment_method = "PayPal";
+    
+                    sendTransaction(transaction_id, payment_method, status);
+                    const element = document.getElementById('paypal-button-container')
+                    element.innerHTML = ''; 
+                    element.innerHTML = '<h4  class="text-center"> <i class="fa fa-spinner fa-spin"></i>Please wait! </h4>'
+                });
+            }
+        }).render('#paypal-button-container');
+
+        function sendTransaction(transaction_id, payment_method, status) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    "order_number": order_number,
+                    "transaction_id": transaction_id,
+                    "payment_method": payment_method,
+                    "status": status,
+                    "csrfmiddlewaretoken": csrftoken
+                },
+                success: function(response) {
+                    window.location.href = order_complete + '?order_no=' + response.order_number + '&trans_id=' + response.transaction_id;
+                }
+            });
+        }
+    });
+</script>
 {% endblock content %}

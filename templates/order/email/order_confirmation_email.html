@@ -1,0 +1,111 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="container mt-5 mb-5">
+    <div class="justify-content-center row">
+
+        <div class="col-md-8">
+            <div class="bg-white p-3">
+                <img src="{% static 'assets/logo/foodOnlineLogo.png' %}" alt="" srcset="" width='300'>
+                 
+           
+            <div class='row'>
+                <div class="col-md-6 ">
+                    <h4 class='mt-2 mb-3'>Thank you for your order .</h4>
+                </div>
+
+                <div class="col-md-6 text-right">
+                    <p class='mb-0'>{{order.name}}</p>
+                    <p class='mb-0'>{{order.address}}</p>
+                    <p class='mb-0'>{{order.phone_number}}</p>
+                    <p class='mb-0'>{{order.email}}</p>
+                    
+                </div>
+
+            </div>
+            <h6>Hello{{order.name}}, Review your order details bellow</h6>
+            <hr>
+            <div class='d-flex justify-content-between'>
+                <div>
+                    <span class='d-block'>Order Date:</span> <span class='font-weight-bold'>{{order.created_at}}</span>
+                </div>
+                <div>
+                    <span class='d-block'>Order Number:</span> <span class='font-weight-bold'>{{order.order_number}}</span>
+                </div>
+                <div>
+                    <span class='d-block'>Payment Mehthod :</span> <span class='font-weight-bold'>{{order.payment_method}}</span>
+                </div>
+
+                <div>
+                    <span class='d-block'>Transaction ID:</span> <span class='font-weight-bold'>{{order.payment.transaction_id}}</span>
+                </div>
+            </div>
+
+            <hr>
+            <table class="table">
+                <tbody>
+                  {% for item in ordered_food %}
+                  <tr>
+                  <td><img src="{{item.food_item.image.url}}" alt="Food Images" width='40' srcset=""></td>
+                  <td>
+                    <p class='mb-0'>{{item.food_item|truncatechars:15}}</p>
+                    <a  class= 'text-muted' href="{% url 'vendor_detail' item.food_item.vendor.vendor_slug %}">{{item.food_item.vendor.vendor_name}}</a>
+                </td>
+                  <td>{{item.quantity}} QTY</td>
+                  <td>${{item.food_item.price}}</td>
+                 </tr>
+
+                  {% endfor %}
+                </tbody>
+              </table>
+            <div class='row mt-5'>
+                <div class='d-flex justify-content-center col-md-6'>
+                    <img src="{% static 'assets/images/paid.png' %}" alt="" srcset=""  width='150'>
+
+                </div>
+                <div class='col-md-6'>
+                    <ul>
+                        <li style="list-style-type: none">
+                          Subtotal
+                          <span class="price float-right">
+                            <span class="currency">AF</span>
+                            <span id="subtotal">{{subtotal}}</span>
+                          </span>
+                        </li>
+  
+                        <li style="list-style-type: none">
+                          Total
+                          <span class="price float-right font-weigth:600">
+                            <span class="currency">AF </span>
+                            <span id="grand_total">{{grand_total}}</span>
+                          </span>
+                        </li>
+                        
+                      </ul>
+                </div>
+
+            </div>
+            <hr>
+            <div class='d-flex justify-content-between '>
+               <div>
+                    <span class='d-block font-weight-bold'>
+                        Thank for ordering with us.
+                    </span>
+                    <span>FoodOnline Team</span>
+               </div>
+               <div>
+                <span class='d-flex justify-content-end align-items-end'>
+                    <span class='d-block font-weight-bold'>
+                        Need Help ?
+                    </span>
+                </span>
+                <span>Call +93 707 323 964 </span>
+           </div>
+            </div>
+
+        </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

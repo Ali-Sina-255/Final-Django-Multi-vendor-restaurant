@@ -104,3 +104,12 @@
   border-bottom: 10px solid #ed1b24;
 }
 /*Restaurant Status*/
+
+ .restaurant-status { position: absolute; top: 15px; left: -11px; padding: 3px 10px; line-height: normal; background: #3ab54b; font-size: 10px; color: #fff; display: block; text-transform: uppercase; min-height: 20px; min-width: 52px; text-align: center; }
+.simple ul li .img-holder .restaurant-status { left: -10px; }
+ .restaurant-status:before { width: 0; height: 0; border-top: 10px solid #239132; border-left: 10px solid transparent; content: ""; left: 0; position: absolute; bottom: -10px; }
+ .restaurant-status.close { background: #ed1b24; opacity: 1; cursor: auto; font-weight: normal; float: none; text-shadow: none; }
+ .restaurant-status.close:before { border-top: 10px solid #c91018; }
+ .restaurant-status .bookmarkRibbon { width: 10px; height: 0px; border-top: 10px solid #3ab54b; border-bottom: 10px solid #3ab54b; border-right: 5px solid transparent; position: absolute; top: 0; right: -6px; }
+ .restaurant-status.close .bookmarkRibbon { border-top: 10px solid #ed1b24; border-bottom: 10px solid #ed1b24; }
+
