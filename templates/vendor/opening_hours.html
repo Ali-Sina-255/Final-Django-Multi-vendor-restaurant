@@ -1,5 +1,46 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<div class="md:flex md:gap-5 lg:gap-10 mb-10 md:mb-20">
+  {% include 'includes/vendor_sidebar.html' %}
+  <main class="md:w-[80%] w-full mt-8 md:mt-16 mr-32 pb-10 border-t-4 h-fit" style="background-color: #fff">
+    <div class="flex items-center border-b px-10 mb-5 justify-between w-full h-16">
+      <div class="recent_order items-center">
+        <h1 class="font-bold text-xl tracking-wider">Opening Hours</h1>
+      </div>
+    </div>
+    {% include 'includes/messages.html' %}
+    <form action="">
+      <div class="px-10">
+        <table class="bg-white w-full border-gray-300">
+          <thead>
+            <!-- Table headers if any -->
+          </thead>
+          <tbody>
+            {% for hour in opening_hours %}
+              <tr id="hour-{{ hour.id }}">
+                <td><b>{{ hour }}</b></td>
+                <td>{% if hour.is_closed %}Closed{% else %}{{ hour.from_hour }} - {{ hour.to_hour }}{% endif %}</td>
+                <td><a href="#" class="remove_hour" data-url="{% url 'remove_hour' hour.id %}">Remove</a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <form id="opening_hours">
+          {% csrf_token %}
+          <div class="mt-2 flex justify-between">
+            <div class="col-md-3">{{ form.day }}</div>
+            <div>{{ form.from_hour }}</div>
+            <div>{{ form.to_hour }}</div>
+            <div>{{ form.is_closed }}</div>
+            <input type="hidden" value="{% url 'add_opening' %}" id="add_hour_url">
+            <div class="col-md-2">
+              <button class="btn btn-success add_hour rounded-md text-white hover:text-black bg-gradient-to-r from-[#fbbf24] to-[#fb923c]">Add Hours</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </form>
+  </main>
+</div>
 {% endblock content %}

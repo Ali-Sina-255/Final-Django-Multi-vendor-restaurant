@@ -2,8 +2,7 @@
 {% load static %}
 
 {% block content %}
-<!-- Main -->
-    <div class="md:flex mx-5 mb-8 md:mx-0">
+  <div class="md:flex mx-5 mb-8 md:mx-0">
       <!-- Suggested restaurant section -->
       <main class="mt-10 w-full md:flex md:gap-x-10 md:ml-36 md:mx-0">
         <!-- seggested section -->
@@ -32,13 +31,18 @@
                   </div>
                 </div>
                 <div class="w-full" style="background-color: #fff">
+                     <div class="text-center p-5" id='empty_cart' style='display:none'>
+                            <h3>Cart is empty</h3>
+                    </div>
                   <ul class="pt-2 md:mx-5 px-2">
+                     {% if cart_item %}
+                    {% for item in cart_item %}
                     <!--first items -->
                     <li class="flex mb-10 border-b pb-4">
                       <div class="">
                         <img
                           class="w-[80px] h-[80px]"
-                          src="/assets/images/Other Images/fb-restaurant-02.jpg"
+                          src="{{item.food_item.image.url}}"
                           alt=""
                         />
                       </div>
@@ -46,22 +50,20 @@
                         class="ml-5 md:w-[50%] flex flex-col space-y-1 w-[50%]"
                       >
                         <h2 class="font-bold text-lg tracking-wider">
-                          Our Best Food
+                         {{item.food_item|truncatechars:35}}
                         </h2>
-                        <span class="text-gray-700">For set in</span>
-                        <button
-                          class="bg-red-500 text-white md:w-fit px-4 rounded-md"
-                        >
-                          Ali Mohammadi
-                        </button>
+                        <span class="text-gray-700">{{item.food_item.description|truncatechars:50}}</span>
+                        <a href="{% url 'vendor_detail' item.food_item.vendor.vendor_slug %}" class=" bg-gradient-to-r from-[#fbbf24] visited:text-purple-600 ">{{item.food_item.vendor}}</a>
+                        
                       </div>
                       <div
                         class="flex items-center justify-between md:w-[35%] w-[50%]"
                       >
-                        <div><p>$300.00</p></div>
+                        <div><p>${{item.food_item.price}}</p></div>
                         <div>
                           <i
-                            class="flex justify-center md:justify-between cursor-pointer text-red-500 border border-red-500 rounded-[50%] p-1 text-center"
+                            class="decrease_cart  flex justify-center md:justify-between cursor-pointer text-red-500 border border-red-500 rounded-[50%] p-1 text-center"
+                            data-id='{{item.food_item.id}}' id='{{item.id}}' data-url='{% url "decrease_cart" item.food_item.id %}'
                             ><svg
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
@@ -78,10 +80,13 @@
                             </svg>
                           </i>
                         </div>
-                        <div><p>0</p></div>
+                        <div><label id='qty-{{item.food_item.id}}'>0</label></div>
                         <div>
+
+                            {% comment %} in crease  {% endcomment %}
                           <i
-                            class="flex justify-center cursor-pointer text-red-500 border border-red-500 rounded-[50%] p-1 text-center"
+                            class=" add_to_cart flex justify-center cursor-pointer text-red-500 border border-red-500 rounded-[50%] p-1 text-center"
+                            data-id='{{item.food_item.id}}' data-url='{% url "add_to_cart" item.food_item.id %}'
                             ><svg
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
@@ -102,7 +107,7 @@
                           <i
                             class="flex justify-center text-red-500 border border-red-500 rounded-[50%] p-1 text-center"
                           >
-                            <button>
+                            <button class='delete_cart'data-id='{{item.id}}' data-url='{% url "delete_cart" item.id %}'>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -120,11 +125,20 @@
                         </div>
                       </div>
                     </li>
+                    {% endfor %}
+                     {% else %}
+                        <div class="text-center p-5">
+                            <h3>Cart is empty</h3>
+                        </div>
+                    {% endif%}
                   </ul>
                 </div>
+                 {% for item in cart_item %}
+                    <span id='qty-{{item.food_item.id}}' class='item_qty hidden' data-qty="{{item.quantity}}"></span>
+                {% endfor %}
               </div>
             </li>
-           
+            
           </ul>
         </div>
         <!-- Your Order Section -->
@@ -149,13 +163,10 @@
             </div>
           </div>
           <div class="md:w-[60%] px-5" style="background-color: #fff">
-            <div class="flex justify-between pt-3">
-              <span>Subtotal</span>
-              <span>$115.33</span>
-            </div>
+            
             <div class="flex justify-between py-2">
               <span>Total</span>
-              <span>$115.33</span>
+              <span id='grand_total'>{{grand_total}}A</span>
             </div>
             <div class="pt-3 pb-4">
               <a href="checkout.html">
@@ -170,4 +181,6 @@
         </div>
       </main>
     </div>
+
+
 {% endblock content %}

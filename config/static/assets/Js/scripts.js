@@ -127,6 +127,7 @@ $(document).ready(function () {
     }
   }
 
+  $(document).ready(function() {
   $(".add_hour").on("click", function (e) {
     e.preventDefault();
     var day = document.getElementById("id_day").value;
@@ -135,7 +136,9 @@ $(document).ready(function () {
     var is_closed = document.getElementById("id_is_closed").checked;
     var csrf_token = $("input[name=csrfmiddlewaretoken]").val();
     var url = document.getElementById("add_hour_url").value;
-    console.log(day, from_hour, to_hour, closed, csrf_token);
+
+    console.log(day, from_hour, to_hour, is_closed, csrf_token);
+
     if (is_closed) {
       is_closed = "True";
       condition = 'day != ""';
@@ -143,6 +146,7 @@ $(document).ready(function () {
       is_closed = "False";
       condition = 'day != "" && from_hour != "" && to_hour != ""';
     }
+
     if (eval(condition)) {
       $.ajax({
         type: "POST",
@@ -156,22 +160,23 @@ $(document).ready(function () {
         },
         success: function (response) {
           if (response.status == "success") {
+            let html;
             if (response.is_closed == "Closed") {
-              html =
-                "<tr id='hour-'+response.id+'><td><b>" +
-                response.day +
-                "</b></td><td>Closed</td><td><a class='remove_hour' data-url='/accounts/vendor/opening_hours/remove/'+response.id+'/'>Remove</a></td></tr>";
+              html = `
+                <tr id="hour-${response.id}">
+                  <td><b>${response.day}</b></td>
+                  <td>Closed</td>
+                  <td><a href="#" class="remove_hour" data-url="/accounts/vendor/opening_hours/remove/${response.id}/">Remove</a></td>
+                </tr>`;
             } else {
-              html =
-                "<tr id='hour-'+response.id+'><td><b>" +
-                response.day +
-                "</b></td><td>" +
-                response.from_hour +
-                " - " +
-                response.to_hour +
-                "</td><td><a class='remove_hour' data-url='/accounts/vendor/opening_hours/remove/'+response.id+'>Remove</a></td></tr>";
+              html = `
+                <tr id="hour-${response.id}">
+                  <td><b>${response.day}</b></td>
+                  <td>${response.from_hour} - ${response.to_hour}</td>
+                  <td><a href="#" class="remove_hour" data-url="/accounts/vendor/opening_hours/remove/${response.id}/">Remove</a></td>
+                </tr>`;
             }
-            $(".opening_hours").append(html);
+            $("table tbody").append(html);
             document.getElementById("opening_hours").reset();
           } else {
             swal(response.message, "", "error");
@@ -179,21 +184,23 @@ $(document).ready(function () {
         },
       });
     } else {
-      swal("Please fill the fill");
+      swal("Please fill in all required fields");
     }
   });
 
   $(document).on("click", ".remove_hour", function (e) {
     e.preventDefault();
-    url = $(this).attr("data-url");
+    var url = $(this).attr("data-url");
     $.ajax({
       type: "GET",
       url: url,
       success: function (response) {
         if (response.status == "success") {
-          document.getElementById("hour-" + response.id).remove();
+          $("#hour-" + response.id).remove();
         }
       },
     });
   });
+});
+
 });
