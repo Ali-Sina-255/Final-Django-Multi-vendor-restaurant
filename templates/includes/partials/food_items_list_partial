@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for food in food_list %}
+<div>
+    <h2>{{ food.name }}</h2>
+    {% comment %} <!-- Add other food item details here --> {% endcomment %}
+</div>
+{% endfor %}
+{% endblock content %}

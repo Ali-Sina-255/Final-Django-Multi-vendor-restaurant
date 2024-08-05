@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+<div class='md:flex md:gap-5 lg:gap-10 mb-10 md:mb-40'>
+    {% include 'includes/vendor_sidebar.html' %}
+    <main class="md:w-[80%] mt-8 md:mt-16 mx-5 md:mx-0 md:mr-32 border-t-4 h-fit pb-2" style="background-color: #fff">
+        <!-- Menu builder header -->
+        <div class="flex items-center justify-between px-8 border-b w-full h-16">
+            <div class="recent_order items-center">
+                <h1 class="font-bold text-lg">BUILD YOUR FOOD MENU</h1>
+            </div>
+        </div>
+        <div class="px-8 mt-4">
+            <h1 class="font-bold text-md">Add New Food items</h1>
+        </div>
+        <!-- Back button -->
+        <div class="mt-3 font-bold px-8 text-lg">
+            <button onclick='history.back()' class="flex items-center space-x-1 border px-6 rounded-md text-white hover:text-black bg-gradient-to-r from-[#fbbf24] to-[#fb923c] font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
+                </svg>
+                <span>Back</span>
+            </button>
+        </div>
+        <!-- Form for adding new food item -->
+        <div class="w-full mt-4">
+            <form method="POST" enctype="multipart/form-data" class="px-8 rounded w-full mb-10">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="food_title" class="block text-gray-700 text-sm font-bold mb-2">Food Title *</label>
+                    {{ form.food_title }}
+                </div>
+                <div class="mb-4">
+                    <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Food Category *</label>
+                    {{ form.category }}
+                </div>
+                <div class="mb-4">
+                    <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Food Description *</label>
+                    {{ form.description }}
+                </div>
+                <div class="md:flex md:space-x-5">
+                    <div class="mb-4 w-full md:w-1/2">
+                        <label for="price" class="block text-gray-700 text-sm font-bold mb-2">Food Price *</label>
+                        {{ form.price }}
+                    </div>
+                    <div class="mb-4 w-full md:w-1/2">
+                        <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Food Image *</label>
+                        {{ form.image }}
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="inline-flex items-center">
+                        {{ form.is_available }}
+                        <span class="ml-2 text-gray-700">Food Available</span>
+                    </label>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="text-white hover:text-black bg-gradient-to-r from-[#fbbf24] to-[#fb923c] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Submit
+                    </button>
+                </div>
+                <!-- Display form errors -->
+                {% if form.errors %}
+                    <div class="mt-4">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <p class="text-red-500">{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+        <!-- Include messages -->
+        {% include 'includes/messages.html' %}
+    </main>
+</div>
+{% endblock content %}

@@ -6,6 +6,8 @@
  */
 
 module.exports = {
+    content: ["./src/**/*.{html,js}"],
+
     content: [
         /**
          * HTML. Paths to Django template files that will contain Tailwind CSS classes.
@@ -54,5 +56,6 @@ module.exports = {
         require('@tailwindcss/typography'),
         require('@tailwindcss/aspect-ratio'),
         require('daisyui'),
+        
     ],
 }

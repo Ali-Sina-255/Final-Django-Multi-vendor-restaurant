@@ -48,7 +48,7 @@ class FoodItemForm(forms.ModelForm):
             if field != "image":
                 self.fields[field].widget.attrs.update(
                     {
-                        "class": "appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        "class": " border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     }
                 )
 

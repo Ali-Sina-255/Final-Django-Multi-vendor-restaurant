@@ -195,14 +195,16 @@ def edit_food_view(request, pk=None):
     return render(request, "vendor/edit_food.html", context)
 
 
-@login_required(login_url="login")
-@user_passes_test(check_rol_vendor)
 def delete_food_view(request, pk):
     food = get_object_or_404(FootItem, pk=pk)
     if request.method == "POST":
         food.delete()
         messages.success(request, "Food Item has been deleted successfully")
+        if request.htmx:
+            return JsonResponse({"success": True})
         return redirect("food_items_by_category", food.category.id)
+    else:
+        return render(request, "vendor/food_delete.html", {"food": food})
 
 
 def opening_hours_view(request):
