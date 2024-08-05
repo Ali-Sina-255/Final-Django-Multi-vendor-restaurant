@@ -7,7 +7,7 @@
             <!-- dashboard -->
             <li class="text-sm font-bold border-b-2">
               <a
-                href="Restaurant_dashboard.html"
+                href="{% url 'vendor_dashboard' %}"
                 class="flex items-center py-2 md:py-1 lg:py-2 text-center px-4 hover:text-black"
               >
                 <svg
@@ -104,7 +104,7 @@
             <!-- --------------ORDERS -->
             <li class="text-sm font-bold border-b-2 hover:text-red-700">
               <a
-                href="restaurant_order.html"
+                href="{% url 'my_order_vendor' %}"
                 class="flex items-center py-2 md:py-1 lg:py-2 px-4"
               >
                 <svg
@@ -123,7 +123,7 @@
             <!-- ------------SIGNOUT -->
             <li class="text-sm font-bold border-b-2 hover:text-red-700">
               <a
-                href="index.html"
+                href="{% url 'logout' %}"
                 class="flex items-center md:py-1 py-2 lg:py-2 px-4"
               >
                 <svg

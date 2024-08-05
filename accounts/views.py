@@ -238,12 +238,12 @@ def vendor_dashboard_view(request):
     )
     current_month_revenue = 0
     for i in current_month_order:
-        current_month_revenue += i.get_total_by_vendor()["grand_total"]
+        current_month_revenue += i.get_total_by_vendor()
 
     total_revenue = 0
 
     for i in orders:
-        total_revenue += i.get_total_by_vendor()["grand_total"]
+        total_revenue += i.get_total_by_vendor()
 
     context = {
         "orders": orders,

@@ -61,20 +61,16 @@ class Order(models.Model):
 
     def get_total_by_vendor(self):
         try:
-            # Get the current vendor from the request object
-            vendor = Vendor.objects.get(user=request_object.user)
+            # Simulate the vendor check (adapt this as needed)
+            vendor = Vendor.objects.get(user=self.user)
             subtotal = 0
             tax = 0
             tax_dict = {}
 
             if self.total_data:
-                print(f"Total data before loading JSON: {self.total_data}")
-
-                # Correctly load the total_data JSON
                 total_data = json.loads(
                     self.total_data.replace("Decimal('", "").replace("')", "")
                 )
-
                 for vendor_id, vendor_data in total_data.items():
                     for price, tax_data in vendor_data.items():
                         subtotal += float(price)
@@ -82,33 +78,58 @@ class Order(models.Model):
                         tax_data = json.loads(tax_data)
                         tax_dict.update(tax_data)
 
-                        # Calculate tax
                         for currency, tax_info in tax_data.items():
                             for tax_rate, tax_amount in tax_info.items():
                                 tax += float(tax_amount)
 
                 grand_total = float(subtotal) + float(tax)
-
-                context = {
+                return {
                     "grand_total": grand_total,
+                    "subtotal": subtotal,
                     "tax": tax,
                     "tax_dict": tax_dict,
-                    "subtotal": subtotal,
                 }
-                return context  # Return the grand total context
 
-            return 0  # Return 0 if there's no data for any vendor
+            return {"grand_total": 0, "subtotal": 0, "tax": 0, "tax_dict": {}}
         except json.JSONDecodeError as e:
             print(
                 f"JSONDecodeError: {e} for order id: {self.id}, total_data: {self.total_data}"
             )
-            return 0
+            return {"grand_total": 0, "subtotal": 0, "tax": 0, "tax_dict": {}}
         except KeyError as e:
             print(f"KeyError: {e} for order id: {self.id}")
-            return 0
+            return {"grand_total": 0, "subtotal": 0, "tax": 0, "tax_dict": {}}
         except Exception as e:
             print(f"Unexpected error: {e} for order id: {self.id}")
-            return 0
+            return {"grand_total": 0, "subtotal": 0, "tax": 0, "tax_dict": {}}
+
+    def __str__(self):
+        return self.order_number
+        try:
+            vendor = Vendor.objects.get(user=request_object.user)
+            subtotal = 0
+            tax = 0
+            tax_dict = {}
+
+            if self.total_data:
+                total_data = json.loads(
+                    self.total_data.replace("Decimal('", "").replace("')", "")
+                )
+                for vendor_id, vendor_data in total_data.items():
+                    for price, tax_data in vendor_data.items():
+                        subtotal += float(price)
+                        tax_data = tax_data.replace("'", '"')
+                        tax_data = json.loads(tax_data)
+                        tax_dict.update(tax_data)
+                        for currency, tax_info in tax_data.items():
+                            for tax_rate, tax_amount in tax_info.items():
+                                tax += float(tax_amount)
+                grand_total = float(subtotal) + float(tax)
+                return {"grand_total": grand_total}
+            return {"grand_total": 0}
+        except Exception as e:
+            print(f"Error: {e}")
+            return {"grand_total": 0}
 
     def __str__(self) -> str:
         return self.order_number

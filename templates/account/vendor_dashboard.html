@@ -9,20 +9,48 @@
         class="md:w-[80%] mt-8 md:mt-16 md:mr-5 lg:mr-32 border-t-4 h-fit"
         style="background-color: #fff"
       >
+      <div class="md:flex items-center mx-5 py-5 justify-between">
+          <div><h1 class="font-bold text-lg">Review</h1></div>
+          <div class="flex">
+            <span class="font-bold">Login Us:  </span>
+            <p><b>{{user.email}}</b></p>
+          </div>
+        </div>
         <div
-          class="flex md:gap-10 items-center justify-between border w-full h-16"
+          class="md:flex w-full md:px-0 text-center gap-y-10 gap-x-5 mx-5 h-fit md:h-36"
+        >
+          <div class="w-[30%] border mb-6 md:mb-0 rounded">
+            <div class="bg-gray-200 px-5 py-2">
+              <h1 class="font-bold">Total Order</h1>
+            </div>
+            <div class="flex justify-center items-center">
+              <p class="pt-10">{{order_count}}</p>
+            </div>
+          </div>
+          <div class="w-[30%] border mb-6 md:mb-0 rounded">
+            <div class="bg-gray-200 px-5 py-2">
+              <h1 class="font-bold">Total Revenue</h1>
+            </div>
+            <div class="flex justify-center items-center">
+              <p class="pt-10">{{total_revenue}} Af</p>
+            </div>
+          </div>
+          <div class="w-[30%] border mb-6 md:mb-0 rounded">
+            <div class="bg-gray-200 px-5 py-2">
+              <h1 class="font-bold">This Month</h1>
+            </div>
+            <div class="flex justify-center items-center">
+              <p class="pt-10">{{current_month_revenue}}</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="flex md:gap-10 items-center justify-between w-full h-16"
         >
           <div class="recent_order items-center ml-5 md:ml-10">
             <h1 class="font-bold text-lg">RECENT ORDERS</h1>
           </div>
-          <div class="recent_order mr-5 md:mr-10 bg-red-950">
-            <select class="h-8 ml-auto border px-5" name="options" id="options">
-              <option value="option1">Select Orders Status</option>
-              <option value="option1">Processing</option>
-              <option value="option2">Cancelled</option>
-              <option value="option3">Completed</option>
-            </select>
-          </div>
+          
         </div>
         <div class="order_items">
           <ul class="w-full">

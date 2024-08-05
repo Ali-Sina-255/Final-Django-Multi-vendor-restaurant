@@ -15,9 +15,9 @@
           />
         </div>
         <!-- info customer -->
-        <div class="flex w-full mt-3">
+        <div class="flex w-full justify-between mt-3">
           <div class="w-[60%]">
-            <p class="text-lg font-bold tracking-wider">
+            <p class="text-lg font-bold tracking-wider ">
               Thank You for Your Order .
             </p>
           </div>
@@ -58,29 +58,31 @@
           </div>
         </div>
         <!-- order info -->
-    <div class="overflow-x-auto">
-    <table class="table">
-        <!-- head -->
-        <tbody>
-        {% for item in ordered_food %}
+    <div className="overflow-x-auto">
+  <table className="table table-xs table-pin-rows table-pin-cols">
+
+    <tbody>
+     
+    </tbody>
+    <tfoot>
+      {% for item in ordered_food %}
         <!-- row 1 -->
-        <tr>
-            <td><img src="{{item.food_item.image.url}}" alt="Food Images" width='100' srcset=""></td>
-            <td>
+        <tr class="table justify-between gap-12">
+            <td ><img className='object-fill' src="{{item.food_item.image.url}}" alt="Food Images" width='100' srcset=""></td>
+            <td >
                     <p class=''>{{item.food_item|truncatechars:15}}</p>
                     <a  class= 'text-muted' href="{% url 'vendor_detail' item.food_item.vendor.vendor_slug %}">{{item.food_item.vendor.vendor_name}}</a>
                 </td>
-            <td>Quality Control Specialist</td>
-            <td>Blue</td>
+           
 
               <td>{{item.quantity}} QTY</td>
                   <td>${{item.food_item.price}}</td>
         </tr>
         {% endfor %}
-        </tbody>
-    </table>
+    </tfoot>
+  </table>
 </div>
-       
+
         <!--  -->
         <div class="flex w-full pt-5">
           <div class="w-1/2 flex justify-center">
