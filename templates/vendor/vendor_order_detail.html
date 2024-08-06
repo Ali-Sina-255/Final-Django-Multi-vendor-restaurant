@@ -1,13 +1,14 @@
 {% extends "base.html" %}
+
 {% load static %}
 {% block content %}
   <!-- User Register -->
 
     <div class="h-fit flex justify-center py-5">
        
-      <div class="px-4 max-w-3xl w-full border rounded bg-white">
+      <div class="px-6 max-w-3xl w-full border rounded bg-white">
         <!-- restaurant logo -->
-        <div class="mt-2">
+        <div class="mt-2 flex justify-center">
           <img
             class="h-14 "
             src="{% static 'assets/images/logo/foodOnlineLogo.png' %}"
@@ -15,7 +16,7 @@
           />
         </div>
         <!-- info customer -->
-        <div class="flex w-full justify-between mt-3">
+        <div class="flex w-full justify-between mt-7">
           <div class="w-[60%]">
             <p class="text-lg font-bold tracking-wider ">
               Thank You for Your Order .
@@ -32,7 +33,7 @@
 
         <div class="border-b py-2">
           <p class="font-bold text-sm">
-            <h6>Hello{{order.name}}, Review your order details bellow</h6>
+            <h6>Hello {{order.name}}, Review your order details bellow</h6>
           </p>
         </div>
         <!-- order details -->
@@ -96,7 +97,7 @@
             <div class="pr-16">
               <div class="flex justify-between py-2">
                 <span>Total</span>
-                <span>{{subtotal}}</span>
+                <span>{{subtotal}} Af</span>
               </div>
             </div>
           </div>

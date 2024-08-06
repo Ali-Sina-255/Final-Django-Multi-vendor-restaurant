@@ -12,10 +12,14 @@
         <div
           class="flex md:gap-10 items-center justify-between border w-full h-16"
         >
-          <div class="recent_order items-center ml-5 md:ml-10">
-            <h1 class="font-bold text-lg">RECENT ORDERS</h1>
-            <h1>Login As: <b>{{user.email}}</b></h1>
-          </div>
+          <div class="recent_order items-center ml-5 md:ml-10 flex  justify-between">
+               
+          <h1 class="font-bold text-lg">RECENT ORDERS</h1>
+        </div>
+        <div class="flex px-7">
+         <span class='mr-2'>Login Us:  </span>
+         <p ><b>{{user.email}}</b></p>
+       </div>
     
         </div>
         <div class="order_items">
@@ -61,7 +65,7 @@
               </div>
               <div class="flex-1 flex items-center justify-center p-4">{{order.created_at}}</div>
               <div class="flex-1 flex items-center justify-center p-4">
-                <a class='bg-gray-500' href="{% url 'vendor_order_detail' order.order_number %}" class='btn btn-danger'>Details</a>
+                <a style='background-color: #ea580c;' href="{% url 'vendor_order_detail' order.order_number %}" class='px-5 py-1 rounded-md '>Details</a>
               </div>
             </li>
 

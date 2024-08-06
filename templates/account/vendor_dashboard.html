@@ -96,8 +96,8 @@
                 {{order.status}}
               </div>
               <div class="flex-1 flex items-center justify-center p-4">{{order.created_at}}</div>
-              <div class="flex-1 flex items-center justify-center p-4">
-                <a class='bg-gray-500' href="{% url 'vendor_order_detail' order.order_number %}" class='btn btn-danger'>Details</a>
+              <div class="bg-[#ea580c] flex-1 flex items-center justify-center p-4">
+                <a style='background-color: #ea580c;' href="{% url 'vendor_order_detail' order.order_number %}" class='px-5 py-1 rounded-md '>Details</a>
               </div>
             </li>
 

@@ -6,8 +6,6 @@
  */
 
 module.exports = {
-    content: ["./src/**/*.{html,js}"],
-
     content: [
         /**
          * HTML. Paths to Django template files that will contain Tailwind CSS classes.
@@ -44,7 +42,12 @@ module.exports = {
         // '../../**/*.py'
     ],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+            poppins: ["Poppins", "sans-serif"],
+      
+        }
+        },
     },
     plugins: [
         /**

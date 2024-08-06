@@ -100,7 +100,7 @@
               <p>Your Order</p>
             </div>
           </div>
-          <div class="w-full px-5 pb-5" style="background-color: #fff">
+          <div class="w-full px-5 pb-2" style="background-color: #fff">
             <!-- order items -->
             {% for item in cart_item %}
             <div class="flex py-4">
@@ -137,12 +137,12 @@
                     <div class=" payment_method">
                         <label >
                             <input type="radio" name='payment_method' value='paypal'> 
-                            <img src="{% static '/assets/images/PayPal.png' %}" alt="paypal" width='100'>
+                            <img src="{% static 'assets/images/payment logo/images.png' %}" alt="paypal" width='150'>
                         </label>
             </div>
             <div class='text-danger' id="paymet_method_erros"></div>
             <button onclick="return paymentMethod()"; type='submit'   class="w-full bg-gradient-to-r from-[#fbbf24] to-[#fb923c] py-1 font-bold text-lg hover:text-black hover:bg-gray-500 rounded-md text-white">Please Order</button>
-    
+  
           </div>
         </div>
         </form>
