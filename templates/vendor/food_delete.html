@@ -1,23 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="min-h-screen flex items-center justify-center">
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h1 class="text-2xl font-bold mb-4">Delete Food Item</h1>
-            <p class="mb-4">Are you sure you want to delete the food item <span class="font-semibold">{{ food.name }}</span>?</p>
-            <form id="deleteForm" method="post" hx-post="{% url 'delete_food' food.pk %}" hx-target="#foodList" hx-swap="outerHTML">
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-4 text-center">Delete Food Item</h1>
+        <div id="food-delete-content">
+            <form action="{% url 'delete_food' food.id %}" method="POST" class="space-y-4">
                 {% csrf_token %}
+                <p class="text-gray-700">Are you sure you want to delete "{{ food.name }}"?</p>
                 <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                    Yes, Delete
+                    Confirm
                 </button>
-                <a href="{% url 'food_items_by_category' food.category.id %}" class="ml-4 bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded">
-                    Cancel
-                </a>
             </form>
         </div>
     </div>
-    <!-- Container to update with the new food list -->
-    <div id="foodList">
-        {% include "includes/partials/food_items_list_partial.html" %}
-    </div>
+</div>
 {% endblock content %}

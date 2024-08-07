@@ -51,12 +51,13 @@
 				<div class="hidden lg:flex items-center">
 					<!-- add to card button -->
 					{% if user.is_authenticated %}
-          <a href="{% url 'cart' %}" class="hover:text-red-800 mr-6">
+          <a href="{% url 'cart' %}"  class="hover:text-red-800 mr-6">
             <button
               class="py-4 px-1 relative text-gray-800 rounded-full hover:text-gray-400 focus:outline-none focus:text-gray-500 transition duration-150 ease-in-out"
               aria-label="Cart"
             >
               <svg
+			  
                 class="h-8 w-8"
                 fill="none"
                 stroke-linecap="round"
@@ -71,6 +72,7 @@
               </svg>
               <span class="absolute inset-0 object-right-top -mr-6">
                 <div
+				id='cart_counter'
                   class="inline-flex items-center px-1.5 py-0.5  border-white rounded-full text-xs font-semibold leading-4 bg-red-500 text-white"
                 >{{cart_count}}
                 </div>
