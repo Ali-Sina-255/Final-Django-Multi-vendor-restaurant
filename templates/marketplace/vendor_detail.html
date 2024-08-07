@@ -1,216 +1,190 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-      <div
-      class="mb-14 md:h-[300px] h-[250px]"
-     style=" background: url({% if vendor.user_profile.cover_pic %} {{vendor.user_profile.profile_pic.url}} {% else %} {% static 'assets/images/default-cover.PNG' %} {% endif %}) no-repeat scroll 0 0 / cover;"
-      background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    >
-      <div
-        class="bg-opacity-50 bg-slate-900 h-full w-full md:pt-0 pt-6 md:flex items-center"
-      >
-        <!-- image and name -->
-        <div class="flex items-center md:w-1/2 ml-10 md:ml-40">
-          <!-- image -->
-          <div>
-             {% if vendor.user_profile.profile_pic %}
-            <img
-              class="border-2 border-white md:h-[80px] md:w-[80px]"
-              src="{{vendor.user_profile.profile_pic.url }}"
-              alt=""
-            />
-            {% else %}
-            src="{% static 'assets/images/default-profile.PNG' %}
-
-                {% endif%}
-          </div>
-
-          <div class="pl-10 pt-4 text-white/85">
-            <!-- buyer Name -->
-            <a href="#">
-              <h1
-                class="md:text-2xl text-lg font-bold tracking-wide hover:text-red-600"
-              >
-                {{vendor.vendor_name}} {% if not vendor.is_open %} [Closed] {% endif %}
-              </h1>
-            </a>
-
-            <div class="mt-2">
-              <!-- Buyer mobile -->
-              <div class="flex items-center">
-                 {% if vendor.user_profile.address %}
-                <svg
-                  class="w-5 h-7"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  class="size-6"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-                
-                <p class="inline-block pl-3">
-                    <h3>{{vendor.user_profile.address}}</h3>
-                </p>
-                {% endif %}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="flex md:w-1/2 mt-10 items-center justify-center">
-          <div class="md:w-[50%] w-[50%]">
-            <span>Today :</span>
-             {% for hour in current_opening_hours %}
-                                       <span> {% if hour.is_closed %} Closed {% else %}
-                                        {{hour.from_hour}} - {{hour.to_hour}}
-                                         {% endif %}
-                                        </span>
-                                       
-
-                                        {% endfor %}
-          </div>
-          <ul class="delivery-dropdown">
-                                        {% for hour in opening_hours %}
-                                        <li><a href="#"><span class="opend-day">{{hour}}</span> <span class="opend-time"><small>:</small> {% if hour.is_closed %}Closed {% else%} {{hour.from_hour}} - {{hour.to_hour}} {%endif%}</span></a></li>
-                                        {% endfor %}
-                                    </ul>   
-        </div>
+<div
+  class="mb-14 md:h-[300px] h-[250px]"
+  style="background: url({% if vendor.user_profile.cover_pic %} {{vendor.user_profile.cover_pic.url}} {% else %} {% static 'assets/images/default-cover.PNG' %} {% endif %}) no-repeat center/cover;"
+>
+  <div class="bg-opacity-50 bg-slate-900 h-full w-full flex items-center">
+    <!-- Image and Name -->
+    <div class="flex items-center md:w-1/2 ml-10 md:ml-40">
+      <!-- Image -->
+      <div>
+        {% if vendor.user_profile.profile_pic %}
+          <img
+            class="border-2 border-white md:h-[80px] md:w-[80px] h-[60px] w-[60px] rounded-full"
+            src="{{vendor.user_profile.profile_pic.url }}"
+            alt=""
+          />
+        {% else %}
+          <img
+            class="border-2 border-white md:h-[80px] md:w-[80px] h-[60px] w-[60px] rounded-full"
+            src="{% static 'assets/images/default-profile.PNG' %}"
+            alt=""
+          />
+        {% endif %}
       </div>
-    </div>
-    <!-- main body -->
-    <div class="md:flex gap-10">
-      <!-- Aside dashboard  -->
-      <div class="md:w-[25%] md:ml-32 w-full mt-10 md:mb-40 h-fit">
-        <div class="flex md:flex-row flex-col items-center">
-          <ul class="w-full h-auto">
-            <!-- dashboard -->
-            <li class="text-sm font-bold">
-              <a
-                href="#"
-                class="flex items-center py-2 px-4 space-x-4 hover:text-black"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  id="restaurant"
-                >
-                  <path fill="none" d="M0 0h24v24H0V0z"></path>
-                  <path
-                    d="M8.1 13.34l2.83-2.83-6.19-6.18c-.48-.48-1.31-.35-1.61.27-.71 1.49-.45 3.32.78 4.56l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L4.4 19.17c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 14.41l6.18 6.18c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 13l1.47-1.47z"
-                  ></path>
-                </svg>
-                <span class="text-black text-lg tracking-widest"
-                  >Categories</span
-                >
-              </a>
-            </li>
-             {% for category in categories %}
-            <li class="text-sm px-5 border-b-2">
-              <a
-                href="#"
-                class="flex items-center py-2 px-4 space-x-4 hover:text-black"
-              >
-                <span class="text-red-500 text-sm font-medium"
-                  >{{category.category_name}} </span
-                >
-              </a>
-            </li>
-            {% endfor %}
-            
-        
-          </ul>
-        </div>
-      </div>
-      <!-- Suggested restaurant section -->
-      <main class="md:w-[80%] mt-10 w-full mr-32">
-        <div
-          class="bg-[#fff] rounded-tl-lg font-bold text-red-500 text-center px-1 py-2 w-32"
-        >
-          Menu
-        </div>
-        <div class="w-full" style="background-color: #fff">
-          <div class="px-7">
-             
-            <a href="#" class="underline text-red-500"
-              ><h1 class="pt-3 text-lg font-bold">{{category.category_name}}</h1></a
+
+      <div class="pl-10 pt-4 text-white">
+        <!-- Vendor Name -->
+        <h1 class="md:text-2xl text-lg font-bold tracking-wide hover:text-red-600">
+          {{vendor.vendor_name}} {% if not vendor.is_open %} [Closed] {% endif %}
+        </h1>
+
+        {% if vendor.user_profile.address %}
+          <div class="flex items-center mt-2">
+            <svg
+              class="w-5 h-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
             >
-            
+              <path
+                fill-rule="evenodd"
+                d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <p class="pl-3 text-white">
+              {{vendor.user_profile.address}}
+            </p>
           </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="md:w-1/2 mt-10 flex items-center justify-center">
+      <div class="md:w-[50%] w-[50%]">
+        <span>Today :</span>
+        {% for hour in current_opening_hours %}
+          <span>
+            {% if hour.is_closed %} Closed {% else %}
+              {{hour.from_hour}} - {{hour.to_hour}}
+            {% endif %}
+          </span>
+        {% endfor %}
+      </div>
+      <ul class="delivery-dropdown">
+        {% for hour in opening_hours %}
+          <li>
+            <a href="#">
+              <span class="opend-day">{{hour}}</span>
+              <span class="opend-time">
+                <small>:</small>
+                {% if hour.is_closed %} Closed {% else %}
+                  {{hour.from_hour}} - {{hour.to_hour}}
+                {% endif %}
+              </span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Main Body -->
+<div class="md:flex gap-10 w-full">
+  <!-- Sidebar -->
+  <div class="md:w-[25%] mt-10 md:ml-32">
+    <div class="flex flex-col items-start">
+      <ul class="w-full">
+        <!-- Dashboard -->
+        <li class="text-sm border-bottom font-bold">
+          <a href="#" class="flex items-center py-2 px-4 space-x-4 hover:text-black">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path fill="none" d="M0 0h24v24H0V0z"></path>
+              <path
+                d="M8.1 13.34l2.83-2.83-6.19-6.18c-.48-.48-1.31-.35-1.61.27-.71 1.49-.45 3.32.78 4.56l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L4.4 19.17c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 14.41l6.18 6.18c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 13l1.47-1.47z"
+              ></path>
+            </svg>
+            <span class="text-black text-lg tracking-widest">Categories</span>
+          </a>
+        </li>
+        <li class="text-sm px-5 border-b-2">
           {% for category in categories %}
-          <ul class="mt-5 md:px-7 px-5">
-            <!-- items -->
-            {% for food in category.fooditems.all %}
+            <a href="#" class="flex items-center py-2 px-4 space-x-4 hover:text-black">
+              <span class="text-red-500 text-sm font-medium">{{category.category_name}}</span>
+            </a>
+          {% endfor %}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="md:w-[80%] mt-10 w-full mr-32">
+    <div
+      class="bg-[#fff] rounded-tl-lg font-bold text-red-500 text-center px-1 py-2 w-32"
+    >
+      Menu
+    </div>
+    <div class="w-full" style="background-color: #fff">
+      <ul class="px-5 md:px-7">
+        {% for category in categories %}
+          <div class="pb-5">
+            <a href="#" class="underline text-red-500">
+              <h1 class="pt-3 text-lg font-bold">{{category.category_name}} (Update)</h1>
+            </a>
+            <span class="text-gray-400">
+              {{category.description}}
+            </span>
+          </div>
+          <!-- Items -->
+          {% for food in category.fooditems.all %}
             <li class="flex mb-10 border-b pb-4">
-              <div class="">
-                <img
-                  class="w-[80px] h-[80px]"
-                  src="/assets/images/Other Images/fb-restaurant-02.jpg"
-                  alt=""
-                />
+              <div>
+                <img class="w-[80px] h-[80px]" src="{{food.image.url}}" alt="" />
               </div>
-              <div class="ml-5 md:w-[80%] w-[40%]">
-                <h2 class="font-bold text-lg tracking-wider">{{category.category_name}}</h2>
-                  <span>{{category.description}}</span>
-                <span class="text-gray-400">Categori</span>
+              <div class="ml-5 w-[70%]">
+                <h2 class="font-bold text-lg">{{food}}</h2>
+                <span class="text-gray-400">{{food.description}}</span>
               </div>
-              <div class="flex items-center md:w-[20%] w-[30%] justify-between">
-                <div><p>$300.00</p></div>
+              <div class="flex items-center w-[30%] justify-between">
                 <div>
-                  <i
-                    class="flex justify-center cursor-pointer text-red-500 border border-red-500 rounded-[50%] p-1 text-center"
-                    ><svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="size-4"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M5 12h14"
-                      />
-                    </svg>
-                  </i>
+                  <p>${{food.price}}</p>
                 </div>
-                <div><p>0</p></div>
-                <div>
-                  <i
-                    class="flex justify-center cursor-pointer text-red-500 border border-red-500 rounded-[50%] p-1 text-center"
-                    ><svg
+                <div class="flex items-center">
+                  <a href="#" class="text-red-500 border border-red-500 rounded-full p-1 mr-2">
+                    <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
                       stroke="currentColor"
-                      class="size-4"
+                      class="w-5 h-5"
                     >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 4.5v15m7.5-7.5h-15"
-                      />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14"></path>
                     </svg>
-                  </i>
+                  </a>
+                  <p class="text-red-500">0</p>
+                  <a href="#" class="text-red-500 border border-red-500 rounded-full p-1 ml-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-5 h-5"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14"></path>
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14"></path>
+                    </svg>
+                  </a>
                 </div>
               </div>
             </li>
-            {% endfor %}
-
-        </ul>
+          {% endfor %}
         {% endfor %}
-        </div>
-      </main>
+      </ul>
     </div>
-    <!-- footer -->
+  </main>
 
-{% endblock content %}
+</div>
+
+
+{% endblock %}

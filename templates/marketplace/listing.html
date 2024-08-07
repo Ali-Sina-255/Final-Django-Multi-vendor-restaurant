@@ -7,12 +7,12 @@
     <h1 class="text-2xl font-bold">{{ vendor_count }} Restaurants Found</h1>
 
     {% for vendor in vendors %}
-    <div class="flex bg-white h-40 pt-8 my-6 md:w-[90%]">
+    <div class="flex bg-white h-40 pt-8 my-6 md:w-[90%] relative">
       <!-- image -->
       <div class="w-[20%]">
         <div class="img-holder">
           <figure>
-            <a href="#"><img src="{{ vendor.user_profile.profile_pic.url }}" width="100px" height="100px" class="img-list wp-post-image" alt="" /></a>
+            <a href="#"><img src="{{ vendor.user_profile.profile_pic.url }}" class="px-5 h-32 pb-5 " alt="" /></a>
           </figure>
           {% if vendor.is_open %}
           <span class="restaurant-status open"><em class="bookmarkRibbon"></em>Open</span>

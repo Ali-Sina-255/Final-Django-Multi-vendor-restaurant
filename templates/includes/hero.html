@@ -1,27 +1,24 @@
-    <!-- hero section -->
-    <section
+<section style='background-image: url("{{vendor.user_profile.cover_pic.url}}")'
       id="restaurant_dashborad"
-      class="flex items-center justify-center h-[250px] md:h-[300px] md:justify-start shadow-md"
+      class="flex items-center justify-center h-[250px] md:h-[300px] md:justify-start "
     >
-      <div class="wrapper h-auto md:ml-10 lg:ml-36">
-        <div class="md:flex md:ml-0 items-center">
+      <div class="flex w-1/2 justify-between wrapper h-auto md:ml-10 lg:ml-36">
+        <div class="md:flex items-center">
           <!-- image -->
-          <div class="md:ml-10 ml-24 text-center">
+          <div class="ml-10  overflow-hidden">
             <img
-              class="border border-black ml-4 md:w-[200px] md:h-[200px]"
-              src="/assets/images/Other Images/listing-logo18.png"
+              class="border-2 border-white  ml-4 object-cover w-full h-full"
+              src="{{vendor.user_profile.profile_pic.url}}"
               alt=""
             />
           </div>
 
-          <div class="md:pl-10 pt-4 text-center">
+          <div class="md:pl-10 pt-4 text-white">
             <a href="#">
-              <h1 class="text-3xl font-bold hover:text-red-600">
-                Restaurant Demo
-              </h1>
+              <h1 class="text-3xl font-bold">{{vendor.vendor_name}}</h1>
             </a>
 
-            <div class="flex items-center text-center justify-center mt-2">
+            <div class="flex items-center justify-start mt-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -42,10 +39,48 @@
                 />
               </svg>
               <p class="inline-block">
-                <a href="#">Barchi , kabul , Afghanistan</a>
+                <a href="#">{{vendor.user_profile.address}}</a>
+              </p>
+            </div>
+            <!-- Buyer email -->
+            <div class="mt-1 flex items-center justify-center md:justify-start">
+              <svg
+                class="w-5 h-7"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-6"
+              >
+                <path
+                  d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z"
+                />
+                <path
+                  d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z"
+                />
+              </svg>
+              <p class="inline-block pl-3">
+                <a href="#">{{vendor.user.email}}</a>
               </p>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="flex md:w-1/2 mt-10 items-center justify-center">
+        <div class="md:w-[50%] w-[50%]">
+          <select
+            id="day-select"
+            name="day"
+            class="mt-1 block w-full pl-3 pr-10 py-2 rounded-md shadow-md text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+          >
+            <option>Today</option>
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+            <option>Sunday</option>
+          </select>
         </div>
       </div>
     </section>
