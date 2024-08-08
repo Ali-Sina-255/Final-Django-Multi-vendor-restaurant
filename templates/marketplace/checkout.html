@@ -106,19 +106,19 @@
             <div class="flex py-4">
               <div class="">
                 <img
-                  class="w-[80px] h-[80px]"
+                  class="w-[100px] h-[100px] rounded-md"
                   src="{{item.food_item.image.url}}"
                   alt=""
                 />
               </div>
               <div class="ml-5 md:w-[50%] flex flex-col space-y-1 w-[50%]">
                 <h2 class="font-bold text-lg tracking-wider">{{item.food_item|truncatechars:35}} </h2>
-                <span class="text-gray-700">{{item.food_item.description}}</span>
-                <a href="{% url 'vendor_detail' item.food_item.vendor.vendor_slug %}" ><span class=" bg-gradient-to-r from-[#fbbf24] visited:text-purple-900 " style='color:white;width: 150px;'>{{item.food_item.vendor}}</span></a>
+                <span class="text-gray-700 pb-3">{{item.food_item.description}}</span>
+                <a href="{% url 'vendor_detail' item.food_item.vendor.vendor_slug %}" ><span style='background-color:#fbbf24' class='p-2 rounded-md w-fit px-5'>{{item.food_item.vendor}}</span></a>
               </div>
               <div class=" quantity flex gap-x-5 justify-end w-[30%]">
                   <span>{{item.quantity}} QTY</span>
-                <p> <span class="price">$ {{item.food_item.price}}</span></p>
+                <p> <span class="price"> {{item.food_item.price}} AF</span></p>
               </div>
             </div>
             {% endfor %}
@@ -129,17 +129,21 @@
               </div>
               <div class="flex justify-between py-2 font-bold">
                 <span>Total</span>
-                 <span id='grand_total'>{{grand_total}}</span>
+                 <span id='grand_total'>{{grand_total}} AF </span>
               </div>
             </div>
             <div class="mb-4">
               <h1 class="font-bold">Select Payment Method</h1>
-                    <div class=" payment_method">
+                    <div class="flex payment_method gap-x-5 p-5">
                         <label >
                             <input type="radio" name='payment_method' value='paypal'> 
                             <img src="{% static 'assets/images/payment logo/images.png' %}" alt="paypal" width='150'>
                         </label>
-            </div>
+                        <label >
+                          <input type="radio" name='payment_method' value='MasterCard'> 
+                          <img src="{% static 'assets/images/payment logo/mastercard_logo_alternate_lockup.png' %}" alt="paypal" width='150'>
+                      </label>
+                      </div>
             <div class='text-danger' id="paymet_method_erros"></div>
             <button onclick="return paymentMethod()"; type='submit'   class="w-full bg-gradient-to-r from-[#fbbf24] to-[#fb923c] py-1 font-bold text-lg hover:text-black hover:bg-gray-500 rounded-md text-white">Please Order</button>
   
@@ -155,7 +159,7 @@
         $('#paymet_method_erros').html('Please Select Your payment method');
         return false;
        }
-       else{
+       else if {
         var confi = confirm("You have selected " + payment+ ' as your perferred payment method.\nclick "OK" to continue')
         if (confi == true){
             return true;

@@ -39,9 +39,9 @@
                     {% for item in cart_item %}
                     <!--first items -->
                     <li class="flex mb-10 border-b pb-4">
-                      <div class="">
+                      <div class="mt-4 rounded-md">
                         <img
-                          class="w-[80px] h-[80px]"
+                          class="w-[100px] h-[100px] rounded-md"
                           src="{{item.food_item.image.url}}"
                           alt=""
                         />
@@ -52,14 +52,14 @@
                         <h2 class="font-bold text-lg tracking-wider">
                          {{item.food_item|truncatechars:35}}
                         </h2>
-                        <span class="text-gray-700">{{item.food_item.description|truncatechars:50}}</span>
-                        <a href="{% url 'vendor_detail' item.food_item.vendor.vendor_slug %}" class=" bg-gradient-to-r from-[#fbbf24] visited:text-purple-600 ">{{item.food_item.vendor}}</a>
+                        <span class="text-gray-800 pb-2">{{item.food_item.description|truncatechars:50}}</span>
+                        <a href="{% url 'vendor_detail' item.food_item.vendor.vendor_slug %}" style='background-color:#fbbf24' class='p-2 rounded-md w-fit px-5'>{{item.food_item.vendor}}</a>
                         
                       </div>
                       <div
                         class="flex items-center justify-between md:w-[35%] w-[50%]"
                       >
-                        <div><p>${{item.food_item.price}}</p></div>
+                        <div><p>{{item.food_item.price}} AF</p></div>
                         <div>
                           <i
                             class="decrease_cart  flex justify-center md:justify-between cursor-pointer text-red-500 border border-red-500 rounded-[50%] p-1 text-center"

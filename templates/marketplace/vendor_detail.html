@@ -3,7 +3,7 @@
 {% block content %}
 <!-- Hero image background -->
 <div
-class="" style=" height: 380px; background: url({% if vendor.user_profile.cover_pic %} {{vendor.user_profile.cover_pic.url}} {% else %} {% static 'assets/images/default-cover.PNG' %} {% endif %}) no-repeat center/cover;"
+class="mb-14 md:h-[300px] h-[250px]" style="background: url({% if vendor.user_profile.cover_pic %} {{vendor.user_profile.cover_pic.url}} {% else %} {% static 'assets/images/default-cover.PNG' %} {% endif %}) no-repeat center/cover;"
 >
 <div
   class="bg-opacity-50 bg-slate-900 h-full w-full md:pt-0 pt-6 md:flex items-center"
@@ -14,7 +14,7 @@ class="" style=" height: 380px; background: url({% if vendor.user_profile.cover_
     <div>
       {% if vendor.user_profile.profile_pic %}
       <img
-        class="border-2 border-white md:h-[100px] md:w-[100px]"
+        class="border-2 border-white md:h-[80px] md:w-[80px]"
         src="{{vendor.user_profile.profile_pic.url}}"
         alt=""
       />
@@ -55,6 +55,27 @@ class="" style=" height: 380px; background: url({% if vendor.user_profile.cover_
             </svg>
             <p class="pl-3 text-white">
               {{vendor.user_profile.address}}
+            </p>
+            
+          </div>
+          <!-- Buyer email -->
+          <div class="mt-1 flex items-center justify-center md:justify-start">
+            <svg
+              class="w-5 h-7"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="size-6"
+            >
+              <path
+                d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z"
+              />
+              <path
+                d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z"
+              />
+            </svg>
+            <p class="inline-block pl-3">
+              <a href="#">{{vendor.user.email}}</a>
             </p>
           </div>
         {% endif %}
@@ -111,6 +132,7 @@ class="" style=" height: 380px; background: url({% if vendor.user_profile.cover_
                 </span>
             </a>
             </li>
+
             {% endfor %}
           </ul>
         </li>
@@ -118,6 +140,13 @@ class="" style=" height: 380px; background: url({% if vendor.user_profile.cover_
     </div>
   </div>
 </div>
+</div>
+
+     
+    </div>
+  
+    
+  </div>
 </div>
 
 <!-- Main Body -->
@@ -182,6 +211,7 @@ class="" style=" height: 380px; background: url({% if vendor.user_profile.cover_
                 <h2 class="font-bold text-lg">{{food}}</h2>
                 <span class="text-gray-400">{{food.description}}</span>
               </div>
+              {% if vendor.is_open %}
               <div class="flex items-center w-[30%] justify-between">
                 <div>
                   <p>${{food.price}}</p>
@@ -199,7 +229,9 @@ class="" style=" height: 380px; background: url({% if vendor.user_profile.cover_
                       <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14"></path>
                     </svg>
                   </a>
-                  <p class="text-red-500" id='qty-{{food.id}}' >0</p>
+                  <p class="text-red-500" id='qty-{{food.id}}'>0</p>
+                  <!-- Example for a food item -->
+
                   <a href="#" data-id='{{food.id}}' data-url='{% url "add_to_cart" food.id %}' class="add_to_cart text-red-500 border border-red-500 rounded-full p-1 ml-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -213,8 +245,14 @@ class="" style=" height: 380px; background: url({% if vendor.user_profile.cover_
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14"></path>
                     </svg>
                   </a>
+                
+
                 </div>
               </div>
+              {% else %}
+
+              <h1 class='text-red-500 text-lg'>you can not order restaurnatis closle .</h1>
+              {% endif %}
             </li>
           {% endfor %}
         {% endfor %}
@@ -231,10 +269,8 @@ class="" style=" height: 380px; background: url({% if vendor.user_profile.cover_
 
       toggleButton.addEventListener('click', function (event) {
           event.preventDefault();
-         
           dropdownMenu.classList.toggle('hidden');
       });
   });
-
 </script>
 {% endblock %}

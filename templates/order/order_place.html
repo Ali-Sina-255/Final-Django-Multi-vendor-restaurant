@@ -37,7 +37,7 @@
         </div>
         <!-- Your Order Section -->
         <div class="md:w-[50%]">
-            <div class="lg:w-[50%] md:w-[50%]">
+            <div class="lg:w-[70%] md:w-[50%]">
                 <!-- Order title -->
                 <div class="bg-[#fff] flex gap-x-1 items-center justify-center rounded-tl-lg font-bold text-red-500 text-center px-1 py-2 w-32">
                     <div>
@@ -54,18 +54,18 @@
                     {% for item in cart_items %}
                     <div class="flex py-4">
                         <div class="">
-                            <img class="w-[80px] h-[80px]" src="{{item.food_item.image.url}}" alt="" />
+                            <img class="w-[100px] h-[100px] rounded-md" src="{{item.food_item.image.url}}" alt="" />
                         </div>
                         <div class="ml-5 md:w-[50%] flex flex-col space-y-1 w-[50%]">
-                            <h2 class="font-bold text-lg tracking-wider">{{item.food_item|truncatechars:35}}</h2>
-                            <span class="text-gray-700">{{item.food_item.description}}</span>
+                            <h2 class="font-bold text-lg tracking-wider ">{{item.food_item|truncatechars:35}}</h2>
+                            <span class="text-gray-700 pb-2">{{item.food_item.description}}</span>
                             <a href="{% url 'vendor_detail' item.food_item.vendor.vendor_slug %}">
-                                <span class=" bg-gradient-to-r from-[#fbbf24] visited:text-purple-900 " style='color:white;width: 150px;'>{{item.food_item.vendor}}</span>
+                                <span style='background-color:#fbbf24' class='p-2 rounded-md w-fit px-5'>{{item.food_item.vendor}}</span>
                             </a>
                         </div>
                         <div class=" quantity flex gap-x-5 justify-end w-[30%]">
                             <span>{{item.quantity}} QTY</span>
-                            <p><span class="price">$ {{item.food_item.price}}</span></p>
+                            <p><span class="price"> {{item.food_item.price}} AF</span></p>
                         </div>
                     </div>
                     {% endfor %}
@@ -74,7 +74,7 @@
                         <div class="flex justify-between pt-3"></div>
                         <div class="flex justify-between py-2 font-bold">
                             <span>Total</span>
-                            <span id='grand_total'>{{grand_total}}</span>
+                            <span id='grand_total'>{{grand_total}} AF</span>
                         </div>
                     </div>
                     <div id="paypal-button-container"></div>
@@ -113,7 +113,8 @@
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: grand_total  // Replace with the actual amount
+                            value: grand_total,  // Replace with the actual amount
+                            
                         }
                     }]
                 });
