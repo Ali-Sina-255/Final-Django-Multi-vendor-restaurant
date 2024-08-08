@@ -1,9 +1,14 @@
 {% if messages %}
-    <div class="mb-4">
-        {% for message in messages %}
-            <div class="{% if message.tags %}bg-{{ message.tags }}-100 border-{{ message.tags }}-400 text-{{ message.tags }}-700{% endif %} px-4 py-3 rounded relative" role="alert">
-                <span class="block sm:inline">{{ message }}</span>
+    {% for message in messages %}
+        <div class="alert bg-{{ message.tags }}-100 border-l-4 border-{{ message.tags }}-500 text-{{ message.tags }}-700 p-4 show-notifications" role="alert">
+            <div class="flex items-center">
+                <div class="flex-grow">
+                    <strong>{{ message }}</strong>
+                </div>
+                <button type="button" class="ml-4 text-{{ message.tags }}-700 hover:text-{{ message.tags }}-900" data-dismiss="alert" aria-label="close">
+                        <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        {% endfor %}
-    </div>
+        </div>
+    {% endfor %}
 {% endif %}

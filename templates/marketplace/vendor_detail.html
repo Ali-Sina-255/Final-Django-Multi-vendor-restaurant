@@ -1,36 +1,44 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+<!-- Hero image background -->
 <div
-  class="mb-14 md:h-[300px] h-[250px]"
-  style="background: url({% if vendor.user_profile.cover_pic %} {{vendor.user_profile.cover_pic.url}} {% else %} {% static 'assets/images/default-cover.PNG' %} {% endif %}) no-repeat center/cover;"
+class="" style=" height: 380px; background: url({% if vendor.user_profile.cover_pic %} {{vendor.user_profile.cover_pic.url}} {% else %} {% static 'assets/images/default-cover.PNG' %} {% endif %}) no-repeat center/cover;"
 >
-  <div class="bg-opacity-50 bg-slate-900 h-full w-full flex items-center">
-    <!-- Image and Name -->
-    <div class="flex items-center md:w-1/2 ml-10 md:ml-40">
-      <!-- Image -->
-      <div>
-        {% if vendor.user_profile.profile_pic %}
-          <img
-            class="border-2 border-white md:h-[80px] md:w-[80px] h-[60px] w-[60px] rounded-full"
-            src="{{vendor.user_profile.profile_pic.url }}"
-            alt=""
-          />
-        {% else %}
-          <img
-            class="border-2 border-white md:h-[80px] md:w-[80px] h-[60px] w-[60px] rounded-full"
-            src="{% static 'assets/images/default-profile.PNG' %}"
-            alt=""
-          />
-        {% endif %}
-      </div>
+<div
+  class="bg-opacity-50 bg-slate-900 h-full w-full md:pt-0 pt-6 md:flex items-center"
+>
+  <!-- image and name -->
+  <div class="flex items-center md:w-1/2 ml-10 md:ml-40">
+    <!-- image -->
+    <div>
+      {% if vendor.user_profile.profile_pic %}
+      <img
+        class="border-2 border-white md:h-[100px] md:w-[100px]"
+        src="{{vendor.user_profile.profile_pic.url}}"
+        alt=""
+      />
+      {% else %}
+      <img
+      class="border-2 border-white md:h-[80px] md:w-[80px]"
+      src="{{vendor.user_profile.profile_pic.url}}"
+      alt="assets/images/marketplace-bg.webp"
+    />
+      {% endif %}
+    </div>
 
-      <div class="pl-10 pt-4 text-white">
-        <!-- Vendor Name -->
-        <h1 class="md:text-2xl text-lg font-bold tracking-wide hover:text-red-600">
-          {{vendor.vendor_name}} {% if not vendor.is_open %} [Closed] {% endif %}
+    <div class="pl-10 pt-4 text-white/85">
+      <!-- buyer Name -->
+      <a href="#">
+        <h1
+          class="md:text-2xl text-lg font-bold tracking-wide hover:text-red-600"
+        >
+        {{vendor.vendor_name}} {% if not vendor.is_open %} [Closed] {% endif %}
         </h1>
+      </a>
 
+      <div class="mt-2">
+        <!-- Buyer mobile -->
         {% if vendor.user_profile.address %}
           <div class="flex items-center mt-2">
             <svg
@@ -52,34 +60,64 @@
         {% endif %}
       </div>
     </div>
-    <div class="md:w-1/2 mt-10 flex items-center justify-center">
-      <div class="md:w-[50%] w-[50%]">
-        <span>Today :</span>
-        {% for hour in current_opening_hours %}
-          <span>
-            {% if hour.is_closed %} Closed {% else %}
-              {{hour.from_hour}} - {{hour.to_hour}}
-            {% endif %}
+  </div>
+  <div class="relative w-72 inline-block text-center">
+    <div class="delivery-timing reviews-sortby">
+      <ul class="relative">
+        <li class="relative">
+          <a
+            href="#"
+            class="reviews-sortby-active flex items-center justify-between py-2 px-4 bg-gray-100"
+          >
+            <span>Today :</span>
+            {% for hour in current_opening_hours %}
+            <span>
+              {% if hour.is_closed %} 
+                  Closed 
+              {% else %}
+                  {{ hour.from_hour }} - {{ hour.to_hour }}
+              {% endif %}
           </span>
-        {% endfor %}
-      </div>
-      <ul class="delivery-dropdown">
-        {% for hour in opening_hours %}
-          <li>
-            <a href="#">
-              <span class="opend-day">{{hour}}</span>
-              <span class="opend-time">
-                <small>:</small>
-                {% if hour.is_closed %} Closed {% else %}
-                  {{hour.from_hour}} - {{hour.to_hour}}
-                {% endif %}
-              </span>
+      {% endfor %}
+            
+            <span class="ms-2 w-2 [&>svg]:h-5 [&>svg]:w-5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </a>
+          <ul
+            class="delivery-dropdown bg-gray-100 absolute left-0 w-full z-10 hidden"
+          >
+          {% for hour in opening_hours %}
+            <li>
+              <a href="#" class="flex items-center justify-between py-2 px-4 hover:bg-gray-100">
+                <span class="opend-day">{{ hour }}</span>
+                <span class="opend-time">
+                    <small>:</small> 
+                    {% if hour.is_closed %}
+                        Closed 
+                    {% else %}
+                        {{ hour.from_hour }} - {{ hour.to_hour }}
+                    {% endif %}
+                </span>
             </a>
-          </li>
-        {% endfor %}
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
       </ul>
     </div>
   </div>
+</div>
 </div>
 
 <!-- Main Body -->
@@ -128,7 +166,7 @@
         {% for category in categories %}
           <div class="pb-5">
             <a href="#" class="underline text-red-500">
-              <h1 class="pt-3 text-lg font-bold">{{category.category_name}} (Update)</h1>
+              <h1 class="pt-3 text-lg font-bold">{{category.category_name}}</h1>
             </a>
             <span class="text-gray-400">
               {{category.description}}
@@ -149,7 +187,7 @@
                   <p>${{food.price}}</p>
                 </div>
                 <div class="flex items-center">
-                  <a href="#" class="text-red-500 border border-red-500 rounded-full p-1 mr-2">
+                  <a href="#" data-id='{{food.id}}' data-url='{% url "decrease_cart" food.id %}'  class="decrease_cart text-red-500 border border-red-500 rounded-full p-1 mr-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -161,8 +199,8 @@
                       <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14"></path>
                     </svg>
                   </a>
-                  <p class="text-red-500">0</p>
-                  <a href="#" class="text-red-500 border border-red-500 rounded-full p-1 ml-2">
+                  <p class="text-red-500" id='qty-{{food.id}}' >0</p>
+                  <a href="#" data-id='{{food.id}}' data-url='{% url "add_to_cart" food.id %}' class="add_to_cart text-red-500 border border-red-500 rounded-full p-1 ml-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -186,5 +224,17 @@
 
 </div>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const toggleButton = document.querySelector('.reviews-sortby-active');
+      const dropdownMenu = document.querySelector('.delivery-dropdown');
 
+      toggleButton.addEventListener('click', function (event) {
+          event.preventDefault();
+         
+          dropdownMenu.classList.toggle('hidden');
+      });
+  });
+
+</script>
 {% endblock %}

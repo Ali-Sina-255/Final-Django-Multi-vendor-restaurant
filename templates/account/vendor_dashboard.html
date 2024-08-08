@@ -88,6 +88,7 @@
                 <b><a href="{% url 'vendor_order_detail' order.order_number %}" class='text-dark'>{{order.order_number}}</a></b>
               </div>
               <div class="flex-1 flex items-center justify-center p-4">
+                
                 {{order.name}}
               </div>
               <div class="flex-1 flex items-center justify-center p-4">
@@ -97,7 +98,7 @@
                 {{order.status}}
               </div>
               <div class="flex-1 flex items-center justify-center p-4">{{order.created_at}}</div>
-              <div class="bg-[#ea580c] flex-1 flex items-center justify-center p-4">
+              <div class="flex-1 flex items-center justify-center p-4">
                 <a style='background-color: #ea580c;' href="{% url 'vendor_order_detail' order.order_number %}" class='px-5 py-1 rounded-md '>Details</a>
               </div>
             </li>
