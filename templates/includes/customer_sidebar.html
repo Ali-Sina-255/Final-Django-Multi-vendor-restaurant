@@ -1,4 +1,5 @@
 <!-- Aside dashboard  -->
+
       <div
         class="md:w-[20%] lg:w-[25%] md:shadow-md md:border-t-4 md:bg-[#fff] md:ml-5 lg:ml-32 mt-6 md:mt-16 h-fit"
       >
@@ -7,7 +8,7 @@
             <!-- dashboard -->
             <li class="text-sm font-bold border-b-2">
               <a
-                href="buyer-dashboard.html"
+                href="{% url 'customer_dashboard' %}"
                 class="flex items-center py-2 px-4 hover:text-black"
               >
                 <svg
@@ -26,7 +27,7 @@
 
             <!-- --------MY ORDER------ -->
             <li class="text-sm font-bold border-b-2 hover:text-red-700">
-              <a href="My_Orders.html" class="flex items-center py-2 px-4">
+              <a href="{% url 'my_order' %}" class="flex items-center py-2 px-4">
                 <svg
                   class="w-6 h-6 mr-4"
                   xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +45,7 @@
             <!-- ------ACCOUNTSETTING -->
             <li class="text-sm font-bold border-b-2 hover:text-red-700">
               <a
-                href="account_setting.html"
+                href="{% url 'c_profile' %}"
                 class="flex items-center py-2 px-4"
               >
                 <svg

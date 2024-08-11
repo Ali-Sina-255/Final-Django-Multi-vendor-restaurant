@@ -8,250 +8,191 @@
 		<section class="pt-6 md:pt-10" id="top_wrapper_restaurant">
 			<!-- name -->
 			<h1>TOP RESTAUANT</h1>
-			<p>Explore restaurants, bars, and cafés by locality</p>
-			<div class="" id="top-restaurant">
-				<div class="wrapper">
-					<i id="left" class="fa-solid fa-angle-left"></i>
+			<p class='mx-80 text-center'>Top restaurants offer more than just meals; they create unforgettable dining experiences with exceptional cuisine, ambiance, and service. These establishments combine creativity, attention to detail, and an atmosphere that satisfies all the senses.</p>
+			<div class="pt-5" id="top-restaurant">
+					<div class="wrapper">
+					<i id="left" class="fa-solid fa-angle-left border border-black"></i>
 					<ul class="carousel">
+						{% for vendor in vendors %}
 						<li class="card">
 							<div class="img">
-								<img
-									src="/assets/images/topRestaurant_img/image1.jpg"
-									alt="img"
-									draggable="false"
-								/>
+								<a href="{% url 'vendor_detail' vendor.vendor_slug %}">
+									{% if vendor.user_profile.profile_pic %}
+
+									<img
+										src="{{vendor.user_profile.profile_pic.url}}"
+										alt="img"
+										draggable="false"
+									/>
+									{% else %}
+									<img
+										src="{%  static 'assets/images/default-profile.PNG' %}"
+										alt="img"
+										draggable="false"
+									/>
+									{% endif %}
+								</a>
 							</div>
-							<h2>Home Restaurant</h2>
+							<h2 class='mt-6 '>{{vendor.vendor_name}}</h2>
 						</li>
-						<li class="card">
-							<div class="img">
-								<img
-									src="/assets/images/topRestaurant_img/image2.jfif"
-									alt="img"
-									draggable="false"
-								/>
-							</div>
-							<h2>2GO Organic</h2>
-						</li>
-						<li class="card">
-							<div class="img">
-								<img
-									src="/assets/images/topRestaurant_img/image3.png"
-									alt="img"
-									draggable="false"
-								/>
-							</div>
-							<h2>Melty Way</h2>
-						</li>
-						<li class="card">
-							<div class="img">
-								<img
-									src="/assets/images/topRestaurant_img/image4.jpeg"
-									alt="img"
-									draggable="false"
-								/>
-							</div>
-							<h2>Pizza Hub</h2>
-						</li>
-						<li class="card">
-							<div class="img">
-								<img
-									src="/assets/images/topRestaurant_img/image5.png"
-									alt="img"
-									draggable="false"
-								/>
-							</div>
-							<h2>The Red Cofee</h2>
-						</li>
-						<li class="card">
-							<div class="img">
-								<img
-									src="{% static 'assets/images/topRestaurant_img/image6.png' %}"
-									alt="img"
-									draggable="false"
-								/>
-							</div>
-							<h2>Ait Cofee</h2>
-						</li>
+				{% endfor %}
+						
 					</ul>
-					<i id="right" class="fa-solid fa-angle-right"></i>
+					<i id="right" class="fa-solid fa-angle-right border border-black"></i>
 				</div>
 			</div>
 		</section>
 		<!-- Popular Restaurant ------------------------------------------- --> 
-		<section class="md:h-72 md:mx-24 mx-10 border-t-2 md:border-t-0 md:mt-10">
+		<section class="md:mx-24 mx-10 border-t-2 md:border-t-0 md:mt-10 pb-10">
+			<!-- Title -->
+			<div id="element-title" class="text-center mb-10">
+			  <h2 class="md:text-2xl text-xl font-bold pb-1 pt-3">
+				Choose From Most Popular Restaurants
+			  </h2>
+			  <p class="text-lg md:text-sm">
+					Discover the top-rated restaurants with the most popular dishes. Satisfy your cravings with our handpicked selections.
+			  </p>
+			</div>
+			<!-- Card for Restaurant -->
+			<div class="">
+			  <ul class="w-full gap-x-10 items-center justify-evenly flex flex-wrap">
+				{%for vendor in vendors %}
+				<li class="flex md:w-[48%] w-full mt-5" style='width: 48%;'>
+				  <div
+					class="relative flex bg-white w-full shadow-md items-center h-44 px-7 rounded-md"
+				  >
+					<!-- Image -->
+					<div class="w-[20%]">
+					  <div class="img-holder">
+						{% if vendor.user_profile.profile_pic %}
+						<figure>
+						  <a href="#">
+							<img
+							  src="{{vendor.user_profile.profile_pic.url}}"
+							  style="width: 100px; height: 100px;"
+							  class="img-list wp-post-image rounded-md"
+							  alt=""
+							/>
+						  </a>
+						</figure>
+						{% else %}
+						<figure>
+							<a href="#">
+							  <img
+								src="{%  static 'assets/images/default-profile.PNG' %}"
+								width="100px"
+								height="100px"
+								class="img-list wp-post-image "
+								style='width: 160px;height:160px'
+								alt=""
+							  />
+							</a>
+						  </figure>
+
+						{% endif%}
+						{% if vendor.is_open %}
+						<span
+						  class="restaurant-status absolute -left-2 text-white flex text-sm px-2 before:border-t-2 top-2 bg-[#ed1b24]"
+						  ><em class="bookmarkRibbon"></em>Open</span
+						>
+						{% else %}
+						<span
+						  class="restaurant-status close absolute -left-2 text-white flex text-sm px-2 before:border-t-2 top-2 bg-[#ed1b24]"
+						  ><em class="bookmarkRibbon"></em>Close</span
+						>
+						{% endif %}
+					  </div>
+					</div>
+					<!-- Rating star -->
+					<div class="pl-3 pt-4 w-[50%]">
+						<h1 class='pl-1 font-bold'>
+
+							<a href="{% url 'vendor_detail' vendor.vendor_slug %}">{{vendor}}</a>
+						</h1>
+						<div class="flex items-center gap-x-2 justify-start mt-2">
+							<svg
+							  xmlns="http://www.w3.org/2000/svg"
+							  fill="none"
+							  viewBox="0 0 24 24"
+							  stroke-width="1.5"
+							  stroke="currentColor"
+							  class="w-6 h-6 "
+							>
+							  <path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+							  />
+							  <path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+							  />
+							</svg>
+							
+							<span>{{vendor.user_profile.address}}</span>
+						  </div>
+					</div>
+				  </div>
+				</li>
+				{% endfor %}
+				
+			  </ul>
+			</div>
+		  </section>
+		{% comment %} <section class="md:h-72 md:mx-24 mx-10 border-t-2 md:border-t-0 md:mt-10">
 			<!-- Title -->
 			<div id="element-title" class="text-center mb-5">
 				<h2 class="md:text-2xl text-xl font-bold pb-1 pt-3">
 					Choose From Most Popular Restaurants
 				</h2>
 				<p class="text-lg md:text-sm">
-					Cum doctus civibus efficiantur in imperdiet deterruisset.
 				</p>
 			</div>
 			<!-- Card for Restaurant -->
 			<div class="md:grid md:grid-cols-2 gap-4">
+				{% for vendor in vendors %}
 				<!-- inside Card -->
 				<!-- first card -->
 				<div class="flex mb-5 shadow-lg bg-white h-44 pt-8 border">
 					<!-- image -->
+					{% if vendor.user_profile.profile_pic %}
 					<div>
+
 						<img
 							class="border ml-4"
-							src="/assets/images/Other Images/listing-logo18.png"
+							src="{{vendor.user_profile.profile_pic.url}}"
 							alt=""
 							width="100px"
 							height="100px"
 						/>
 					</div>
+
+					{% else %}
+					<div>
+						<img
+							class="border ml-4 "
+							src="{%  static 'assets/images/default-profile.PNG' %}"
+							alt=""
+							width="100px"
+							height="100px"
+						/>
+					</div>
+					{% endif %}
+
+
 					<!-- Rating star -->
 					<div class="pl-2 pt-4">
-						<div class="flex items-center">
-							<svg
-								class="w-4 h-4 text-yellow-300 ms-1"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor"
-								viewBox="0 0 22 20"
-							>
-								<path
-									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-								/>
-							</svg>
-							<svg
-								class="w-4 h-4 text-yellow-300 ms-1"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor"
-								viewBox="0 0 22 20"
-							>
-								<path
-									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-								/>
-							</svg>
-							<svg
-								class="w-4 h-4 text-yellow-300 ms-1"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor"
-								viewBox="0 0 22 20"
-							>
-								<path
-									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-								/>
-							</svg>
-							<svg
-								class="w-4 h-4 text-yellow-300 ms-1"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor"
-								viewBox="0 0 22 20"
-							>
-								<path
-									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-								/>
-							</svg>
-							<svg
-								class="w-4 h-4 ms-1 text-gray-300 dark:text-gray-500"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor"
-								viewBox="0 0 22 20"
-							>
-								<path
-									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-								/>
-							</svg>
-						</div>
 						<a href="#">
 							<h1 class="text-lg font-bold hover:text-red-600">
-								Restaurant Demo
+								{{vendor}}
 							</h1>
 						</a>
-						<span>Type of food : Apple Juice</span>
+						<span>{{vendor.user_profile.address}}</span>
 					</div>
 				</div>
 				<!-- second Card -->
-				<div class="flex shadow-lg bg-white h-44 pt-8 border">
-					<div>
-						<img
-							class="border ml-4"
-							src="/assets/images/Other Images/fb-restaurant-02.jpg "
-							alt=""
-							width="100px"
-							height="100px"
-						/>
-					</div>
-					<!-- Rating star -->
-					<div class="pl-7 pt-4">
-						<div class="flex items-center">
-							<svg
-								class="w-4 h-4 text-yellow-300 ms-1"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor"
-								viewBox="0 0 22 20"
-							>
-								<path
-									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-								/>
-							</svg>
-							<svg
-								class="w-4 h-4 text-yellow-300 ms-1"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor"
-								viewBox="0 0 22 20"
-							>
-								<path
-									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-								/>
-							</svg>
-							<svg
-								class="w-4 h-4 text-yellow-300 ms-1"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor"
-								viewBox="0 0 22 20"
-							>
-								<path
-									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-								/>
-							</svg>
-							<svg
-								class="w-4 h-4 text-yellow-300 ms-1"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor"
-								viewBox="0 0 22 20"
-							>
-								<path
-									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-								/>
-							</svg>
-							<svg
-								class="w-4 h-4 ms-1 text-gray-300 dark:text-gray-500"
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor"
-								viewBox="0 0 22 20"
-							>
-								<path
-									d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-								/>
-							</svg>
-						</div>
-						<a href="#">
-							<h1 class="text-lg font-bold hover:text-red-500">
-								Classic Restaurant
-							</h1>
-						</a>
-						<span
-							>Type of food : Chicken Roast, Chines Soup, Cold Coffee, Cold
-							Drink, Hot Dogs</span
-						>
-					</div>
-				</div>
+				{% endfor %}
 			</div>
-		</section>
+		</section> {% endcomment %}
 		{% endblock %}

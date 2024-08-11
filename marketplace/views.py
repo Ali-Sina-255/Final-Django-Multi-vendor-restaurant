@@ -162,11 +162,13 @@ def delete_cart_view(request, cart_id):
         if request.headers.get("x-requested-with") == "XMLHttpRequest":
             try:
                 cart_item = Cart.objects.get(user=request.user, id=cart_id)
+                cart = request.session.get('cart', {})
                 if cart_item:
                     cart_item.delete()
                     return JsonResponse(
                         {
                             "status": "success",
+                            "cart":cart,
                             "message": "cart item has been deleted",
                             "cart_counter": get_cart_counter(request),
                             "cart_amount": get_cart_amounts(request),

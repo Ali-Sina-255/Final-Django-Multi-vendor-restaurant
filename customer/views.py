@@ -8,8 +8,6 @@ from orders.models import Order, OrderedFood
 
 # Create your views here.
 login_required(login_url="login")
-
-
 def customer_profile_view(request):
     profile = get_object_or_404(UserProfile, user=request.user)
     if request.method == "POST":

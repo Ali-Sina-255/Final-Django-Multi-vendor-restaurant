@@ -111,3 +111,34 @@
  .restaurant-status .bookmarkRibbon { width: 10px; height: 0px; border-top: 10px solid #3ab54b; border-bottom: 10px solid #3ab54b; border-right: 5px solid transparent; position: absolute; top: 0; right: -6px; }
  .restaurant-status.close .bookmarkRibbon { border-top: 10px solid #ed1b24; border-bottom: 10px solid #ed1b24; }
 
+
+ .dt-layout-row{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding-right: 5px;
+ }
+ #dt-length-0{
+  width: 100px;
+  padding: 6px;
+ }
+
+ .dt-input {
+  
+  padding: 2px;
+
+ }
+ .dt-search  .dt-input{
+  margin-left: 6px;
+  width: 250px;
+  border: 2px solid black;
+  outline: none;
+  border-radius: 4px;
+ }
+ .dt-search label{
+  font-size: 1.5rem;
+  padding-bottom: 10px;
+ }
+ .dt-layout-row {
+  padding: 0 14px ;
+ }

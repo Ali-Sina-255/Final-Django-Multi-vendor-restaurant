@@ -4,18 +4,20 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.template.defaultfilters import slugify
 from django.http import HttpResponse, JsonResponse
-
+from django.urls import reverse
 from accounts.models import UserProfile
 from accounts.forms import UserProfileForm
 from accounts.views import check_rol_vendor
 from menu.models import Category, FootItem
 from orders.models import Order, OrderedFood
+from django.views.decorators.http import require_http_methods
+from django.template.loader import render_to_string
 
 from .forms import VendorRegisterForm, OpeningHoursForm
 from .models import Vendor, OpeningHour
 from menu.forms import CategoryForm, FoodItemForm
 from menu.models import FootItem
-
+from django.views.decorators.csrf import csrf_exempt
 
 def get_vendor(request):
     vendors = Vendor.objects.filter(user=request.user)
@@ -78,9 +80,9 @@ def food_items_by_category(request, pk=None):
     return render(request, "vendor/food_items_by_category.html", context)
 
 
-@login_required(login_url="login")
-@user_passes_test(check_rol_vendor)
-def add_category(request):
+# @login_required(login_url="login")
+# @user_passes_test(check_rol_vendor)
+# def add_category(request):
     if request.method == "POST":
         form = CategoryForm(request.POST)
         if form.is_valid():
@@ -102,11 +104,42 @@ def add_category(request):
 
 @login_required(login_url="login")
 @user_passes_test(check_rol_vendor)
+def add_category(request):
+    if request.method == "POST":
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            category_name = form.cleaned_data["category_name"]
+            category = form.save(commit=False)
+            category.vendor = get_vendor(request)
+            category.slug = slugify(category_name)
+            form.save()
+            messages.success(request, "Your category has been added successfully.")
+            if request.headers.get("x-requested-with") == "XMLHttpRequest":
+                return JsonResponse({"success": True, "message": "Your category has been added successfully."})
+            else:
+                return redirect("menu_builder")
+        else:
+            if request.headers.get("x-requested-with") == "XMLHttpRequest":
+                return JsonResponse({"success": False, "errors": form.errors})
+    else:
+        form = CategoryForm()
+
+    context = {"form": form}
+    return render(request, "vendor/add_category.html", context)
+
+
+@login_required(login_url="login")
+@user_passes_test(check_rol_vendor)
+@require_http_methods(["POST", "GET"])
 def edit_category(request, pk):
     try:
         category = Category.objects.get(pk=pk)
     except Category.DoesNotExist:
-        return HttpResponse(f"category with is {pk} is not Found ")
+        if request.headers.get("x-requested-with") == "XMLHttpRequest":
+            return JsonResponse({"status": "error", "message": "Category not found"}, status=404)
+        else:
+            return redirect("menu_builder")
+    
     if request.method == "POST":
         form = CategoryForm(request.POST, instance=category)
         if form.is_valid():
@@ -114,27 +147,37 @@ def edit_category(request, pk):
             category_title = form.cleaned_data["category_name"]
             category.vendor = get_vendor(request)
             category.slug = category_title
-            form.save()
-            messages.success(request, "your category is update")
-            return redirect("menu_builder")
+            category.save()
+            
+            if request.headers.get("x-requested-with") == "XMLHttpRequest":
+                return JsonResponse({"status": "success", "message": "Category updated successfully"})
+            else:
+                messages.success(request, "Your category has been updated")
+                return redirect("menu_builder")
         else:
-            print(form.errors)
-            messages.error(request, "your category is not updated")
-            return redirect("edit_category")
+            if request.headers.get("x-requested-with") == "XMLHttpRequest":
+                return JsonResponse({"status": "error", "message": "Form is not valid", "errors": form.errors}, status=400)
+            else:
+                messages.error(request, "Your category could not be updated")
+                return redirect("edit_category")
     else:
         form = CategoryForm(instance=category)
-
+    
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        return JsonResponse({"status": "success", "html": render_to_string("vendor/edit_category_form.html", {"form": form}, request=request)})
+    
     context = {"form": form, "category": category}
     return render(request, "vendor/edit_category.html", context)
 
 
-@login_required(login_url="login")
-@user_passes_test(check_rol_vendor)
+@require_http_methods(["DELETE"])
 def delete_category(request, pk):
-    category = get_object_or_404(Category, pk=pk)
-    category.delete()
-    messages.success(request, "your category has been deleted successfully")
-    return redirect("menu_builder")
+    try:
+        category = Category.objects.get(pk=pk)
+        category.delete()
+        return JsonResponse({'status': 'success', 'id': pk, 'message': 'Category deleted successfully'})
+    except Category.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'Category not found'})
 
 
 @login_required(login_url="login")
@@ -271,9 +314,6 @@ def remove_opening_hour_view(request, pk=None):
             return JsonResponse({"status": "success", "id": pk})
 
 
-def review_view(request, restaurant_id):
-    pass
-
 
 def vendor_order_details_view(request, order_number):
     try:
@@ -281,7 +321,6 @@ def vendor_order_details_view(request, order_number):
         ordered_food = OrderedFood.objects.filter(
             order=order, food_item__vendor=get_vendor(request)
         )
-
         context = {
             "order": order,
             "ordered_food": ordered_food,
@@ -296,6 +335,9 @@ def vendor_order_details_view(request, order_number):
 def my_order_view(request):
     vendor = Vendor.objects.get(user=request.user)
     orders = Order.objects.filter(vendors__in=[vendor.id], is_order=True)
-
-    context = {"orders": orders}
+    total_order = 0
+    for order in orders:
+        total_order += order.get_total_by_vendor()['grand_total']
+        
+    context = {"orders": orders,"total_order":total_order}
     return render(request, "vendor/my_order.html", context)

@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <!-- User Register -->
+
+    <div class="h-fit flex justify-center py-5">
+       
+      <div class="px-4 max-w-3xl w-full border rounded bg-white">
+        <!-- restaurant logo -->
+        <div class="mt-2">
+          <img
+            class="h-14 "
+            src="{% static 'assets/images/logo/foodOnlineLogo.png' %}"
+            alt=""
+          />
+        </div>
+        <!-- info customer -->
+        <div class="flex w-full justify-between mt-3">
+          <div class="w-[60%]">
+            <p class="text-lg font-bold tracking-wider ">
+              Thank You for Your Order .
+            </p>
+          </div>
+          <div class="w-[40%] flex flex-col items-end">
+            <p class='mb-0'>{{order.name}}</p>
+                    <p class='mb-0'>{{order.address}}</p>
+                    <p class='mb-0'>{{order.phone_number}}</p>
+                    <p class='mb-0'>{{order.email}}</p>
+                    
+          </div>
+        </div>
+
+        <div class="border-b py-2">
+          <p class="font-bold text-sm">
+            <h6>Hello{{order.name}}, Review your order details bellow</h6>
+          </p>
+        </div>
+        <!-- order details -->
+
+        <div
+          class="flex w-full justify-between text-sm border-b py-3 gap-x-2 md:gap-x-4 pt-4"
+        >
+          <div class="w-1/4 mr-5">
+            <h1 class='pb-3'>Order Date :</h1>
+            <span class="font-bold ">{{order.created_at}}</span>
+          </div>
+          <div class="w-1/4">
+            <h1 class='pb-3'>Ordered Number :</h1>
+            <span class="font-bold">{{order.order_number}}</span>
+          </div>
+          <div class="w-1/4">
+            <h1 class='pb-3'>Payment Method:</h1>
+            <span class="font-bold">{{order.payment_method}}</span>
+          </div>
+          <div class="w-1/4">
+            <h1 class='pb-3'>Transaction Id :</h1>
+            <span class="font-bold">{{order.payment.transaction_id}}</span>
+          </div>
+        </div>
+        <!-- order info -->
+
+
+        <div class="flex justify-center mt-5">
+          <div class="w-full px-5">
+            <table class="w-full table-fixed">
+
+            {% for item in ordered_food %}
+              <tr class="h-28">
+                <td class="text-start w-1/10"></td>
+                <td class="text-center w-2/12">
+                  <img className='object-fill' src="{{item.food_item.image.url}}" alt="Food Images" width='100' srcset="">
+                </td>
+                <td class="text-center w-4/12">
+                  <p class="font-bold">{{item.food_item|truncatechars:15}}</p>
+                  <a  class= 'text-muted' href="{% url 'vendor_detail' item.food_item.vendor.vendor_slug %}">{{item.food_item.vendor.vendor_name}}</a>
+                </td>
+                <td class="text-center w-3/12">
+                  <p>{{item.quantity}} QTY</p>
+                </td>
+                <td class="w-2/12"><p>{{item.price}} Af</p> </td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+        <!--  -->
+        <div class="flex w-full pt-10">
+          <div class="w-1/2 flex justify-start pl-14">
+            <img
+              class="w-44 h-44"
+              src="{% static 'assets/images/payment logo/paid.jpeg' %}"
+              alt=""
+            />
+          </div>
+          <div class="w-1/2">
+            <div class="pr-16">
+              <div class="flex justify-between py-2">
+                <span>Total</span>
+                <span>{{subtotal}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-between mt-5 border-t pt-5">
+          <div>
+            <p class="font-bold">Thank for ordering with us.</p>
+            <p class="text-sm text-gray-400">FoodOnline Team</p>
+          </div>
+          <div>
+            <p class="font-bold">Need Help ?</p>
+            <p class="text-gray-400">Call <span>+93772 387 935</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}

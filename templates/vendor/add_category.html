@@ -25,7 +25,7 @@
         </div>
         <!-- Menu list -->
         <div class="w-full mt-4">
-            <form method="POST" class="bg-white p-6 rounded shadow-md w-full">
+            <form method="POST" class="bg-white p-6 rounded shadow-md w-full" id="categoryForm">
                 {% csrf_token %}
                 <div class="mb-4">
                     <label for="category_name" class="block text-gray-700 text-sm font-bold mb-2">Category Title</label>
@@ -41,6 +41,35 @@
             </form>
         </div>
         {% include 'includes/messages.html' %}
+        <div id="ajaxResponse"></div> <!-- For displaying AJAX response messages -->
     </main>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#categoryForm').on('submit', function(e){
+            e.preventDefault();
+            var form = $(this);
+            $.ajax({
+                type: form.attr('method'),
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function(response){
+                    if(response.success){
+                        // Redirect to the menu builder page
+                        window.location.href = "{% url 'menu_builder' %}";
+                    } else {
+                        var errors = '<ul>';
+                        for (var field in response.errors) {
+                            errors += '<li>' + response.errors[field][0] + '</li>';
+                        }
+                        errors += '</ul>';
+                        $('#ajaxResponse').html('<div class="alert alert-danger">' + errors + '</div>');
+                    }
+                }
+            });
+        });
+    });
+</script>
 {% endblock content %}

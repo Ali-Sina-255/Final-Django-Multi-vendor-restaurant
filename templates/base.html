@@ -13,9 +13,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
     {% comment %} <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> {% endcomment %}
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css" rel="stylesheet">
 
     <title>Multi Vendor Restaurant</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
 
     
 </head>
@@ -38,12 +38,11 @@
     <script src="https://unpkg.com/htmx.org@1.8.5"></script>
     <script src="//cdn.datatables.net/2.1.2/js/dataTables.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            $('#order_table').DataTable();
-        });
-    </script>
-    <script src="https://cdn.tailwindcss.com"></script>
+<script>
+    $(document).ready(function() {
+        $('#order_table').DataTable();
+    });
+</script>
   <script>
     tailwind.config = {
       theme: {
@@ -55,5 +54,11 @@
       }
     }
   </script>
+  <script>
+    document.addEventListener('htmx:configRequest', function(event) {
+        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    });
+</script>
+
 </body>
 </html>

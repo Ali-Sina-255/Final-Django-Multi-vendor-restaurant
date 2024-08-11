@@ -38,9 +38,11 @@ class UserProfileForm(forms.ModelForm):
         )
     )
     profile_pic = forms.FileField(
-        widget=forms.FileInput(attrs={"class": "btn btn-info"})
+        widget=forms.FileInput(attrs={"class": "bg-blue-500 text-white rounded-md py-2 px-4"})
     )
-    cover_pic = forms.FileField(widget=forms.FileInput(attrs={"class": "btn btn-info"}))
+    cover_pic = forms.FileField(
+        widget=forms.FileInput(attrs={"class": "bg-blue-500 text-white rounded-md py-2 px-4"})
+    )
 
     class Meta:
         model = UserProfile
@@ -62,7 +64,7 @@ class UserProfileForm(forms.ModelForm):
 
         for visible in self.visible_fields():
             visible.field.widget.attrs["class"] = (
-                "px-5 form-control border rounded-lg py-2 px-3 w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                "px-4 py-2 border border-gray-300 rounded-lg w-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             )
 
 
@@ -70,3 +72,10 @@ class UserInForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ["first_name", "last_name", "phone_number"]
+
+    def __init__(self, *args, **kwargs):
+        super(UserInForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs["class"] = (
+                "px-4 py-2 border border-gray-300 rounded-lg w-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            )

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% include "includes/hero.html" %}
+{% comment %} {% include "includes/hero.html" %} {% endcomment %}
   <!-- Main dashboard -->
     <div class="md:flex md:gap-5 lg:gap-10 mb-10 md:mb-40">
        {% include "includes/vendor_sidebar.html" %}
@@ -48,66 +48,49 @@
         <div
           class="flex md:gap-10 items-center justify-between w-full h-16"
         >
-          <div class="recent_order items-center ml-5 md:ml-10">
+          <div class="recent_order items-center md:ml-10">
             <h1 class="font-bold text-lg">RECENT ORDERS</h1>
           </div>
           
-        </div><table id='my_order'>
-
-        </table>
-      <div class="order_items">
-          <ul class="w-full">
-            <li class="flex items-center h-12 border bg-gray-100 font-bold">
-              <div class="flex-1 flex items-center justify-center p-4">
-                Order Id
-              </div>
-              <div class="flex-1 flex items-center justify-center p-4">
-                Name
-              </div>
-              <div class="flex-1 flex items-center justify-center p-4">
-                Total Price
-              </div>
-              <div class="flex-1 flex items-center justify-center p-4">
-                Status
-              </div>
-              <div class="flex-1 flex items-center justify-center p-4">
-                Date
-              </div>
-              <div class="flex-1 flex items-center justify-center p-4">
-                Status
-              </div>
-            </li>
-            
-            {% for order in orders %}
-            <li
-              class="flex items-center h-14 border text-sm hover:bg-[#ebedf3]"
-            >
-              <div
-                class="flex-1 flex items-center justify-center p-4 text-blue-600"
-              >
-                <b><a href="{% url 'vendor_order_detail' order.order_number %}" class='text-dark'>{{order.order_number}}</a></b>
-              </div>
-              <div class="flex-1 flex items-center justify-center p-4">
-                
-                {{order.name}}
-              </div>
-              <div class="flex-1 flex items-center justify-center p-4">
-                {{order.get_total_by_vendor.grand_total}} AF
-              </div>
-              <div class="flex-1 flex items-center justify-center p-4">
-                {{order.status}}
-              </div>
-              <div class="flex-1 flex items-center justify-center p-4">{{order.created_at}}</div>
-              <div class="flex-1 flex items-center justify-center p-4">
-                <a style='background-color: #ea580c;' href="{% url 'vendor_order_detail' order.order_number %}" class='px-5 py-1 rounded-md '>Details</a>
-              </div>
-            </li>
-
-            {% endfor %}
-    
-          </ul>
         </div>
         
+      <div class="order_items pl-5 " >
+        <table class="w-full table-fixed " id= "order_table" >
+          <!-- Table Header -->
+          <thead class="border-b-2" id='my_order'>
+            <tr class="h-12 bg-gray-100 font-bold">
+              <th class="p-4 text-center">Order Id</th>
+              <th class="p-4 text-center">Name</th>
+              <th class="p-4 text-center">Total Price</th>
+              <th class="p-4 text-center">Status</th>
+              <th class="p-4 text-center">Date</th>
+              <th class="p-4 text-center">Detaile</th>
+            </tr>
+          </thead>
+
+          <!-- Table Body -->
+          <tbody>
+            {% for order in orders %}
+            <tr class="border-b-2 h-14 text-sm hover:bg-[#ebedf3]">
+              <td class="p-4 text-center text-blue-600">
+                <a href="#">{{order.order_number}}</a>
+              </td>
+              <td class="p-4 text-center">{{order.name}}</td>
+              <td class="p-4 text-center"> {{order.get_total_by_vendor.grand_total}} AF</td>
+              <td class="p-4 text-center">{{order.status}}</td>
+              <td class="p-4 text-center">{{order.created_at}}</td>
+              <td class="p-4 text-center">
+                <a style='background-color: #ea580c;' href="{% url 'vendor_order_detail' order.order_number %}" class='px-5 py-1 rounded-md '>Details</a>
+              </div>
+              </td>
+            </tr>
+            
+            {% endfor %}
+          </tbody>
+        </table>
+        <h2 class='text-center font-bold pb-5'>Total Order  : {{total_order}} AF</h2>
       </main>
+      {% include 'includes/messages.html' %}
+
     </div>
 {% endblock content %}

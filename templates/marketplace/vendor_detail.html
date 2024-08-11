@@ -21,8 +21,8 @@ class="mb-14 md:h-[300px] h-[250px]" style="background: url({% if vendor.user_pr
       {% else %}
       <img
       class="border-2 border-white md:h-[80px] md:w-[80px]"
-      src="{{vendor.user_profile.profile_pic.url}}"
-      alt="assets/images/marketplace-bg.webp"
+      src="{% static 'assets/images/marketplace-bg.webp' %}"
+      alt=""
     />
       {% endif %}
     </div>
@@ -191,6 +191,7 @@ class="mb-14 md:h-[300px] h-[250px]" style="background: url({% if vendor.user_pr
       Menu
     </div>
     <div class="w-full" style="background-color: #fff">
+      {% if categories %}
       <ul class="px-5 md:px-7">
         {% for category in categories %}
           <div class="pb-5">
@@ -214,7 +215,7 @@ class="mb-14 md:h-[300px] h-[250px]" style="background: url({% if vendor.user_pr
               {% if vendor.is_open %}
               <div class="flex items-center w-[30%] justify-between">
                 <div>
-                  <p>${{food.price}}</p>
+                  <p>{{food.price}} AF</p>
                 </div>
                 <div class="flex items-center">
                   <a href="#" data-id='{{food.id}}' data-url='{% url "decrease_cart" food.id %}'  class="decrease_cart text-red-500 border border-red-500 rounded-full p-1 mr-2">
@@ -229,7 +230,10 @@ class="mb-14 md:h-[300px] h-[250px]" style="background: url({% if vendor.user_pr
                       <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14"></path>
                     </svg>
                   </a>
-                  <p class="text-red-500" id='qty-{{food.id}}'>0</p>
+                  <label class="text-red-500" id="qty-{{food.id}}">
+                   0
+                  </label>
+                  
                   <!-- Example for a food item -->
 
                   <a href="#" data-id='{{food.id}}' data-url='{% url "add_to_cart" food.id %}' class="add_to_cart text-red-500 border border-red-500 rounded-full p-1 ml-2">
@@ -251,12 +255,13 @@ class="mb-14 md:h-[300px] h-[250px]" style="background: url({% if vendor.user_pr
               </div>
               {% else %}
 
-              <h1 class='text-red-500 text-lg'>you can not order restaurnatis closle .</h1>
+              <h1 class='text-red-500 text-lg'>you can not order resturant  close .</h1>
               {% endif %}
             </li>
           {% endfor %}
         {% endfor %}
       </ul>
+      {% endif %}
     </div>
   </main>
 

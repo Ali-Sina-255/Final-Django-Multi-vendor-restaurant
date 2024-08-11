@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% include "includes/hero.html" %}
+<!-- Main dashboard -->
+  <div class="md:flex md:gap-5 lg:gap-10 mb-10 md:mb-40">
+     {% include "includes/customer_sidebar.html" %}
+    <!-- Recent order section -->
+    <main
+      class="md:w-[80%] mt-8 md:mt-16 md:mr-5 lg:mr-32 border-t-4 h-fit"
+      style="background-color: #fff"
+    >
+      <div
+        class="flex md:gap-10 items-center justify-between border w-full h-16"
+      >
+        <div class="recent_order items-center ml-5 md:ml-10 flex  justify-between">
+             
+        <h1 class="font-bold text-lg">RECENT ORDERS</h1>
+      </div>
+      <div class="flex px-7">
+       <span class='mr-2'>Login Us:  </span>
+       <p ><b>{{user.email}}</b></p>
+     </div>
+  
+      </div>
+      <div class="order_items">
+        <ul class="w-full">
+          <li class="flex items-center h-12 border bg-gray-100 font-bold">
+            <div class="flex-1 flex items-center justify-center p-4">
+              Order Id
+            </div>
+            <div class="flex-1 flex items-center justify-center p-4">
+              Name
+            </div>
+            <div class="flex-1 flex items-center justify-center p-4">
+              Total Price
+            </div>
+            <div class="flex-1 flex items-center justify-center p-4">
+              Status
+            </div>
+            <div class="flex-1 flex items-center justify-center p-4">
+              Date
+            </div>
+            <div class="flex-1 flex items-center justify-center p-4">
+              Status
+            </div>
+          </li>
+          
+          {% for order in orders %}
+          <li
+            class="flex items-center h-14 border text-sm hover:bg-[#ebedf3]"
+          >
+            <div
+              class="flex-1 flex items-center justify-center p-4 text-blue-600"
+            >
+              <b><a href="{% url 'vendor_order_detail' order.order_number %}" class='text-dark'>{{order.order_number}}</a></b>
+            </div>
+            <div class="flex-1 flex items-center justify-center p-4">
+              {{order.name}}
+            </div>
+            <div class="flex-1 flex items-center justify-center p-4">
+              {{order.get_total_by_vendor.grand_total}} AF
+            </div>
+            <div class="flex-1 flex items-center justify-center p-4">
+              {{order.status}}
+            </div>
+            <div class="flex-1 flex items-center justify-center p-4">{{order.created_at}}</div>
+            <div class="flex-1 flex items-center justify-center p-4">
+              <a style='background-color: #ea580c;' href="{% url 'order_detail' order.order_number %}" class='px-5 py-1 rounded-md '>Details</a>
+            </div>
+          </li>
+
+          {% endfor %}
+  
+        </ul>
+      </div>
+      
+    </main>
+  </div>
+{% endblock content %}
+

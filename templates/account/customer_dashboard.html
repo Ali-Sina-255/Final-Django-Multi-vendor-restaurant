@@ -2,8 +2,8 @@
 
 {% block content %}
 
+{% include "includes/hero.html" %}
  <div class="md:flex md:gap-5 lg:gap-10 mb-10 md:mb-40">
-      
       <!-- Suggested restaurant section -->
       {% include 'includes/customer_sidebar.html' %}
       <main
@@ -26,14 +26,14 @@
               <h1 class="font-bold">Total Order</h1>
             </div>
             <div class="flex justify-center items-center">
-              <p class="pt-10">2</p>
+              <p class="pt-10">{{orders.count}}</p>
             </div>
           </div>
           <div class="w-[60%] border rounded">
             <div class="bg-gray-200 px-5 py-2">
               <h1 class="flex gap-x-3">
                 <span class="font-bold"> Login as: </span>
-              <a href="">  <p class='text-sm'>anwarmohammadi1390@gmail.com</p></a>
+              <a href="">  <p class='text-sm'>{{user.email}}</p></a>
               </h1>
             </div>
             <div class="flex justify-center align-middle">
@@ -61,61 +61,60 @@
           </div>
         </div>
         <!-- Body section -->
-        <div class="mt-6">
-          <div class="flex gap-10 font-bold text-xl">
-            <h1>Recent Order</h1>
-          </div>
+        <div class="order_items">
           <ul class="w-full">
             <li class="flex items-center h-12 border bg-gray-100 font-bold">
               <div class="flex-1 flex items-center justify-center p-4">
                 Order Id
               </div>
               <div class="flex-1 flex items-center justify-center p-4">
-                Date
+                Name
               </div>
               <div class="flex-1 flex items-center justify-center p-4">
                 Total Price
               </div>
               <div class="flex-1 flex items-center justify-center p-4">
-                Charges
+                Status
               </div>
               <div class="flex-1 flex items-center justify-center p-4">
-                Reseved
+                Date
               </div>
               <div class="flex-1 flex items-center justify-center p-4">
                 Status
               </div>
             </li>
+            
+            {% for order in orders %}
             <li
               class="flex items-center h-14 border text-sm hover:bg-[#ebedf3]"
             >
               <div
                 class="flex-1 flex items-center justify-center p-4 text-blue-600"
               >
-                <a href="#">Order-3344</a>
+                <b><a href="{% url 'order_detail' order.order_number %}" class='text-dark'>{{order.order_number}}</a></b>
               </div>
               <div class="flex-1 flex items-center justify-center p-4">
-                April 9,22
+                
+                {{order.name}}
               </div>
               <div class="flex-1 flex items-center justify-center p-4">
-                $ 32.44
+                {{order.get_total_by_vendor.grand_total}} AF
               </div>
               <div class="flex-1 flex items-center justify-center p-4">
-                $20.21
+                {{order.status}}
               </div>
-              <div class="flex-1 flex items-center justify-center p-4">$20</div>
+              <div class="flex-1 flex items-center justify-center p-4">{{order.created_at}}</div>
               <div class="flex-1 flex items-center justify-center p-4">
-                <button
-                  type="button"
-                  class="border w-24 bg-green-700 p-1 text-sm px-2"
-                >
-                  Completed
-                </button>
+                <a style='background-color: #ea580c;' href="{% url 'order_detail' order.order_number %}" class='px-5 py-1 rounded-md '>Details</a>
               </div>
             </li>
+
+            {% endfor %}
+    
           </ul>
         </div>
-        </div>
+        
+      </main>
       </main>
     </div>
 

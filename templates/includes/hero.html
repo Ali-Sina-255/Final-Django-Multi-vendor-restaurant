@@ -1,4 +1,5 @@
-<section style='background-image: url("{{vendor.user_profile.cover_pic.url}}")'
+{% load static %}
+<section style='background-image: url("{% if user_profile.cover_pic %} {{user_profile.cover_pic.url }}{% else %} {% static '/assets/images/default-cover.PNG' %} {% endif %}")'
       id="restaurant_dashborad"
       class="flex items-center justify-center h-[250px] md:h-[300px] md:justify-start "
     >
@@ -6,11 +7,13 @@
         <div class="md:flex items-center">
           <!-- image -->
           <div class="ml-10  overflow-hidden">
+            {% if vendor.user_profile.profile_pic %}
             <img
               class="border-2 border-white  ml-4 object-cover w-40 h-40"
               src="{{vendor.user_profile.profile_pic.url}}"
               alt=""
             />
+            {% endif%}
           </div>
 
           <div class="md:pl-10 pt-4 text-white">

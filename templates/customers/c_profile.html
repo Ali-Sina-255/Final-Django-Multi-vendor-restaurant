@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+{% include "includes/hero.html" %}
+<div class="md:flex  md:gap-5 lg:gap-10 mb-10  md:mb-40">
+
+
+    {% include "includes/customer_sidebar.html"  %}
+
+    <div class=" md:w-[80%] mt-8 w-full bg-white md:mt-16 md:mr-5 lg:mr-32 p-1 md:p-7 h-fit">
+        <h1 class="text-2xl font-bold">Manage Your Profile </h1>
+        <form action="{% url 'c_profile' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-fields-set space-y-4">
+            <div class="flex flex-wrap">
+               <div class="w-full">
+                  <div class="restaurant-info">
+                     <div class="img-holder mb-4">
+                        {% if profile.profile_pic %}
+                        <img class="thumbnail" src="{{ profile.profile_pic.url }}" alt="">
+                        {% else %}
+                        <img class="thumbnail" src="{% static 'assets/images/default-profile.PNG' %}" alt="">
+                        {% endif %}
+                     </div>
+                     <div class="text-holder mb-2">
+                        <label class="block text-gray-700 font-bold">Update Logo</label>
+                        {{ profile_form.profile_pic }}
+                     </div>
+                     <label class="text-red-500">{{ profile_form.profile_pic.errors }}</label>
+                  </div>
+               </div>
+               <div class="w-full">
+                  <div class="restaurant-info">
+                     <div class="img-holder mb-4">
+                        {% if profile.cover_pic %}
+                        <img class="thumbnail" src="{{ profile.cover_pic.url }}" alt="">
+                        {% else %}
+                        <img class="thumbnail" src="{% static 'assets/images/default-cover.png' %}" alt="">
+                        {% endif %}
+                     </div>
+                     <div class="text-holder mb-2">
+                        <label class="block text-gray-700 font-bold">Update Cover Photo</label>
+                        {{ profile_form.cover_pic }}
+                     </div>
+                     <label class="text-red-500">{{ profile_form.cover_pic.errors }}</label>
+                  </div>
+               </div>
+               <div class="w-full md:w-1/2">
+                  <div class="field-holder">
+                     <label class="block text-gray-700 font-bold mb-2">First Name *</label>
+                     {{ user_form.first_name }}
+                  </div>
+               </div>
+               <div class="w-full md:w-1/2">
+                  <div class="field-holder">
+                     <label class="block text-gray-700 font-bold mb-2">Last Name *</label>
+                     {{ user_form.last_name }}
+                  </div>
+               </div>
+               <div class="w-full md:w-1/2">
+                  <div class="field-holder">
+                     <label class="block text-gray-700 font-bold mb-2">Phone Number</label>
+                     {{ user_form.phone_number }}
+                  </div>
+               </div>
+               <div class="w-full md:w-1/2">
+                  <div class="field-holder">
+                     <label class="block text-gray-700 font-bold mb-2">Address *</label>
+                     {{ profile_form.address }}
+                     <small class="text-muted float-right">powered by Google</small>
+                  </div>
+               </div>
+               <div class="w-full md:w-1/2">
+                  <div class="field-holder">
+                     <label class="block text-gray-700 font-bold mb-2">State *</label>
+                     {{ profile_form.state }}
+                  </div>
+               </div>
+               <div class="w-full md:w-1/2">
+                  <div class="field-holder">
+                     <label class="block text-gray-700 font-bold mb-2">City *</label>
+                     {{ profile_form.city }}
+                  </div>
+               </div>
+               <div class="w-full md:w-1/2">
+                  <div class="field-holder">
+                     <label class="block text-gray-700 font-bold mb-2">Latitude *</label>
+                     {{ profile_form.latitude }}
+                  </div>
+               </div>
+               <div class="w-full md:w-1/2">
+                  <div class="field-holder">
+                     <label class="block text-gray-700 font-bold mb-2">Longitude *</label>
+                     {{ profile_form.longitude }}
+                  </div>
+               </div>
+            </div>
+            <div class="field-holder">
+               <button class="py-2 px-4 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-lg font-bold hover:text-black" type="submit">Update Profile</button>
+            </div>
+         </div>
+        
+    </form>
+    </div>
+    
+    {% include 'includes/messages.html' %}
+</div>
+
+
+{% endblock content %}

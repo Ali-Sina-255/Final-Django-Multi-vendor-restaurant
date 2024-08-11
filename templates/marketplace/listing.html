@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 <!-- Main -->
 <div class="warpper flex md:flex-row flex-col my-20 md:w-[80%] m-auto items-start">
@@ -7,13 +7,21 @@
     <h1 class="text-2xl font-bold">{{ vendor_count }} Restaurants Found</h1>
 
     {% for vendor in vendors %}
-    <div class="flex bg-white h-40 pt-8 my-6 md:w-[90%] relative">
+    <div class="flex bg-white h-40 pt-8 my-6 md:w-[90%] relative rounded-md">
       <!-- image -->
       <div class="w-[20%]">
         <div class="img-holder">
+          {% if vendor.user_profile.profile_pic %}
           <figure>
             <a href="#"><img src="{{ vendor.user_profile.profile_pic.url }}" class="px-5 h-32 pb-5 " alt="" /></a>
           </figure>
+
+          {% else %}
+            <figure>
+              <a href="#"><img src="{% static 'assets/images/login-bg3.jpg' %}" class="px-5 h-32 pb-5 " alt="" /></a>
+            </figure>
+          {% endif %}
+
           {% if vendor.is_open %}
           <span class="restaurant-status open"><em class="bookmarkRibbon"></em>Open</span>
           {% else %}

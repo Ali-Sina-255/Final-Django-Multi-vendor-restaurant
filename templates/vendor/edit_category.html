@@ -21,27 +21,45 @@
         </div>
         <!-- Categories button -->
         <div class="px-8 mt-4">
-            <h1 class="font-bold text-md">Add New Category</h1>
+            <h1 class="font-bold text-md">Edit Category</h1>
         </div>
         <!-- Menu list -->
         <div class="w-full mt-4">
-            <form method="POST" class="bg-white p-6 rounded shadow-md w-full">
-                {% csrf_token %}
-                <div class="mb-4">
-                    <label for="category_name" class="block text-gray-700 text-sm font-bold mb-2">Category Title</label>
-                    {{ form.category_name }}
-                </div>
-                <div class="mb-4">
-                    <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Category Description</label>
-                    {{ form.description }}
-                </div>
-                <div class="flex items-center justify-between">
-                    <button type="submit" class="text-white hover:text-black bg-gradient-to-r from-[#fbbf24] to-[#fb923c] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
-                </div>
-            </form>
+            <div id="form-container">
+                {% include 'vendor/edit_category_form.html' %}
+            </div>
         </div>
-    
         {% include 'includes/messages.html' %}
     </main>
 </div>
 {% endblock content %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    $('#edit-category-form').on('submit', function(e) {
+        e.preventDefault();
+        
+        $.ajax({
+            type: 'POST',
+            url: window.location.href,
+            data: $(this).serialize(),
+            success: function(response) {
+                if (response.status === 'success') {
+                    swal(response.message, "", "success").then(function() {
+                        window.location.href = "{% url 'menu_builder' %}";
+                    });
+                } else {
+                    swal(response.message, "", "error");
+                }
+            },
+            error: function(xhr) {
+                let errors = xhr.responseJSON.errors;
+                swal("There were errors in your form", "", "error");
+                // Optionally, you can display form errors on the page
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
