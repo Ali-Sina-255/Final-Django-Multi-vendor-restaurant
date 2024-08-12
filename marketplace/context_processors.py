@@ -19,13 +19,21 @@ def get_cart_counter(request):
 
 
 def get_cart_amounts(request):
-    subtotal = 0
-    grand_total = 0
-    if request.user.is_authenticated:
-        cart_item = Cart.objects.filter(user=request.user)
-        for item in cart_item:
-            food_item = FootItem.objects.get(pk=item.food_item.id)
-            subtotal += food_item.price * item.quantity
-        grand_total = subtotal
+    subtotal_af = 0
+    grand_total_usd = 0
+    afghani_to_dollar_rate = 72  # 1 dollar = 72 afghani
 
-    return dict(subtotal=subtotal, grand_total=grand_total)
+    if request.user.is_authenticated:
+        cart_items = Cart.objects.filter(user=request.user)
+        for item in cart_items:
+            food_item = FootItem.objects.get(pk=item.food_item.id)
+            subtotal_af += food_item.price * item.quantity
+        
+        grand_total_usd = round(subtotal_af / afghani_to_dollar_rate, 2)
+
+    return dict(
+        subtotal_af=subtotal_af,
+        grand_total_usd=grand_total_usd
+    )
+
+

@@ -15,12 +15,28 @@ from datetime import datetime, date, time
 # Create your views here.
 @login_required(login_url="login")
 def marketplace_view(request):
-    vendors = Vendor.objects.filter(is_approved=True, user__is_active=True)
+    query = request.GET.get('rest_name', '').strip()  # Get the search input from the request and strip any leading/trailing whitespace
+    
+    print(f"Search Query: '{query}'")  # Debug: Check if the query is being captured correctly
+
+    if query:
+        # Debug: Check if the filtering returns any results
+        vendors = Vendor.objects.filter(vendor_name__icontains=query, is_approved=True, user__is_active=True)
+        print(f"Filtered Vendors: {vendors}")  # Debug: Print the filtered vendors to see if any match the query
+    else:
+        vendors = Vendor.objects.filter(is_approved=True, user__is_active=True)
+
     vendor_count = vendors.count()
-    context = {"vendors": vendors, "vendor_count": vendor_count}
+    
+    # Debug: Check if the filtering returns any results
+    print(f"Vendors found: {vendor_count}")
+    
+    context = {
+        "vendors": vendors,
+        "vendor_count": vendor_count,
+        "query": query
+    }
     return render(request, "marketplace/listing.html", context)
-
-
 def vendor_detail(request, vendor_slug):
     vendor = get_object_or_404(Vendor, vendor_slug=vendor_slug)
     categories = Category.objects.filter(vendor=vendor).prefetch_related(
@@ -184,7 +200,6 @@ def delete_cart_view(request, cart_id):
 
 def search_view(request):
     return HttpResponse("search")
-
 
 def checkout_view(request):
     cart_item = Cart.objects.filter(user=request.user)

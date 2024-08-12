@@ -24,9 +24,7 @@ def get_vendor(request):
     if vendors.count() == 1:
         return vendors.first()
     elif vendors.count() > 1:
-        # Handle the case where multiple vendors are found
-        # For example, return the first one or raise an error
-        return vendors.first()  # or handle it differently
+        return vendors.first() 
     else:
         return None
 

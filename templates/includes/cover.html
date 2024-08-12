@@ -27,32 +27,37 @@
       >
         <!-- Name Searcher -->
         <div class="flex-1 mb-3 md:mb-0 md:mr-3">
-          <input
-            class="w-full shadow-lg bg-gray-200 rounded-lg outline-none md:h-full h-10 md:8 pl-3 placeholder-gray-500 placeholder-opacity-50"
-            type="text"
-            placeholder="RESTAURANT NAME"
-          />
+          <form method = 'GET' action="{% url 'search_vendor' %} " class="flex justify-center gap-x-10 md:flex-none">
+							<input
+								class="w-full border border-gray-500 bg-[#fcd34d] text-black rounded-lg p-2 outline-none shadow-md"
+								type="text"
+								id="focus"
+								name='rest_name'
+								placeholder="Enter restaurant name "
+							/>
+
+              <div class="flex justify-center md:flex-none">
+                <button
+                  class="px-10 md:h-full md:px-10 md:w-full rounded-md h-10 bg-gradient-to-r from-[#fbbf24] to-[#fb923c]"
+                >
+                  <svg
+                    class="hover:animate-ping"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    class="bi bi-search"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+						</form>
         </div>
 
         <!-- Button -->
-        <div class="flex justify-center md:flex-none">
-          <button
-            class="px-10 md:h-full md:px-10 md:w-full rounded-md h-10 bg-gradient-to-r from-[#fbbf24] to-[#fb923c]"
-          >
-            <svg
-              class="hover:animate-ping"
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="currentColor"
-              class="bi bi-search"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
 		</section>

@@ -26,11 +26,40 @@ class UserRegistrationForm(forms.ModelForm):
         super(UserRegistrationForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs["class"] = (
-                "form-control border rounded-md py-4 px-3 text-gray-700 "
+                "form-control border w-full rounded-md py-2 px-3 text-gray-700 "
             )
-            visible.label_tag(attrs={'class': 'pb-5'})
-
-
+        
+        # Add placeholders based on the field name
+            if visible.name == 'username':
+                visible.field.widget.attrs.update({'placeholder': 'Enter your username'})
+            elif visible.name == 'email':
+                visible.field.widget.attrs.update({'placeholder': 'Enter your email address'})
+            elif visible.name == 'password':
+                visible.field.widget.attrs.update({'placeholder': 'Enter your password'})
+            
+            elif visible.name == 'first_name':
+                visible.field.widget.attrs.update(
+                    {'placeholder':'Enter your Fist name'}
+                )
+            
+            elif visible.name == 'last_name':
+                visible.field.widget.attrs.update(
+                    {'placeholder':'Enter your last name'}
+                )
+            elif visible.name == 'confirm_password':
+                 visible.field.widget.attrs.update(
+                    {'placeholder':'Enter your Confirm password.'}
+                )
+                 
+            elif visible.name == 'confirm_password':
+                 visible.field.widget.attrs.update(
+                    {'placeholder':'Enter your Confirm password.'}
+                )
+                 
+            elif visible.name == 'vendor_name':
+                visible.field.widget.attrs.update(
+                    {'placeholder':'Enter your restaurant name'}
+                )
 class UserProfileForm(forms.ModelForm):
     address = forms.CharField(
         widget=forms.TextInput(

@@ -57,8 +57,8 @@ def order_place_view(request):
         total_data.update({food_item.vendor.id: {str(subtotal): str(tax_dict)}})
     print(total_data)
 
-    subtotal = get_cart_amounts(request)["subtotal"]
-    grand_total = get_cart_amounts(request)["grand_total"]
+    subtotal = get_cart_amounts(request)["grand_total_usd"]
+    grand_total = get_cart_amounts(request)["grand_total_usd"]
 
     if request.method == "POST":
         form = OrderForms(request.POST)

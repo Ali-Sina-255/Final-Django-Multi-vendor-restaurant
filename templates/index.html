@@ -8,7 +8,7 @@
 		<section class="pt-6 md:pt-10" id="top_wrapper_restaurant">
 			<!-- name -->
 			<h1>TOP RESTAUANT</h1>
-			<p class='mx-80 text-center'>Top restaurants offer more than just meals; they create unforgettable dining experiences with exceptional cuisine, ambiance, and service. These establishments combine creativity, attention to detail, and an atmosphere that satisfies all the senses.</p>
+			<p  class='mx-80 sm:20px text-center'>Top restaurants offer more than just meals; they create unforgettable dining experiences with exceptional cuisine, ambiance, and service. These establishments combine creativity, attention to detail, and an atmosphere that satisfies all the senses.</p>
 			<div class="pt-5" id="top-restaurant">
 					<div class="wrapper">
 					<i id="left" class="fa-solid fa-angle-left border border-black"></i>
@@ -18,7 +18,6 @@
 							<div class="img">
 								<a href="{% url 'vendor_detail' vendor.vendor_slug %}">
 									{% if vendor.user_profile.profile_pic %}
-
 									<img
 										src="{{vendor.user_profile.profile_pic.url}}"
 										alt="img"
@@ -33,7 +32,7 @@
 									{% endif %}
 								</a>
 							</div>
-							<h2 class='mt-6 '>{{vendor.vendor_name}}</h2>
+							<h2 class='mb-10 text-md'>{{vendor.vendor_name}}</h2>
 						</li>
 				{% endfor %}
 						
@@ -45,11 +44,11 @@
 		<!-- Popular Restaurant ------------------------------------------- --> 
 		<section class="md:mx-24 mx-10 border-t-2 md:border-t-0 md:mt-10 pb-10">
 			<!-- Title -->
-			<div id="element-title" class="text-center mb-10">
+			<div id="element-title" class="md:text-center text-center mb-10">
 			  <h2 class="md:text-2xl text-xl font-bold pb-1 pt-3">
 				Choose From Most Popular Restaurants
 			  </h2>
-			  <p class="text-lg md:text-sm">
+			  <p class="text-lg md:text-sm text:md">
 					Discover the top-rated restaurants with the most popular dishes. Satisfy your cravings with our handpicked selections.
 			  </p>
 			</div>
@@ -66,7 +65,7 @@
 					  <div class="img-holder">
 						{% if vendor.user_profile.profile_pic %}
 						<figure>
-						  <a href="#">
+						  <a href="{% url 'vendor_detail' vendor.vendor_slug %}">
 							<img
 							  src="{{vendor.user_profile.profile_pic.url}}"
 							  style="width: 100px; height: 100px;"
@@ -77,7 +76,7 @@
 						</figure>
 						{% else %}
 						<figure>
-							<a href="#">
+							<a href="{% url 'vendor_detail' vendor.vendor_slug %}">
 							  <img
 								src="{%  static 'assets/images/default-profile.PNG' %}"
 								width="100px"
@@ -91,10 +90,8 @@
 
 						{% endif%}
 						{% if vendor.is_open %}
-						<span
-						  class="restaurant-status absolute -left-2 text-white flex text-sm px-2 before:border-t-2 top-2 bg-[#ed1b24]"
-						  ><em class="bookmarkRibbon"></em>Open</span
-						>
+						<span class="restaurant-status open"><em class="bookmarkRibbon"></em>Open</span>
+
 						{% else %}
 						<span
 						  class="restaurant-status close absolute -left-2 text-white flex text-sm px-2 before:border-t-2 top-2 bg-[#ed1b24]"

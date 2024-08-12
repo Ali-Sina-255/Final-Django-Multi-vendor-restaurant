@@ -73,10 +73,16 @@
                     <div>
                         <div class="flex justify-between pt-3"></div>
                         <div class="flex justify-between py-2 font-bold">
-                            <span>Total</span>
-                            <span id='grand_total'>{{grand_total}} AF</span>
+                            <span>Total in Doller: </span>
+                            <span id='grand_total'>$ {{grand_total_usd}} </span>
                         </div>
-                    </div>
+
+                        <div class="flex justify-between py-2 font-bold">
+                            <span>Total in AF: </span>
+                            <span id='grand_total'>$ {{subtotal_af}} </span>
+                        </div>
+
+                    
                     <div id="paypal-button-container"></div>
                 </div>
             </div>
@@ -102,7 +108,7 @@
             return cookieValue;
         }
 
-        var grand_total = '{{grand_total}}';
+        var grand_total = '{{grand_total_usd}}';
         var url = "{% url 'payments' %}";
         var order_number = '{{order.order_number}}';
         var order_complete = "{% url 'order_complete' %}";

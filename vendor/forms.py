@@ -20,7 +20,8 @@ class VendorRegisterForm(forms.ModelForm):
             # Add the class pb-5 to the label
             if visible.label:
                 visible.label = f'<label class="pb-5">{visible.label}</label>'
-
+            if visible.name == 'vendor_name':
+                visible.field.widget.attrs.update({'placeholder': 'Enter your restaurant name'})
 
 class OpeningHoursForm(forms.ModelForm):
     class Meta:

@@ -1,7 +1,7 @@
 {% load static %}
 <section style='background-image: url("{% if user_profile.cover_pic %} {{user_profile.cover_pic.url }}{% else %} {% static '/assets/images/default-cover.PNG' %} {% endif %}")'
-      id="restaurant_dashborad"
-      class="flex items-center justify-center h-[250px] md:h-[300px] md:justify-start "
+    
+      class="flex  bg-cover bg-no-repeat items-center rounded-none justify-center h-[250px] md:h-[300px] md:justify-start "
     >
       <div class="flex w-1/2 justify-between wrapper h-auto md:ml-10 lg:ml-36">
         <div class="md:flex items-center">

@@ -1,100 +1,80 @@
 $(document).ready(function () {
+  // Add to Cart
   $(".add_to_cart").on("click", function (e) {
     e.preventDefault();
-    food_id = $(this).attr("data-id");
-    url = $(this).attr("data-url");
+    let food_id = $(this).attr("data-id");
+    let url = $(this).attr("data-url");
 
     $.ajax({
       type: "GET",
       url: url,
       success: function (response) {
         console.log(response);
-        if (response.status == "login_required") {
+        if (response.status === "login_required") {
           swal(response.message, "", "info").then(function () {
-            window.location == "/login";
+            window.location.href = "/login";
           });
-          if (response.status == "Failed") {
-            swal(response.message, "", "error");
-          }
-          console.log("raise error message");
+        } else if (response.status === "Failed") {
+          swal(response.message, "", "error");
         } else {
-          $("#cart_counter").html(response.cart_counter["cart_count"]);
-          $("#qty-" + food_id).html(response.qty);
-          // adding subtotal tex  grand_total
-
-          ApplyCartAmount(
-            response.cart_amount["subtotal"],
-            response.cart_amount["total"],
-            response.cart_amount["grand_total"]
-          );
+          updateCartDisplay(response, food_id);
         }
       },
     });
   });
-  // place the cart item quantity on load
-  $(".item_qty").each(function () {
-    var the_id = $(this).attr("id");
-    var qty = $(this).attr("data-qty");
-    console.log(qty);
-    $("#" + the_id).html(qty);
-  });
 
-  // Decrease the card quantity
+  // Decrease Cart Quantity
   $(".decrease_cart").on("click", function (e) {
     e.preventDefault();
-    food_id = $(this).attr("data-id");
-    url = $(this).attr("data-url");
-    cart_id = $(this).attr("id");
+    let food_id = $(this).attr("data-id");
+    let url = $(this).attr("data-url");
+    let cart_id = $(this).attr("id");
 
     $.ajax({
       type: "GET",
       url: url,
       success: function (response) {
         console.log(response);
-        if (response.status == "login_required") {
+        if (response.status === "login_required") {
           swal(response.message, "", "info").then(function () {
-            window.location == "/login";
+            window.location.href = "/login";
           });
-        } else if (response.status == "Failed") {
+        } else if (response.status === "Failed") {
           swal(response.message, "", "error");
         } else {
-          $("#cart_counter").html(response.cart_counter["cart_count"]);
-          $("#qty-" + food_id).html(response.qty);
-          if (window.location.pathname == "/cart/") {
+          updateCartDisplay(response, food_id);
+          if (window.location.pathname === "/cart/") {
             removeCartItem(response.qty, cart_id);
-            CheckEmptyCart();
+            checkEmptyCart();
           }
-          ApplyCartAmount(
-            response.cart_amount["subtotal"],
-            response.cart_amount["total"],
-            response.cart_amount["grand_total"]
-          );
         }
       },
     });
   });
 
-  // place the cart item quantity on load
-  // DELETE CART_ITEM
-  $(".delete_cart").on("click", function (e) {
+  // Delete Cart Item
+  $(document).on("click", ".delete_cart", function (e) {
     e.preventDefault();
-    cart_id = $(this).attr("data-id");
-    url = $(this).attr("data-url");
+    let cart_id = $(this).attr("data-id");
+    let url = $(this).attr("data-url");
 
     $.ajax({
-      type: "GET",
+      type: "DELETE",
       url: url,
+      headers: {
+        'X-CSRFToken': getCookie('csrftoken')
+      },
       success: function (response) {
         console.log(response);
-        if (response.status == "Failed") {
+        if (response.status === "Failed") {
           swal(response.message, "", "error");
         } else {
-          $("#cart_counter").html(response.cart_counter["cart_counter"]);
+          $("#cart_counter").html(response.cart_counter["cart_count"]);
           swal(response.status, response.message, "success");
-          removeCartItem(0, cart_id);
-          CheckEmptyCart();
+          $("#cart-item-" + cart_id).remove(); // Remove the item from the DOM
+          checkEmptyCart();
         }
-        ApplyCartAmount(
+        applyCartAmount(
           response.cart_amount["subtotal"],
           response.cart_amount["total"],
           response.cart_amount["grand_total"]
@@ -102,48 +82,20 @@ $(document).ready(function () {
       },
     });
   });
-  // DELETE CART ITEM WITHOUT RELOADING PAGE
-  function removeCartItem(cartItemQty, cart_id) {
-    if (cartItemQty <= 0) {
-      document.getElementById("cart-item-" + cart_id).remove();
-      console.log("this is not working in this time ");
-    }
-  }
 
-  // CHECK IF CART EMPTY
-  function CheckEmptyCart() {
-    var cart_counter = document.getElementById("cart_counter").innerHTML;
-    if (cart_counter == 0) {
-      document.getElementById("empty_cart").style.display = "block";
-    }
-  }
-
-  // Cart Amount
-  function ApplyCartAmount(subtotal, total, grand_total) {
-    if (window.location.pathname == "/cart/") {
-      $("#subtotal").html(subtotal);
-      $("#total").html(total);
-      $("#grand_total").html(grand_total);
-    }
-  }
-
+  // Add Opening Hour
   $(".add_hour").on("click", function (e) {
     e.preventDefault();
-    var day = document.getElementById("id_day").value;
-    var from_hour = document.getElementById("id_from_hour").value;
-    var to_hour = document.getElementById("id_to_hour").value;
-    var is_closed = document.getElementById("id_is_closed").checked;
-    var csrf_token = $("input[name=csrfmiddlewaretoken]").val();
-    var url = document.getElementById("add_hour_url").value;
-    console.log(day, from_hour, to_hour, closed, csrf_token);
-    if (is_closed) {
-      is_closed = "True";
-      condition = 'day != ""';
-    } else {
-      is_closed = "False";
-      condition = 'day != "" && from_hour != "" && to_hour != ""';
-    }
-    if (eval(condition)) {
+    let day = $("#id_day").val();
+    let from_hour = $("#id_from_hour").val();
+    let to_hour = $("#id_to_hour").val();
+    let is_closed = $("#id_is_closed").prop("checked") ? "True" : "False";
+    let csrf_token = $("input[name=csrfmiddlewaretoken]").val();
+    let url = $("#add_hour_url").val();
+
+    console.log(day, from_hour, to_hour, is_closed, csrf_token);
+
+    if (is_closed === "True" || (day !== "" && from_hour !== "" && to_hour !== "")) {
       $.ajax({
         type: "POST",
         url: url,
@@ -155,45 +107,102 @@ $(document).ready(function () {
           csrfmiddlewaretoken: csrf_token,
         },
         success: function (response) {
-          if (response.status == "success") {
-            if (response.is_closed == "Closed") {
-              html =
-                "<tr id='hour-'+response.id+'><td><b>" +
-                response.day +
-                "</b></td><td>Closed</td><td><a class='remove_hour' data-url='/accounts/vendor/opening_hours/remove/'+response.id+'/'>Remove</a></td></tr>";
-            } else {
-              html =
-                "<tr id='hour-'+response.id+'><td><b>" +
-                response.day +
-                "</b></td><td>" +
-                response.from_hour +
-                " - " +
-                response.to_hour +
-                "</td><td><a class='remove_hour' data-url='/accounts/vendor/opening_hours/remove/'+response.id+'>Remove</a></td></tr>";
-            }
-            $(".opening_hours").append(html);
-            document.getElementById("opening_hours").reset();
+          if (response.status === "success") {
+            let html = createHourRow(response);
+            $("table tbody").append(html);
+            $("#opening_hours")[0].reset();
           } else {
             swal(response.message, "", "error");
           }
         },
       });
     } else {
-      swal("Please fill the fill");
+      swal("Please fill in all required fields");
     }
   });
 
+  // Remove Opening Hour
   $(document).on("click", ".remove_hour", function (e) {
     e.preventDefault();
-    url = $(this).attr("data-url");
+    let url = $(this).attr("data-url");
+
     $.ajax({
-      type: "GET",
+      type: "DELETE",
       url: url,
+      headers: {
+        'X-CSRFToken': getCookie('csrftoken')
+      },
       success: function (response) {
-        if (response.status == "success") {
-          document.getElementById("hour-" + response.id).remove();
+        if (response.status === "success") {
+          $("#hour-" + response.id).remove();
         }
       },
     });
   });
+
+  // Functions
+  function updateCartDisplay(response, food_id) {
+    $("#cart_counter").html(response.cart_counter["cart_count"]);
+    $("#qty-" + food_id).html(response.qty);
+    applyCartAmount(
+      response.cart_amount["subtotal"],
+      response.cart_amount["total"],
+      response.cart_amount["grand_total"]
+    );
+  }
+
+  function removeCartItem(cartItemQty, cart_id) {
+    if (cartItemQty <= 0) {
+      $("#cart-item-" + cart_id).remove();
+    }
+  }
+
+  function checkEmptyCart() {
+    let cart_counter = $("#cart_counter").html();
+    if (cart_counter == 0) {
+      $("#empty_cart").show();
+    }
+  }
+
+  function applyCartAmount(subtotal, total, grand_total) {
+    if (window.location.pathname === "/cart/") {
+      $("#subtotal").html(subtotal);
+      $("#total").html(total);
+      $("#grand_total").html(grand_total);
+    }
+  }
+
+  function createHourRow(response) {
+    if (response.is_closed === "Closed") {
+      return `
+        <tr id="hour-${response.id}">
+          <td><b>${response.day}</b></td>
+          <td>Closed</td>
+          <td><a href="#" class="remove_hour" data-url="/accounts/vendor/opening_hours/remove/${response.id}/">Remove</a></td>
+        </tr>`;
+    } else {
+      return `
+        <tr id="hour-${response.id}">
+          <td><b>${response.day}</b></td>
+          <td>${response.from_hour} - ${response.to_hour}</td>
+          <td><a href="#" class="remove_hour" data-url="/accounts/vendor/opening_hours/remove/${response.id}/">Remove</a></td>
+        </tr>`;
+    }
+  }
+
+  // Function to get CSRF token from cookies
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
 });

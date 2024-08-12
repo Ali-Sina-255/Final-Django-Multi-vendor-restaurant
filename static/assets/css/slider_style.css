@@ -47,10 +47,10 @@
   padding: 10px 0px;
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: calc((100% / 5) - 12px);
+  grid-auto-columns: calc((100% / 5) - 10px);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  gap: 10px;
+gap: 10px;
   border-radius: 8px;
   scroll-behavior: smooth;
   scrollbar-width: none;
@@ -74,13 +74,11 @@
   justify-content: center;
   align-items: center;
 }
-.card {
-  box-shadow: 4px 4px 4px 4px rgba(78, 77, 77, 0.2);
-}
+
 .carousel .card {
   scroll-snap-align: start;
-  height: 260px;
-  width: 250px;
+  height: 240px;
+  width: 240px;
   list-style: none;
   background: #fff;
   cursor: pointer;
@@ -91,15 +89,15 @@
 }
 .card .img img {
   margin-top: 40px;
-  width: 180px;
-  height: 180px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   object-fit: cover;
   border: 1px dashed black;
 }
 .carousel .card h2 {
   font-weight: 500;
-  font-size: 1.56rem;
+  font-size: 1 rem;
   margin: 20px 0 5px;
 }
 

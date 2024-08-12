@@ -8,7 +8,7 @@
 }
 #top-restaurant {
   display: flex;
-  height: 300px;
+  height: 350px;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -30,7 +30,7 @@
   line-height: 50px;
   background: #fff;
   border-radius: 50%;
-
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.23);
   transform: translateY(-50%);
   transition: transform 0.1s linear;
 }
@@ -44,13 +44,13 @@
   right: -22px;
 }
 .wrapper .carousel {
-  
+  padding: 10px 0px;
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: calc((80/ 4) - 12px);
+  grid-auto-columns: calc((100% / 4) - 13px);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-gap: 10px;
+  gap: 10px;
   border-radius: 8px;
   scroll-behavior: smooth;
   scrollbar-width: none;
@@ -74,10 +74,13 @@ gap: 10px;
   justify-content: center;
   align-items: center;
 }
-
+.card {
+  box-shadow: 4px 4px 4px 4px rgba(78, 77, 77, 0.2);
+}
 .carousel .card {
   scroll-snap-align: start;
- 
+  height: 240px;
+  width: 240px;
   list-style: none;
   background: #fff;
   cursor: pointer;
@@ -86,20 +89,18 @@ gap: 10px;
   border-radius: 8px;
   border: 1px solid #e5e7eb;
 }
-.card {
-  width: 240px;
-}
 .card .img img {
   margin-top: 40px;
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   object-fit: cover;
   border: 1px dashed black;
 }
 .carousel .card h2 {
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 1.56rem;
+  margin: 20px 0 5px;
 }
 
 @media screen and (max-width: 900px) {

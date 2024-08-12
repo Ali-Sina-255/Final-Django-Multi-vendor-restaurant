@@ -3,43 +3,43 @@
 {% block content %}
 <div id="hero-register" class="flex justify-center items-center" style='background-image: url("{% static 'assets/images/banner-img.jpg' %}"); height:100vh'>
       <form method = 'POST' action="{% url 'register' %}"
-        class="px-4 border max-w-3xl w-full border-t-4 shadow-lg rounded md:bg-white bg-slate-400 bg-opacity-50"
+        class="px-4 border max-w-3xl w-full  rounded md:bg-white bg-slate-400 bg-opacity-50"
       >
       {% csrf_token %}
         <div class="text-center">
           <h1 class="text-2xl font-bold mt-5">WELCOME TO FOOD ONLINE</h1>
-          <p class="md:text-gray-600 text-black">
+          <p class="md:text-gray-600 text-black mb-6">
             Please fill this form to get yourself onboarded in the foodOnline
             marketplace.
           </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5 px-5">
           <div>
-            <label for="first-name">First Name</label>
+            <label class='block pb-2 ' for="first-name">First Name</label>
             {{form.first_name}}
           </div>
           <div>
-            <label for="last-name">Last Name</label>
+            <label class='block pb-2' for="last-name">Last Name</label>
             {{form.last_name}}
           </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5 px-5">
           <div>
-            <label for="email-address">Email Address</label>
+            <label class='block pb-2' for="email-address">Email Address</label>
             {{form.email}}
           </div>
           <div>
-            <label for="User-name">Username</label>
+            <label class='block pb-2' for="User-name">Username</label>
             {{form.username}}
           </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5 px-5">
           <div>
-            <label for="password">Password</label>
+            <label class='block pb-2' for="password">Password</label>
             {{form.password}}
           </div>
           <div>
-            <label for="Con">Confirm Password</label>
+            <label class='block pb-2' for="Con">Confirm Password</label>
             {{form.confirm_password}}
           </div>
         </div>
