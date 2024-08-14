@@ -66,12 +66,14 @@ class UserProfileForm(forms.ModelForm):
             attrs={"placeholder": "Start typing", "required": "required"}
         )
     )
-    profile_pic = forms.FileField(
-        widget=forms.FileInput(attrs={"class": "bg-blue-500 text-white rounded-md py-2 px-4"})
-    )
-    cover_pic = forms.FileField(
-        widget=forms.FileInput(attrs={"class": "bg-blue-500 text-white rounded-md py-2 px-4"})
-    )
+    profile_pic = forms.FileField(widget=forms.FileInput(attrs={'class':'bg-blue-500 text-white rounded-md py-4 px-4'}))
+    cover_pic = forms.FileField(widget=forms.FileInput(attrs={'class':'bg-blue-500 text-white rounded-md py-4 px-4'}))
+    # profile_pic = forms.FileField(
+    #     widget=forms.FileInput(attrs={"class": "  bg-blue-500 text-white rounded-md py-4 px-4"})
+    # )
+    # cover_pic = forms.FileField(
+    #     widget=forms.FileInput(attrs={"class": "bg-blue-500 text-white rounded-md py-4 px-4"})
+    # )
 
     class Meta:
         model = UserProfile

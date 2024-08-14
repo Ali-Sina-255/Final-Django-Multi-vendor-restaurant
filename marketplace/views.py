@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Prefetch
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import EmptyPage, Paginator, PageNotAnInteger
+from django.core.exceptions import ObjectDoesNotExist
 
 from accounts.models import UserProfile
 from menu.models import Category, FootItem
@@ -10,33 +12,44 @@ from marketplace.models import Cart
 from orders.forms import OrderForms
 from .context_processors import get_cart_counter, get_cart_amounts
 from datetime import datetime, date, time
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
+
 @login_required(login_url="login")
 def marketplace_view(request):
-    query = request.GET.get('rest_name', '').strip()  # Get the search input from the request and strip any leading/trailing whitespace
+    query = request.GET.get('rest_name', '').strip()  
+    print(f"Search Query: '{query}'")  
     
-    print(f"Search Query: '{query}'")  # Debug: Check if the query is being captured correctly
-
     if query:
-        # Debug: Check if the filtering returns any results
         vendors = Vendor.objects.filter(vendor_name__icontains=query, is_approved=True, user__is_active=True)
-        print(f"Filtered Vendors: {vendors}")  # Debug: Print the filtered vendors to see if any match the query
+        print(f"Filtered Vendors: {vendors}") 
     else:
         vendors = Vendor.objects.filter(is_approved=True, user__is_active=True)
-
-    vendor_count = vendors.count()
     
-    # Debug: Check if the filtering returns any results
-    print(f"Vendors found: {vendor_count}")
+    vendor_count = vendors.count()
+
+    # Pagination
+    paginator = Paginator(vendors, 4)  # Show 10 vendors per page
+    page = request.GET.get('page')
+    
+    try:
+        vendors_paginated = paginator.page(page)
+    except PageNotAnInteger:
+        vendors_paginated = paginator.page(1)
+    except EmptyPage:
+        vendors_paginated = paginator.page(paginator.num_pages)
     
     context = {
-        "vendors": vendors,
+        "vendors": vendors_paginated,
         "vendor_count": vendor_count,
         "query": query
     }
     return render(request, "marketplace/listing.html", context)
+
+
+
 def vendor_detail(request, vendor_slug):
     vendor = get_object_or_404(Vendor, vendor_slug=vendor_slug)
     categories = Category.objects.filter(vendor=vendor).prefetch_related(
@@ -63,7 +76,6 @@ def vendor_detail(request, vendor_slug):
         "current_opening_hours": current_opening_hours,
     }
     return render(request, "marketplace/vendor_detail.html", context)
-
 
 def add_to_cart_view(request, food_id=None):
     if request.user.is_authenticated:
@@ -116,7 +128,6 @@ def add_to_cart_view(request, food_id=None):
     return JsonResponse(
         {"status": "login_required", "message": "Please login to continue"}
     )
-
 
 def decrease_cart_view(request, food_id):
     if request.user.is_authenticated:
@@ -200,6 +211,8 @@ def delete_cart_view(request, cart_id):
 
 def search_view(request):
     return HttpResponse("search")
+
+
 
 def checkout_view(request):
     cart_item = Cart.objects.filter(user=request.user)

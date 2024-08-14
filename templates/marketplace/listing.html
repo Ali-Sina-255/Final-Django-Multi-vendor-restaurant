@@ -37,7 +37,7 @@
         <a href="{% url 'vendor_detail' vendor.vendor_slug %}">
           <h1 class="text-lg font-bold hover:text-red-600">{{ vendor.vendor_name }}</h1>
         </a>
-        <span>Type of food: {{ vendor.food_type }}</span>
+        
       </div>
       <div class="flex items-center w-[30%] justify-center">
         <a href="{% url 'vendor_detail' vendor.vendor_slug %}">
@@ -46,13 +46,62 @@
       </div>
     </div>
     {% endfor %}
+    <nav class="mt-6 flex justify-center" aria-label="Page navigation">
+      {% if vendors.has_other_pages %}
+      <ul class="inline-flex items-center -space-x-px ">
+          {% if vendors.has_previous %}
+          <li>
+              <a href="?page={{vendors.previous_page_number}}" class="px-6 p-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700">
+                  Previous
+              </a>
+          </li>
+          {% else %}
+          <li>
+              <span class="px-8 py-2 ml-0 leading-tight text-gray-400 bg-gray-200 border border-gray-300 rounded-l-lg cursor-not-allowed">
+                  Previous
+              </span>
+          </li>
+          {% endif %}
+  
+          {% for i in vendors.paginator.page_range %}
+          {% if vendors.number == i %}
+          <li>
+              <span class="px-6 py-2 leading-tight text-white bg-gradient-to-r from-[#fbbf24] to-[#fb923c]  border border-blue-500">{{i}}</span>
+          </li>
+          {% else %}
+          <li>
+              <a href="?page={{i}}" class="px-6 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">{{i}}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
+  
+          {% if vendors.has_next %}
+          <li>
+              <a href="?page={{vendors.next_page_number}}" class="px-6 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700">
+                  Next
+              </a>
+          </li>
+          {% else %}
+          <li>
+              <span class="px-6 py-2 leading-tight text-gray-400 bg-gray-200 border border-gray-300 rounded-r-lg cursor-not-allowed">
+                  Next
+              </span>
+          </li>
+          {% endif %}
+      </ul>
+      {% endif %}
+  </nav>
+  
   </div>
+  
   <div class="border md:w-[25%] px-10 md:px-0">
     <div class="bg-[#bd933f] p-3">
       <h3 class="font-bold">I'm Not Registered</h3>
       <p class="pt-2 font-poppins">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor eveniet nobis aspernatur</p>
-      <a class="hover:underline text-blue-600" href="restaurant_register.html">Add Your Business.</a>
+      <a class="hover:underline text-blue-600" href="{% url 'register_vendor' %}">Add Your Business.</a>
     </div>
   </div>
+
+  
 </div>
 {% endblock content %}

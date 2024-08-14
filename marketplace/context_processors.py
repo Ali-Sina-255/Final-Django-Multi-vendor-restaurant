@@ -4,7 +4,7 @@ from menu.models import FootItem
 
 def get_cart_counter(request):
     cart_count = 0
-    tax = 0
+
     if request.user.is_authenticated:
         try:
             cart_items = Cart.objects.filter(user=request.user)
@@ -21,7 +21,7 @@ def get_cart_counter(request):
 def get_cart_amounts(request):
     subtotal_af = 0
     grand_total_usd = 0
-    afghani_to_dollar_rate = 72  # 1 dollar = 72 afghani
+    afghani_to_dollar_rate = 72  
 
     if request.user.is_authenticated:
         cart_items = Cart.objects.filter(user=request.user)

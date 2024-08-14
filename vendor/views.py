@@ -34,23 +34,30 @@ def get_vendor(request):
 def vendor_profile(request):
     profile = get_object_or_404(UserProfile, user=request.user)
     vendor = get_object_or_404(Vendor, user=request.user)
+    
     if request.method == "POST":
         profile_form = UserProfileForm(request.POST, request.FILES, instance=profile)
         vendor_form = VendorRegisterForm(request.POST, request.FILES, instance=vendor)
+        
         if profile_form.is_valid() and vendor_form.is_valid():
             profile_form.save()
             vendor_form.save()
-            messages.success(request, "Settings is updated")
+            messages.success(request, "Settings are updated")
             return redirect("vendor_profile")
         else:
-            messages.error(request, "your profile is not updated")
+            messages.error(request, "Your profile is not updated")
             print(profile_form.errors)
             print(vendor_form.errors)
-            return redirect("vendor_profile")
-
+            return render(request, "vendor/vendor_profile.html", {
+                "profile_form": profile_form,
+                "vendor_form": vendor_form,
+                "profile": profile,
+                "vendor": vendor,
+            })
     else:
         profile_form = UserProfileForm(instance=profile)
         vendor_form = VendorRegisterForm(instance=vendor)
+    
     context = {
         "profile_form": profile_form,
         "vendor_form": vendor_form,
@@ -58,8 +65,7 @@ def vendor_profile(request):
         "vendor": vendor,
     }
     return render(request, "vendor/vendor_profile.html", context)
-
-
+            
 @login_required(login_url="login")
 @user_passes_test(check_rol_vendor)
 def menu_builder(request):
@@ -253,7 +259,6 @@ def opening_hours_view(request):
     context = {"form": form, "opening_hours": opening_hours}
     return render(request, "vendor/opening_hours.html", context)
 
-
 def add_opening_hour_view(request):
     if request.user.is_authenticated:
         if (
@@ -263,7 +268,10 @@ def add_opening_hour_view(request):
             day = request.POST.get("day")
             from_hour = request.POST.get("from_hour")
             to_hour = request.POST.get("to_hour")
-            is_closed = request.POST.get("is_closed")
+            is_closed = request.POST.get("is_closed") == "True"  # Convert to boolean if necessary
+
+            if not (day and from_hour and to_hour):
+                return JsonResponse({"status": "failed", "message": "Missing data!"})
 
             try:
                 hour = OpeningHour.objects.create(
@@ -275,34 +283,25 @@ def add_opening_hour_view(request):
                 )
                 if hour:
                     day = OpeningHour.objects.get(id=hour.id)
-                    if day.is_closed:
-                        response = {
-                            "status": "success",
-                            "id": hour.id,
-                            "day": day.get_day_display(),
-                            "is_closed": "Closed",
-                        }
-                    else:
-                        response = {
-                            "status": "success",
-                            "id": hour.id,
-                            "day": day.get_day_display(),
-                            "from_hour": hour.from_hour,
-                            "to_hour": hour.to_hour,
-                        }
+                    response = {
+                        "status": "success",
+                        "id": hour.id,
+                        "day": day.get_day_display(),
+                        "from_hour": hour.from_hour if not day.is_closed else None,
+                        "to_hour": hour.to_hour if not day.is_closed else None,
+                        "is_closed": "Closed" if day.is_closed else None,
+                    }
                 return JsonResponse(response)
-            except IntegrityError as e:
+            except IntegrityError:
                 response = {
                     "status": "failed",
-                    "message": from_hour
-                    + "-"
-                    + to_hour
-                    + " already exists for this day!",
+                    "message": f"{from_hour} - {to_hour} already exists for this day!",
                 }
                 return JsonResponse(response)
         else:
-            HttpResponse("invalid Request")
-
+            return HttpResponse("Invalid Request")
+    else:
+        return HttpResponse("Unauthorized", status=401)
 
 def remove_opening_hour_view(request, pk=None):
     if request.user.is_authenticated:

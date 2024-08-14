@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.sites.shortcuts import get_current_site
 
 from marketplace.models import Cart, Tax
 from marketplace.context_processors import get_cart_amounts
@@ -11,7 +11,7 @@ from accounts.utils import send_notification
 from menu.models import FootItem
 from .forms import OrderForms
 from .models import Order, Payment, OrderedFood
-from .utils import generate_order_num
+from .utils import generate_order_num, order_total_by_vendor
 import logging
 
 
@@ -140,9 +140,22 @@ def payments(request):
             ordered_food.price = item.food_item.price
             ordered_food.amount = item.food_item.price * item.quantity
             ordered_food.save()
+            
         mail_subject = "Thank your for ordering with US."
         mail_template = "order/email/order_confirmation_email.html"
-        context = {"user": request.user, "order": order, "to_email": order.email}
+        order_food = OrderedFood.objects.filter(order=order)
+        customer_subtotal = 0
+        for total in order_food:
+            customer_subtotal += (total.price * total.quantity )
+        context = {
+            "user": request.user, 
+            "order": order, 
+            "to_email": order.email,
+            "order_food":order_food,
+            "domain":get_current_site(request),
+            "customer_subtotal": customer_subtotal
+            
+            }
         # send notification email to customer
         send_notification(mail_subject, mail_template, context)
 
@@ -155,13 +168,17 @@ def payments(request):
         for i in cart_items:
             if i.food_item.vendor.user.email is not to_email:
                 to_email.append(i.food_item.vendor.user.email)
-        print(to_email)
+                order_food_to_vendor = OrderedFood.objects.filter(order=order, food_item__vendor=i.food_item.vendor)
+                print(order_food_to_vendor)
+       
 
-        context = {
-            "order": order,
-            "to_email": to_email,
-        }
-        send_notification(mail_subject, mail_template, context)
+                context = {
+                    "order": order,
+                    "to_email": i.food_item .vendor.user.email,
+                    "order_food_to_vendor":order_food_to_vendor,
+                    "vendor_subtotal":order_total_by_vendor(order,i.food_item.vendor.id) ['grand_total']
+                }
+                send_notification(mail_subject, mail_template, context)
     # cart_items.delete()
     response = {"order_number": order_number, "transaction_id": transaction_id}
     return JsonResponse(response)

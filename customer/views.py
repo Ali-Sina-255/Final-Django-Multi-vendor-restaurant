@@ -4,6 +4,7 @@ from accounts.forms import UserInForm, UserProfileForm
 from accounts.models import UserProfile, User
 from django.contrib import messages
 from orders.models import Order, OrderedFood
+from vendor.models import Vendor
 
 
 # Create your views here.
@@ -30,12 +31,35 @@ def customer_profile_view(request):
     return render(request, "customers/c_profile.html", context)
 
 
-def my_orders_view(request):
-    orders = Order.objects.filter(user=request.user, is_order=True).order_by(
-        "-created_at"
-    )
-    context = {"orders": orders}
-    return render(request, "customers/my_order.html", context)
+
+
+def customer_order_view(request):
+    user = request.user
+    # Debug: Check the user's role
+    print(f"User Role: {user.role}")
+
+    # Ensure the user is a customer
+    if user.role != User.CUSTOMER:
+        return redirect('some_error_page')  # Replace with your error handling
+
+    # Fetch orders related to the customer
+    orders = Order.objects.filter(user=user, is_order=True)
+
+    # Debug: Print orders and total count
+    print(f"Orders: {orders}")
+    print(f"Orders Count: {orders.count()}")
+
+    # Calculate the total order amount
+    total_order = sum(order.grand_total for order in orders)
+    
+    # Debug: Print total order amount
+    print(f"Total Order Amount: {total_order}")
+
+    context = {
+        "orders": orders,
+        "total_order": total_order
+    }
+    return render(request, "customer/my_order.html", context)
 
 
 def order_detail_view(request, order_number):

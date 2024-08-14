@@ -29,3 +29,7 @@ urlpatterns = [
     path("api/", include("api.urls")),
     path("__reload__/", include("django_browser_reload.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = "FoodOnline Market Place"
+admin.site.site_title = "FoodOnline Market Place"
+admin.site.index_title = "FoodOnline Market Place"

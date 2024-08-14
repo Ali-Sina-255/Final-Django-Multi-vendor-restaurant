@@ -1,6 +1,9 @@
 from django import forms
 from .models import Vendor, OpeningHour, ReviewRatting
 from accounts.forms import allow_only_images_validator
+from django.core.exceptions import ValidationError
+from .validatory import validate_vendor_name
+
 
 class VendorRegisterForm(forms.ModelForm):
     vendor_licenses = forms.FileField(
@@ -17,12 +20,12 @@ class VendorRegisterForm(forms.ModelForm):
             visible.field.widget.attrs["class"] = (
                 "form-control border w-full rounded-md py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             )
-            # Add the class pb-5 to the label
-            if visible.label:
-                visible.label = f'<label class="pb-5">{visible.label}</label>'
+            # Add placeholder to vendor_name field
             if visible.name == 'vendor_name':
                 visible.field.widget.attrs.update({'placeholder': 'Enter your restaurant name'})
-
+                visible.field.validators.append(validate_vendor_name)
+                
+                
 class OpeningHoursForm(forms.ModelForm):
     class Meta:
         model = OpeningHour

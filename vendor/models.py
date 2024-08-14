@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ValidationError
 from accounts.models import User, UserProfile
 from accounts.utils import send_notification
 from datetime import time, date, datetime
@@ -18,7 +19,7 @@ class Vendor(models.Model):
 
     def __str__(self) -> str:
         return self.vendor_name
-
+    
     def is_open(self):
         today_date = date.today()
         today = today_date.isoweekday()

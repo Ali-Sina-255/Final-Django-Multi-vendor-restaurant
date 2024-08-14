@@ -1,111 +1,110 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
-<div class="container mt-5 mb-5">
-    <div class="justify-content-center row">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" lang="en">
 
-        <div class="col-md-8">
-            <div class="bg-white p-3">
-                <img src="{% static 'assets/logo/foodOnlineLogo.png' %}" alt="" srcset="" width='300'>
-                 
-           
-            <div class='row'>
-                <div class="col-md-6 ">
-                    <h4 class='mt-2 mb-3'>Thank you for your order .</h4>
-                </div>
-
-                <div class="col-md-6 text-right">
-                    <p class='mb-0'>{{order.name}}</p>
-                    <p class='mb-0'>{{order.address}}</p>
-                    <p class='mb-0'>{{order.phone_number}}</p>
-                    <p class='mb-0'>{{order.email}}</p>
-                    
-                </div>
-
-            </div>
-            <h6>Hello{{order.name}}, Review your order details bellow</h6>
-            <hr>
-            <div class='d-flex justify-content-between'>
-                <div>
-                    <span class='d-block'>Order Date:</span> <span class='font-weight-bold'>{{order.created_at}}</span>
-                </div>
-                <div>
-                    <span class='d-block'>Order Number:</span> <span class='font-weight-bold'>{{order.order_number}}</span>
-                </div>
-                <div>
-                    <span class='d-block'>Payment Mehthod :</span> <span class='font-weight-bold'>{{order.payment_method}}</span>
-                </div>
-
-                <div>
-                    <span class='d-block'>Transaction ID:</span> <span class='font-weight-bold'>{{order.payment.transaction_id}}</span>
-                </div>
-            </div>
-
-            <hr>
-            <table class="table">
-                <tbody>
-                  {% for item in ordered_food %}
-                  <tr>
-                  <td><img src="{{item.food_item.image.url}}" alt="Food Images" width='40' srcset=""></td>
-                  <td>
-                    <p class='mb-0'>{{item.food_item|truncatechars:15}}</p>
-                    <a  class= 'text-muted' href="{% url 'vendor_detail' item.food_item.vendor.vendor_slug %}">{{item.food_item.vendor.vendor_name}}</a>
-                </td>
-                  <td>{{item.quantity}} QTY</td>
-                  <td>${{item.food_item.price}}</td>
-                 </tr>
-
-                  {% endfor %}
-                </tbody>
-              </table>
-            <div class='row mt-5'>
-                <div class='d-flex justify-content-center col-md-6'>
-                    <img src="{% static 'assets/images/paid.png' %}" alt="" srcset=""  width='150'>
-
-                </div>
-                <div class='col-md-6'>
-                    <ul>
-                        <li style="list-style-type: none">
-                          Subtotal
-                          <span class="price float-right">
-                            <span class="currency">AF</span>
-                            <span id="subtotal">{{subtotal}}</span>
-                          </span>
-                        </li>
+<head><link rel="stylesheet" type="text/css" hs-webfonts="true" href="https://fonts.googleapis.com/css?family=Lato|Lato:i,b,bi">
+    <meta property="og:title" content="Email template">  
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <style type="text/css">
+      #email {
+        margin: auto;
+        width: 600px;
+        background-color: white;
+      }  
+      .activate-btn{
+        font: inherit;
+        background-color: #C33332;
+        border: none;
+        padding: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 900;
+        border-radius: 5px; 
+        text-decoration: none;
+      }      
+    </style>    
+  </head>    
+<body bgcolor="#F5F8FA" style="width: 100%; margin: auto 0; padding:0; font-family:Lato, sans-serif; font-size:16px; color:#33475B; word-break:break-word">
   
-                        <li style="list-style-type: none">
-                          Total
-                          <span class="price float-right font-weigth:600">
-                            <span class="currency">AF </span>
-                            <span id="grand_total">{{grand_total}}</span>
-                          </span>
-                        </li>
-                        
-                      </ul>
-                </div>
+<div id="email">
+  <table role="presentation" width="100%">
+    <tr>
+    <td  align="center" style="color: white;">
+     <img alt="Logo" src="" width="400px" align="middle">
+      </td>
+  </table>
 
-            </div>
-            <hr>
-            <div class='d-flex justify-content-between '>
-               <div>
-                    <span class='d-block font-weight-bold'>
-                        Thank for ordering with us.
-                    </span>
-                    <span>FoodOnline Team</span>
-               </div>
-               <div>
-                <span class='d-flex justify-content-end align-items-end'>
-                    <span class='d-block font-weight-bold'>
-                        Need Help ?
-                    </span>
-                </span>
-                <span>Call +93 707 323 964 </span>
-           </div>
-            </div>
+  <table bgcolor="#EAF0F6" width="100%" role="presentation" border="0" cellpadding="0" cellspacing="10px" style="padding: 30px 30px 60px 60px;">
+    <tr>
+      <td>
+        <h2>Thank you for your order .</h2>
+        <p>Reveiw you order information below.</p>
+      </td> 
+     
+    </tr> 
+    <tr>
+        <td>
+            Order Date::{{order.created_at}}
+          </td>
+    </tr>
+    <tr>
+        <td>
+            Order Number:{{order.order_number}}
+          </td>
+    </tr>
 
-        </div>
+    <tr>
+        <td>
+            Payment Method  :{{order.payment_method}}
+          </td>
+    </tr>
 
-        </div>
-    </div>
+    <tr>
+        <td>
+            Transaction  ID  :{{order.payment}}
+          </td>
+    </tr>
+  </table>
+  <table bgcolor="#EAF0F6" width="100%" role="presentation" border="0" cellpadding="0" cellspacing="10px" style="padding: 30px 30px 60px 60px;">
+    <tbody>
+        <tr>
+            <th>Image</th>
+            <th>Food Item</th>
+            <th>QTY</th>
+            <th>Price</th>
+        </tr>
+        {% for food in order_food %}
+        <tr>
+            <td>
+                <img src="http://{{domain}}{{food.fooditems.image.url}}" alt="Food Image " width='60'>
+            </td>
+            <td>
+                <p style=margin:0>{{food.food_item}}</p>
+                <small><a href="http://{{domain}}{% url 'vendor_detail' food.fooditems.vendor.vendor_slug %}" style='color:#ccc'>{{food.food_item}}</a></small>
+            </td>
+            <td>{{food.quantity}}</td>
+            <td>{{food.price}}</td>
 
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+  <table bgcolor="#EAF0F6" width="100%" role="presentation" border="0" cellpadding="0" cellspacing="10px" style="padding: 30px 30px 60px 60px;">
+    <tr>
+      Total  : {{customer_subtotal}} Af,
+      total in Doller :$  {{grand_total_usd}} 
+      Total in Afghani : {{subtotal_af}} AF
+    </tr>
+  </table>
+
+  <table role="presentation" bgcolor="#C33332" width="100%">
+      <tr>
+        <td align="center" style="padding: 15px 15px; color: #fff;">
+          <p>© {% now "Y" %} FoodOnline Marketplace, All Rights Reserved.</p>
+          <a href="http://{{domain}}" style="color:#fff;">Visit Website</a>      
+        </td>
+      </tr>
+  </table> 
 </div>
-
-{% endblock %}
+</body>
+</html>

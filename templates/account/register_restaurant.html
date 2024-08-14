@@ -79,7 +79,7 @@
                                 {% endif %}
                             </div>
                             <div>
-                                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                                <label for="username" class="block text-sm font-medium text-gray-700">UserName</label>
                                 {{ form.username|add_class:"mt-1 p-2 block w-full shadow-sm border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" }}
                                 {% if form.username.errors %}
                                     <ul class="errorlist text-red-600 mt-1">
@@ -116,26 +116,17 @@
                             </div>
                         </div>
 
-                        <ul class="errorlist text-red-600">
-                            {% for field in form %}
-                                {% if field.errors %}
-                                    <li>{{ field.label }}:
-                                        <ul class="errorlist">
-                                            {% for error in field.errors %}
-                                                <li>{{ error }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                            {% if form.non_field_errors %}
-                                <li>
-                                    {% for error in form.non_field_errors %}
-                                        {{ error }}<br>
-                                    {% endfor %}
-                                </li>
-                            {% endif %}
-                        </ul>
+                        <!-- Non-field Errors -->
+                        {% if form.non_field_errors or vendor_form.non_field_errors %}
+                            <ul class="errorlist text-red-600">
+                                {% for error in form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                                {% for error in vendor_form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
 
                         <div class="px-5 mb-5">
                             <button

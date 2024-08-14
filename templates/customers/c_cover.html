@@ -1,0 +1,72 @@
+{% load static %}
+<section style='background-image: url("{% if user_profile.cover_pic %} {{user_profile.cover_pic.url }}{% else %} {% static '/assets/images/default-cover.PNG' %} {% endif %}")'
+    
+      class="flex  bg-cover bg-no-repeat items-center rounded-none justify-center h-[250px] md:h-[300px] md:justify-start "
+    >
+      <div class="flex w-1/2 justify-between wrapper h-auto md:ml-10 lg:ml-36">
+        <div class="md:flex items-center">
+          <!-- image -->
+          <div class="ml-10  overflow-hidden">
+            {% if user_profile.profile_pic %}
+            <img
+              class="border-2 border-white  ml-4 object-cover w-40 h-40"
+              src="{{user_profile.profile_pic.url}}"
+              alt=""
+            />
+            {% endif%}
+          </div>
+
+          <div class="md:pl-10 pt-4 text-white">
+            <a href="#">
+              <h1 class="text-3xl font-bold">{{user.first_name}} {{user.last_name}}</h1>
+            </a>
+
+            <div class="flex items-center justify-start mt-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+                />
+              </svg>
+              <p class="inline-block">
+                <a href="#">{{user_profile.address}}</a>
+              </p>
+            </div>
+            <!-- Buyer email -->
+            <div class="mt-1 flex items-center justify-center md:justify-start">
+              <svg
+                class="w-5 h-7"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-6"
+              >
+                <path
+                  d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z"
+                />
+                <path
+                  d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z"
+                />
+              </svg>
+              <p class="inline-block pl-3">
+                <a href="#">{{user.email}}</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+    </section>

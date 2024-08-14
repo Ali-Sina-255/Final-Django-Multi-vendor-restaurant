@@ -3,13 +3,104 @@
 {% block content %}
 
 
-{% include "includes/hero.html" %}
+{% include "customers/c_cover.html" %}
 <div class="md:flex  md:gap-5 lg:gap-10 mb-10  md:mb-40">
 
 
     {% include "includes/customer_sidebar.html"  %}
-
     <div class=" md:w-[80%] mt-8 w-full bg-white md:mt-16 md:mr-5 lg:mr-32 p-1 md:p-7 h-fit">
+      <h1 class="text-2xl font-bold"> Profile Settings </h1>
+      <form action="{% url 'c_profile' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="flex flex-col md:flex-row mb-5 md:mb-0 pt-2">
+         <div class="border w-full md:w-36 h-36 mb-5 md:mb-0">
+            {% if profile.cover_pic %}
+             <img class="w-full h-full" src="{{profile.profile_pic.url}}" alt="">
+            {% else %}
+            <img class="thumbnail" src="{%  static 'assets/images/default-profile.PNG' %}" alt="">
+             {% endif %}
+         </div>
+         <div class="md:ml-8 mt-5">
+             <label class="text-lg font-bold text-gray-600" for="update-license">Update Logo</label>
+             <div class="border p-1 rounded-md mt-2 bg-blue-500">
+               {{profile_form.profile_pic}}
+
+             </div>
+             <label class="text-red-500">{{profile_form.profile_pic.errors }}</label>
+         </div>
+     </div>
+      
+      <div class="flex flex-col md:flex-row mb-5 md:mb-0 pt-2">
+         <div class="border w-full md:w-36 h-36 mb-5 md:mb-0">
+            {% if profile.cover_pic %}
+             <img class="w-full h-full" src="{{profile.cover_pic.url}}" alt="">
+            {% else %}
+            <img class="thumbnail" src="{%  static 'assets/images/default-profile.PNG' %}" alt="">
+             {% endif %}
+         </div>
+         <div class="md:ml-8 mt-5">
+             <label class="text-lg font-bold text-gray-600" for="update-license"> Update Cover Photo</label>
+             <div class="border p-1 rounded-md mt-2 bg-blue-500">
+               {{profile_form.cover_pic}}
+             </div>
+             <label class="text-red-500">{{ profile_form.profile_pic.errors }}</label>
+         </div>
+     </div>
+
+     
+
+      <div class="flex flex-col md:flex-row w-full mb-5 md:mb-0 pt-2">
+          <div class="w-full">
+              <label class="font-bold" for="restaurant-name">First Name *</label>
+              {{ user_form.first_name }}
+          </div>
+      </div>
+      <div class="flex flex-col md:flex-row mb-5 md:mb-0 pt-2">
+          <div class="w-full">
+              <label class="font-bold" for="address">Last Name * *</label>
+              {{ user_form.last_name }}
+          </div>
+      </div>
+      <div class="flex flex-col md:flex-row mb-5 md:mb-0 pt-2">
+          <div class="w-full md:w-1/2 pr-2">
+              <label class="font-bold" for="state">Phone Number *</label>
+              {{ user_form.phone_number }}
+            </div>
+          <div class="w-full md:w-1/2 pl-2">
+              <label class="font-bold" for="city">Address  *</label>
+              {{ profile_form.address }}
+                     <small class="text-muted float-right">powered by Google</small>
+          </div>
+      </div>
+
+      <div class="flex flex-col md:flex-row mb-5 md:mb-0 pt-2">
+         <div class="w-full md:w-1/2 pr-2">
+             <label class="font-bold" for="state">City *</label>
+             {{ profile_form.city }}
+           </div>
+         <div class="w-full md:w-1/2 pl-2">
+             <label class="font-bold" for="city">State  *</label>
+             {{ profile_form.state }}
+         </div>
+     </div>
+      <div class="flex flex-col md:flex-row mb-5 md:mb-0 pt-2">
+          <div class="w-full md:w-1/2 pr-2">
+              <label class="font-bold" for="latitude">Latitude *</label>
+              {{ profile_form.latitude }}
+          </div>
+          <div class="w-full md:w-1/2 pl-2">
+              <label class="font-bold" for="longitude">Longitude *</label>
+              {{ profile_form.longitude }}
+          </div>
+      </div>
+      <div class="mt-5">
+          <button class="py-1 w-full bg-gray-500 px-4 border rounded-md  hover:text-black bg-gradient-to-r from-yellow-400 to-orange-400 font-bold" type="submit">Update Restaurant</button>
+      </div>
+  </form>
+  </div>
+
+    {% comment %} <div class=" md:w-[80%] mt-8 w-full bg-white md:mt-16 md:mr-5 lg:mr-32 p-1 md:p-7 h-fit">
         <h1 class="text-2xl font-bold">Manage Your Profile </h1>
         <form action="{% url 'c_profile' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
@@ -18,11 +109,7 @@
                <div class="w-full">a
                   <div class="restaurant-info">
                      <div class="img-holder mb-4">
-                        {% if profile.profile_pic %}
-                        <img class="thumbnail" src="{{ profile.profile_pic.url }}" alt="">
-                        {% else %}
-                        <img class="thumbnail" src="{% static 'assets/images/default-profile.PNG' %}" alt="">
-                        {% endif %}
+                        
                      </div>
                      <div class="text-holder mb-2">
                         <label class="block text-gray-700 font-bold">Update Logo</label>
@@ -49,27 +136,25 @@
                </div>
                <div class="w-full md:w-1/2">
                   <div class="field-holder">
-                     <label class="block text-gray-700 font-bold mb-2">First Name *</label>
-                     {{ user_form.first_name }}
+                     <label class="block text-gray-700 font-bold mb-2"></label>
+                    
                   </div>
                </div>
                <div class="w-full md:w-1/2">
                   <div class="field-holder">
-                     <label class="block text-gray-700 font-bold mb-2">Last Name *</label>
+                     <label class="block text-gray-700 font-bold mb-2"></label>
                      {{ user_form.last_name }}
                   </div>
                </div>
                <div class="w-full md:w-1/2">
                   <div class="field-holder">
-                     <label class="block text-gray-700 font-bold mb-2">Phone Number</label>
-                     {{ user_form.phone_number }}
+                     <label class="block text-gray-700 font-bold mb-2"></label>
                   </div>
                </div>
                <div class="w-full md:w-1/2">
                   <div class="field-holder">
-                     <label class="block text-gray-700 font-bold mb-2">Address *</label>
-                     {{ profile_form.address }}
-                     <small class="text-muted float-right">powered by Google</small>
+                     <label class="block text-gray-700 font-bold mb-2"></label>
+                     
                   </div>
                </div>
                <div class="w-full md:w-1/2">
@@ -103,7 +188,7 @@
          </div>
         
     </form>
-    </div>
+    </div> {% endcomment %}
     
     {% include 'includes/messages.html' %}
 </div>
