@@ -1,6 +1,4 @@
-Here's the updated description including the use of Django REST Framework (DRF) for the API:
 
----
 
 ### Multi-Vendor Restaurant Platform
 
