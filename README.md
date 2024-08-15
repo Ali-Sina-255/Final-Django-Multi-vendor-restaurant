@@ -1,4 +1,4 @@
-Multi-Vendor Restaurant Platform
+## Multi-Vendor Restaurant Platform
 This project is a multi-vendor restaurant platform built using Django. The platform allows multiple vendors to sign up, create and manage their restaurant profiles, and list their products (dishes or meals). Customers can browse through various restaurants, view menus, and place orders directly from the platform.
 
 Key Features:
